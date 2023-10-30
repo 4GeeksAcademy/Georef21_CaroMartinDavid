@@ -17,6 +17,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+			postadmin: async(data)=> {
+				try{
+					const resp = await fetch('https://supreme-umbrella-w6rrjp6v4qh5v5p-3001.app.github.dev/api/admon', {
+						method:"POST",
+						body: JSON.stringify(data),
+						headers:{"Content-Type": "application/json",},
+					});
+					if (resp.ok) {
+						console.log ("realizado");
+						if (resp.status ===201){
+							return true;
+						}else{
+							return false;
+						}
+						
+						
+					} else {
+						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+					}
+					
+				}catch (error){
+					console.error({error})
+					return
+				}
+			},
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
