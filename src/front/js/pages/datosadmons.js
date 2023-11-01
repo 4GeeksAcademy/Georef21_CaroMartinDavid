@@ -13,8 +13,15 @@ export const DatosAdmon = () => {
 			<NavbarPerfilAdmon/>
 			<div>
 				<h1>vista admin</h1>
-				{/* <h1>{store.admin}</h1>
-				<h1>{store.user.nombre + " "+store.user.apellido}</h1> */}
+				{store.administrators.map((item, index)=>{
+					return(
+						<div key={index}
+							className="col-md-12 mx-auto">
+							<h1>{item.name} {item.lastname}</h1>
+						</div>
+						);	
+
+					})};
 			</div>
 				
 		</div>
