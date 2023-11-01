@@ -20,7 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Use getActions to call a function within a fuction
 			postadmin: async(data)=> {
 				try{
-					const resp = await fetch('https://supreme-umbrella-w6rrjp6v4qh5v5p-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
 						method:"POST",
 						body: JSON.stringify(data),
 						headers:{"Content-Type": "application/json",},
@@ -37,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}, getadmins: async()=> {
 				try{
-					const resp = await fetch('https://supreme-umbrella-w6rrjp6v4qh5v5p-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
 						method:"GET",
 						headers:{"Content-Type": "application/json",},
 					});

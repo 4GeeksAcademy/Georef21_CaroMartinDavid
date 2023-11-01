@@ -13,9 +13,15 @@ export const RegAdmon = () => {
         for (const entrada of formdata.entries()){
             adminregistro[entrada[0]]=entrada[1];
         }
-        await actions.postadmin(adminregistro);
-        actions.getadmins();
-        navigate("/")
+        console.log( adminregistro.birthday);
+        console.log(adminregistro);
+        // if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" && adminregistro.aditional_info != ""){
+        //     await actions.postadmin(adminregistro);
+        //     actions.getadmins();
+        //     navigate("/");
+        // }else {
+        //     console.log("diligencie los datos")
+        // }
     }
 	return (
         <div className="col-md-6">
