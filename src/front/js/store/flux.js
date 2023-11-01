@@ -14,7 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			administrators: []
+			administrators: [],
+			openError:"none"
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -55,6 +56,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error({error})
 					return
 				}
+			},
+			openErrorlogin:()=>{
+				console.log ("desdeflux modal error login")
+				setStore({openError: "flex"});
+			},
+			closeErrorlogin: () =>{
+				setStore({openError:"none"});
 			},
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");

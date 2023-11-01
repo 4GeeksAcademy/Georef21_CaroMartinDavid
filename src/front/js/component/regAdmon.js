@@ -1,10 +1,19 @@
 import React , { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "./modal";
 
 export const RegAdmon = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [error, seterror]= useState("");
+
+    function edad(date){
+        const birthday = Date.parse(date)
+        const today = new Date();
+        const edadAdmin =  Math.floor((today - birthday) / (1000 * 60 * 60 * 24*365));
+        return edadAdmin
+    }
 
     async function handlesubmit(e){
         e.preventDefault()
@@ -12,16 +21,25 @@ export const RegAdmon = () => {
         const adminregistro= {};
         for (const entrada of formdata.entries()){
             adminregistro[entrada[0]]=entrada[1];
+        } 
+        if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" && adminregistro.aditional_info != ""){
+            const edadadmin =edad(adminregistro.birthday);
+            if(edadadmin >= 18){
+                await actions.postadmin(adminregistro);
+                actions.getadmins();
+                navigate("/");
+        }else{ 
+            console.log("es menor de edad"); 
+            seterror("es menor de edad");
+            actions.openErrorlogin();
+
+    }
+
+    }else{
+            console.log("diligencie los datos");
+            seterror("diligencie los datos");
+            actions.openErrorlogin();
         }
-        console.log( adminregistro.birthday);
-        console.log(adminregistro);
-        // if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" && adminregistro.aditional_info != ""){
-        //     await actions.postadmin(adminregistro);
-        //     actions.getadmins();
-        //     navigate("/");
-        // }else {
-        //     console.log("diligencie los datos")
-        // }
     }
 	return (
         <div className="col-md-6">
@@ -56,6 +74,7 @@ export const RegAdmon = () => {
                 </div>
                 <div className="d-flex justify-content-center py-3">
                     <button type="submit" className="btn btn-primary">Crear</button>
+                    <Modal error={error}/>
                 </div>
             </form>
         </div>
