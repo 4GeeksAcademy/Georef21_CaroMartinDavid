@@ -22,37 +22,35 @@ export const RegAdmon = () => {
             <form onSubmit={handlesubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Nombre</label>
-                    <input type="text" className="form-control" id="name" name="nombre" aria-describedby="name"/>
+                    <input type="text" className="form-control" id="name" name="name" aria-describedby="name"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="lastname" className="form-label">Apellido</label>
-                    <input type="text" className="form-control" id="lastname" name="apellido" aria-describedby="lastname"/>
+                    <input type="text" className="form-control" id="lastname" name="lastname" aria-describedby="lastname"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="dateborn" className="form-label">Fecha de nacimiento</label>
-                    <input type="date" className="form-control" id="dateborn" name="fecha_nacimiento" aria-describedby="dateborn"/>
+                    <input type="date" className="form-control" id="dateborn" name="birthday" aria-describedby="dateborn"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1" name="correo_electronico" aria-describedby="emailHelp"/>
+                    <input type="email" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="charge" className="form-label">Cargo</label>
-                    <input type="text" className="form-control" id="charge" name="cargo" aria-describedby="charge"/>
+                    <input type="text" className="form-control" id="charge" name="position" aria-describedby="charge"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="password" className="form-control" name="contraseña" id="exampleInputPassword1"/>
+                    <input type="password" className="form-control" name="password" id="exampleInputPassword1"/>
                 </div>
                 <div className="form-floating">
-                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="informacion_adicional" style={{height: '100px'}}></textarea>
+                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="aditional_info" style={{height: '100px'}}></textarea>
                     <label htmlFor="floatingTextarea2">Información adicional</label>
                 </div>
                 <div className="d-flex justify-content-center py-3">
                     <button type="submit" className="btn btn-primary">Crear</button>
                 </div>
-                
-                
             </form>
         </div>
 	    );
