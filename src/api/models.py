@@ -18,26 +18,27 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Admon(db.Model):
+class Administrator(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(120), unique=False, nullable=False)
-    apellido = db.Column(db.String(120), unique=False, nullable=False)
-    fecha_nacimiento = db.Column(db.Date, unique=False, nullable=False)
-    correo_electronico = db.Column(db.String(120), unique=True, nullable=False)
-    cargo = db.Column(db.String(120), unique=True, nullable=False)
-    contraseña = db.Column(db.String(10), unique=False, nullable=False)
-    informacion_adicional = db.Column(db.String(250), unique=True, nullable=False)
+    name = db.Column(db.String(120), unique=False, nullable=False)
+    lastname = db.Column(db.String(120), unique=False, nullable=False)
+    birthday = db.Column(db.Date, unique=False, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    position = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(10), unique=False, nullable=False)
+    aditional_info = db.Column(db.String(250), unique=False, nullable=False)
 
     def __repr__(self):
-        return f'<Admon {self.correo_electronico}>'
+        return f'<Administrator {self.email}>'
 
     def serialize(self):
         return {
             "id": self.id,
-            "email": self.correo_electronico,
-            "Nombre":self.nombre,
-            "Apellido": self.apellido,
-            "Cargo":self.cargo,
-            "Info":self.informacion_adicional
+            "email": self.email,
+            "name":self.name,
+            "lastname": self.lastname,
+            "position":self.position,
+            "aditional_info":self.aditional_info,
+            "birthday": self.birthday
             # do not serialize the password, its a security breach
         }
