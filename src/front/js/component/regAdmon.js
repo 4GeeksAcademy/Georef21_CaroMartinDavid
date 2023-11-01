@@ -1,16 +1,21 @@
 import React , { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export const RegAdmon = () => {
     const { store, actions } = useContext(Context);
-    function handlesubmit(e){
+    const navigate = useNavigate();
+
+    async function handlesubmit(e){
         e.preventDefault()
         const formdata = new FormData(e.target);
         const adminregistro= {};
         for (const entrada of formdata.entries()){
             adminregistro[entrada[0]]=entrada[1];
         }
-        actions.postadmin(adminregistro)
+        await actions.postadmin(adminregistro);
+        actions.getadmins();
+        navigate("/")
     }
 	return (
         <div className="col-md-6">

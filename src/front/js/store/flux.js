@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			administrators: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -25,14 +26,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers:{"Content-Type": "application/json",},
 					});
 					if (resp.ok) {
-						console.log ("realizado");
-						if (resp.status ===201){
-							return true;
-						}else{
-							return false;
-						}
-						
-						
+						console.log ("realizado");						
+					} else {
+						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+					}
+					
+				}catch (error){
+					console.error({error})
+					return
+				}
+			}, getadmins: async()=> {
+				try{
+					const resp = await fetch('https://supreme-umbrella-w6rrjp6v4qh5v5p-3001.app.github.dev/api/admon', {
+						method:"GET",
+						headers:{"Content-Type": "application/json",},
+					});
+					if (resp.ok) {
+						console.log ("realizado");	
+						const administrators = await resp.json();
+						setStore({ administrators: administrators });
+            			console.log(administrators);
+
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}

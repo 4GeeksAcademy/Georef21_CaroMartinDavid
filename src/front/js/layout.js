@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
-import { Admon } from "./pages/admon";
+import { Administrator } from "./pages/admon";
+import {DatosAdmon} from "./pages/datosadmons";
+import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
@@ -25,12 +27,14 @@ const Layout = () => {
                 <ScrollToTop>
                    
                     <Routes>
-                        <Route element={<Admon />} path="/" />
+                        <Route element={<Home />} path="/" />
+                        <Route element={<Administrator />} path="/admon" />
+                        <Route element={<DatosAdmon />} path="/admons" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Footer />
+                    
                 </ScrollToTop>
             </BrowserRouter>
         </div>

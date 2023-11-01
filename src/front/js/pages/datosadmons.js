@@ -4,7 +4,7 @@ import {NavbarPerfilAdmon} from "../component/navbarperfiladmon"
 
 import { Context } from "../store/appContext";
 
-export const PerfilAdmon = () => {
+export const DatosAdmon = () => {
 	const { store, actions } = useContext(Context);
 
 		
@@ -13,8 +13,8 @@ export const PerfilAdmon = () => {
 			<NavbarPerfilAdmon/>
 			<div>
 				<h1>vista admin</h1>
-				<h1>{store.admin.correo_electronico}</h1>
-				<h1>{store.user.nombre + " "+store.user.apellido}</h1>
+				{/* <h1>{store.admin}</h1>
+				<h1>{store.user.nombre + " "+store.user.apellido}</h1> */}
 			</div>
 				
 		</div>

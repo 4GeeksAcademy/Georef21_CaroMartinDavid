@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import { RegAdmon } from "../component/regAdmon";
 import "../../styles/admon.css";
 
-export const Admon = () => {
+export const Administrator = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
