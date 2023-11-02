@@ -57,14 +57,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify({ nameProject: "", theme: "", location: "" })
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/admin/project`, requestOptions)
-					.then(response => response.json())
+				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project`, requestOptions)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+					return response.json();
+				})
 					.then(data => {
 						console.log(data.msg);
-						// Puedes hacer más cosas con la respuesta del servidor si es necesario
+
+						if (data.ok) {
+
+							alert("Proyecto creado con éxito");
+						} else {
+							alert("Error al crear Proyecto");
+						}
 					})
 					.catch(error => {
-						console.error('Error al realizar la petición:', error);
+						console.log("Error al realizar la petición:", error);
 						// Puedes manejar el error de alguna manera aquí
 					});
 			},
@@ -79,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify({ nameProject: "", theme: "", location: "" })
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/admin/project`, requestOptions)
+				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/project`, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -93,7 +104,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//ACÁ TERMINA EL DELETE
 
 			//ACÁ EMPIEZA EL PUT
-			CreateProject: () => {
+			EditProject: () => {
 				const requestOptions = {
 					method: 'PUT',
 					headers: {
@@ -102,7 +113,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify({ nameProject: "", theme: "", location: "" })
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/admin/project`, requestOptions)
+				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/project`, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
