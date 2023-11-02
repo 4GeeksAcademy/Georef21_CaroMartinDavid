@@ -56,18 +56,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error({error})
 					return
 				}
-			}, putadmin: async(id,)=> {
+			}, putadmin: async(id,data)=> {
+				
 				try{
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
-						method:"GET",
+					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon'+"/"+ id, {
+						method:"PUT",
+						body: JSON.stringify(data),
 						headers:{"Content-Type": "application/json",},
 					});
 					if (resp.ok) {
 						console.log ("realizado");	
-						const administrators = await resp.json();
-						setStore({ administrators: administrators });
-            			console.log(administrators);
-
+						
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}

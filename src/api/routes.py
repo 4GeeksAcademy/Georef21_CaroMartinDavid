@@ -53,7 +53,6 @@ def modifadmins(id):
     modifadmin.birthday = request.json.get("birthday")
     modifadmin.email= request.json.get("email")
     modifadmin.position = request.json.get("position")
-    modifadmin.password = request.json.get("password")
     modifadmin.aditional_info = request.json.get("aditional_info")
     print(modifadmin)
     db.session.commit()
