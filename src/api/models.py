@@ -21,18 +21,20 @@ class User(db.Model):
 class Specialist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
+    apellido = db.Column(db.String(120), nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     profesion = db.Column(db.String(120), nullable=False)
     area_de_desempeño = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
 
     def __repr__(self):
-        return f'<Specialist {self.nombre} {self.apellido}>'
+        return f'<Specialist {self.nombre}>'
 
     def serialize(self):
         return {
             "id": self.id,
             "nombre": self.nombre,
+            "apellido": self.apellido,
             "email": self.email,
             "profesion": self.profesion,
             "area_de_desempeño": self.area_de_desempeño
