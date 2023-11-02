@@ -56,7 +56,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error({error})
 					return
 				}
+			}, putadmin: async(id,)=> {
+				try{
+					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
+						method:"GET",
+						headers:{"Content-Type": "application/json",},
+					});
+					if (resp.ok) {
+						console.log ("realizado");	
+						const administrators = await resp.json();
+						setStore({ administrators: administrators });
+            			console.log(administrators);
+
+					} else {
+						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+					}
+					
+				}catch (error){
+					console.error({error})
+					return
+				}
 			},
+
 			openErrorlogin:()=>{
 				console.log ("desdeflux modal error login")
 				setStore({openError: "flex"});

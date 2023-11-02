@@ -1,6 +1,7 @@
 import React , { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate, useParams } from "react-router-dom";
+import { format } from "date-fns";
 import { Modal } from "../component/modal";
 import "../../styles/admon.css";
 
@@ -20,13 +21,19 @@ export const Administrator = () => {
         aditional_info: ""
     });
 
-    useEffect(() => {
+	useEffect(() => {
+		console.log("adminId:", adminId);
         if (adminId) {
-            // Si adminId está presente en la URL, carga los datos del administrador para editar
-            // Puedes usar adminId para realizar una solicitud para obtener los datos del administrador con ese ID
-            // Llena el estado adminData con los datos obtenidos
+			
+            // Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
+            const adminToEdit = store.administrators.find(admin => admin.id === parseInt(adminId));
+            if (adminToEdit) {
+				const formattedBirthday = format(new Date(adminToEdit.birthday), "yyyy-MM-dd");
+                adminToEdit.birthday = formattedBirthday;
+                setAdminData(adminToEdit);
+            }
         }
-    }, [adminId]);
+    }, [adminId, store.administrators]);
 
     function edad(date){
         const birthday = Date.parse(date)
@@ -42,61 +49,82 @@ export const Administrator = () => {
         for (const entrada of formdata.entries()){
             adminregistro[entrada[0]]=entrada[1];
         } 
-        if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" && adminregistro.aditional_info != ""){
-            const edadadmin =edad(adminregistro.birthday);
-            if(edadadmin >= 18){
-                await actions.postadmin(adminregistro);
-                actions.getadmins();
-                navigate("/");
-        }else{ 
-            console.log("es menor de edad"); 
-            seterror("es menor de edad");
-            actions.openErrorlogin();
+		if(adminId){
+			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != ""  && adminregistro.aditional_info != ""){
+				const edadadmin =edad(adminregistro.birthday);
+				if(edadadmin >= 18){
+					await actions.putadmin(adminId,adminregistro);
+					actions.getadmins();
+					navigate("/");
+				}else{ 
+					console.log("es menor de edad"); 
+					seterror("es menor de edad");
+					actions.openErrorlogin();
+				}
+			}else{
+				console.log("diligencie los datos");
+				seterror("diligencie los datos");
+				actions.openErrorlogin();
+			}
+		}
+		else{
+			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" && adminregistro.aditional_info != ""){
+				const edadadmin =edad(adminregistro.birthday);
+				if(edadadmin >= 18){
+					await actions.postadmin(adminregistro);
+					actions.getadmins();
+					navigate("/");
+			}else{ 
+				console.log("es menor de edad"); 
+				seterror("es menor de edad");
+				actions.openErrorlogin();
 
-    }
+		}
 
-    }else{
-            console.log("diligencie los datos");
-            seterror("diligencie los datos");
-            actions.openErrorlogin();
-        }
+		}else{
+				console.log("diligencie los datos");
+				seterror("diligencie los datos");
+				actions.openErrorlogin();
+			}}
     }
 
 	return (
 		<div className="container">
-			<h1>Registro Administrador</h1>
+			<h1>{adminId ? "Editar Administrador" : "Registro Administrador"}</h1>
 			<div className="col-md-6">
 				<form onSubmit={handlesubmit}>
 					<div className="mb-3">
 						<label htmlFor="name" className="form-label">Nombre</label>
-						<input type="text" className="form-control" id="name" name="name" aria-describedby="name"/>
+						<input type="text" className="form-control" id="name" name="name"  defaultValue={adminData.name} aria-describedby="name"/>
 					</div>
 					<div className="mb-3">
 						<label htmlFor="lastname" className="form-label">Apellido</label>
-						<input type="text" className="form-control" id="lastname" name="lastname" aria-describedby="lastname"/>
+						<input type="text" className="form-control" id="lastname" name="lastname" defaultValue={adminData.lastname} aria-describedby="lastname"/>
 					</div>
 					<div className="mb-3">
 						<label htmlFor="dateborn" className="form-label">Fecha de nacimiento</label>
-						<input type="date" className="form-control" id="dateborn" name="birthday" aria-describedby="dateborn"/>
+						<input type="date" className="form-control" id="dateborn" name="birthday" defaultValue={adminData.birthday} aria-describedby="dateborn"/>
 					</div>
 					<div className="mb-3">
 						<label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
-						<input type="email" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"/>
+						<input type="email" className="form-control" id="exampleInputEmail1" name="email" defaultValue={adminData.email} aria-describedby="emailHelp"/>
 					</div>
 					<div className="mb-3">
 						<label htmlFor="charge" className="form-label">Cargo</label>
-						<input type="text" className="form-control" id="charge" name="position" aria-describedby="charge"/>
+						<input type="text" className="form-control" id="charge" name="position" defaultValue={adminData.position} aria-describedby="charge"/>
 					</div>
+					{adminId ? <span></span> : 
 					<div className="mb-3">
 						<label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-						<input type="password" className="form-control" name="password" id="exampleInputPassword1"/>
-					</div>
+						<input type="password" className="form-control" name="password"  id="exampleInputPassword1"/>
+					</div>}
+					
 					<div className="form-floating">
-						<textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="aditional_info" style={{height: '100px'}}></textarea>
+						<textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="aditional_info" defaultValue={adminData.aditional_info} style={{height: '100px'}}></textarea>
 						<label htmlFor="floatingTextarea2">Información adicional</label>
 					</div>
 					<div className="d-flex justify-content-center py-3">
-						<button type="submit" className="btn btn-primary">Crear</button>
+						<button type="submit" className="btn btn-primary">{adminId ? "Editar" : "Crear"}</button>
 						<Modal error={error}/>
 					</div>
 				</form>
