@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import {NavbarPerfilAdmon} from "../component/navbarperfiladmon"
+
 import "../../styles/admon.css";
 
 import { Context } from "../store/appContext";
@@ -12,9 +12,9 @@ export const DatosAdmon = () => {
 		
 	return (
 		<div className="container">
-			<NavbarPerfilAdmon/>
+			
 			<div>
-				<h1>vista admin</h1>
+				<h1>Administradores</h1>
 				{store.administrators.map((item, index)=>{
 					return(
 						<div key={index}
