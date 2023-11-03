@@ -76,7 +76,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 			},
-
+			adminDelete:(id)=>{
+				const store = getStore();
+				const actions=getActions();
+				const administrators = store.administrators.filter((admin)=>admin.id!=id);
+				setStore({ administrators: administrators });
+				actions.delete(id)
+			},
+			delete: async(id)=>{
+				
+				try{
+					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon'+"/"+ id, {
+						method:"DELETE",
+						headers:{"Content-Type": "application/json",},
+					});
+					if (resp.ok) {
+						console.log ("realizado");	
+						
+					} else {
+						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+					}
+					
+				}catch (error){
+					console.error({error})
+					
+			}
+			},
 			openErrorlogin:()=>{
 				console.log ("desdeflux modal error login")
 				setStore({openError: "flex"});
