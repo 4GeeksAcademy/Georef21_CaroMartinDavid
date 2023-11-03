@@ -1,6 +1,6 @@
 import React , { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Modal } from "../component/modal";
 import "../../styles/admon.css";
@@ -128,6 +128,9 @@ export const Administrator = () => {
 						<Modal error={error}/>
 					</div>
 				</form>
+				<Link to="/">
+					<button type="button" className="btn btn-outline-dark">Volver</button>
+				</Link>
         	</div>
 			
 		</div>
