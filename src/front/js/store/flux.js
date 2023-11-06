@@ -81,6 +81,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			CreateProject: (data) => {
 				console.log(data)
+
+
+				if (data.nameProject === data.nameProject) {
+					// Si el nombre ya existe, mostrar alerta y salir de la función
+					alert("Error: El nombre del proyecto ya existe. Por favor, elige otro nombre.");
+					return;
+				}
+
 				const requestOptions = {
 					method: 'POST',
 					headers: {
@@ -102,6 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						} else {
 							alert("Error al crear Proyecto");
 						}
+
 					})
 					.catch(error => {
 						console.error("Error al realizar la petición:", error.message);
@@ -135,7 +144,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 			//ACÁ TERMINA EL DELETE
-			
+
 			//ACÁ EMPIEZA EL PUT
 			EditProject: (id, data) => {
 				const requestOptions = {
@@ -146,7 +155,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(data)
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project`+"/"+id, requestOptions)
+				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
