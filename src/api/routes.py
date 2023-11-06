@@ -25,10 +25,12 @@ def getadmins():
 
 @api.route('/admon', methods=['POST'])
 def newadmins():
+    correo_electronico = request.json.get("email")
+    if Administrator.query.filter_by(email=correo_electronico).first()is not None:
+        return jsonify({"error": "El correo electrónico ya está en la lista de administradores"}), 400
     nombre = request.json.get("name")
     apellido = request.json.get("lastname")
     fecha_nacimiento = request.json.get("birthday")
-    correo_electronico = request.json.get("email")
     cargo = request.json.get("position")
     contraseña = request.json.get("password")
     informacion_adicional = request.json.get("aditional_info")
