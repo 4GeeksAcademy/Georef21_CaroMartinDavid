@@ -24,7 +24,7 @@ class Specialist(db.Model):
     apellido = db.Column(db.String(120), nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     profesion = db.Column(db.String(120), nullable=False)
-    area_de_desempeño = db.Column(db.String(120), nullable=False)
+    area_de_desempeno = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
 
     def __repr__(self):
@@ -37,5 +37,5 @@ class Specialist(db.Model):
             "apellido": self.apellido,
             "email": self.email,
             "profesion": self.profesion,
-            "area_de_desempeño": self.area_de_desempeño
+            "area_de_desempeno": self.area_de_desempeno
         }

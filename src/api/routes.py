@@ -41,7 +41,7 @@ def create_especialista():
         apellido=data.get("apellido"),
         email=data.get("email"),
         profesion=data.get("profesion"),
-        area_de_desempeño=data.get("area_de_desempeño"),
+        area_de_desempeno=data.get("area_de_desempeno"),
         password=data.get("password")
     )
     # Agrega el especialista a la base de datos
@@ -71,7 +71,7 @@ def update_especialista(id):
     especialista.apellido = data.get("apellido", especialista.apellido)
     especialista.email = data.get("email", especialista.email)
     especialista.profesion = data.get("profesion", especialista.profesion)
-    especialista.area_de_desempeño = data.get("area_de_desempeño", especialista.area_de_desempeño)
+    especialista.area_de_desempeno = data.get("area_de_desempeno", especialista.area_de_desempeno)
     especialista.password = data.get("password", especialista.password)
 
     # Guarda los cambios en la base de datos
