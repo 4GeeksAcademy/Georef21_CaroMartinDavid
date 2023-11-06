@@ -27,14 +27,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers:{"Content-Type": "application/json",},
 					});
 					if (resp.ok) {
-						console.log ("realizado");						
+						console.log ("realizado");
+						return "realizado"						
 					} else {
-						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+						const errordata = JSON.parse (await  resp.text())
+						if(resp.status === 400 && errordata.error === "El correo electronico ya esta registrado"){
+							return errordata.error;
+						}
 					}
-					
 				}catch (error){
-					console.error({error})
-					return
+					console.log("Error en la solicitud POST:", error)
+					return "Error en la solicitud"
 				}
 			}, getadmins: async()=> {
 				try{

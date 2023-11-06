@@ -56,6 +56,7 @@ export const Administrator = () => {
 					await actions.putadmin(adminId,adminregistro);
 					actions.getadmins();
 					navigate("/");
+					
 				}else{ 
 					console.log("es menor de edad"); 
 					seterror("es menor de edad");
@@ -71,9 +72,18 @@ export const Administrator = () => {
 			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" && adminregistro.aditional_info != ""){
 				const edadadmin =edad(adminregistro.birthday);
 				if(edadadmin >= 18){
-					await actions.postadmin(adminregistro);
-					actions.getadmins();
-					navigate("/");
+					const respuesta = await actions.postadmin(adminregistro);
+					if (respuesta === "realizado"){
+						actions.getadmins();
+						navigate("/");
+					}else if(respuesta === "El correo electronico ya esta registrado"){
+						seterror("El correo electronico ya esta registrado");
+						actions.openErrorlogin();
+					}else{
+						seterror(respuesta);
+						actions.openErrorlogin();
+					}
+					
 			}else{ 
 				console.log("es menor de edad"); 
 				seterror("es menor de edad");
