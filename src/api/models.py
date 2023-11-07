@@ -42,3 +42,23 @@ class Administrator(db.Model):
             "birthday": self.birthday
             # do not serialize the password, its a security breach
         }
+    
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nameProject = db.Column(db.String(120), unique=True, nullable=False)
+    theme = db.Column(db.String(120), unique=False, nullable=False)
+    location = db.Column(db.String(120), unique=False, nullable=False)
+#acá irían las relaciones
+
+    def __repr__(self):
+        return f'<Project {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "nameProject": self.nameProject,
+            "theme": self.theme,
+            "location": self.location
+            
+        }
+
