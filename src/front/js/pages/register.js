@@ -46,6 +46,16 @@ export const Register = props => {
                 // Mostrar una alerta cuando la respuesta es exitosa
                 alert("Especialista creado con éxito");
                 console.log("Especialista creado con éxito");
+    
+                // Restablecer los campos a sus valores iniciales
+                setEspecialistaData({
+                    nombre: "",
+                    apellido: "",
+                    email: "",
+                    area_de_desempeno: "",
+                    profesion: "",
+                    password: ""
+                });
             } else {
                 console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
             }
@@ -54,6 +64,7 @@ export const Register = props => {
             return;
         }
     };
+    
     
     return (
         <div className="center-content">
