@@ -16,6 +16,9 @@ import injectContext from "./store/appContext";
 
 import { Footer } from "./component/footer";
 
+import { CrearProyecto } from "./pages/CrearProyecto.jsx";
+import { Proyecto } from "./pages/Proyecto.jsx";
+import { Proyectos } from "./pages/Proyectos.jsx";
 const Layout = () => {
     const basename = process.env.BASENAME || "";
 
@@ -27,7 +30,7 @@ const Layout = () => {
                 <ScrollToTop>
                    
                     <Routes>
-                        <Route element={<Home />} path="/" />
+                        <Route element={<Home />} path="/home" />
                         <Route element={<Administrator />} path="/admon" />
                         <Route element={<Administrator />} path="/admon/:adminId" />
                         <Route element={<DatosAdmon />} path="/admons" />
@@ -36,6 +39,10 @@ const Layout = () => {
                         <Route element={<Register />} path="/register" /> 
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" /> 
                         <Route element={<h1>Not found!</h1>} />
+                        <Route element={<CrearProyecto />} path="/NuevoProyecto" />
+                        <Route element={<Proyecto />} path="/" />
+                        <Route element={<Proyectos />} path="/ListaProyectos" />
+                        <Route element={<CrearProyecto />} path="/NuevoProyecto/:id" />
                     </Routes>
                     
                 </ScrollToTop>
