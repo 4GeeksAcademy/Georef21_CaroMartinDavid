@@ -27,6 +27,8 @@ def get_project():
 @api.route('/Project', methods=['POST'])
 def crete_project():
     nameProject = request.json.get("nameProject")
+    if Project.query.filter_by(nameProject=nameProject).first() is not None:
+        return jsonify({"Error": "Proyecto ya existe"}), 400
     theme = request.json.get("theme")
     location = request.json.get("location")
 

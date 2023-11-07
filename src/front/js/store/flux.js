@@ -82,12 +82,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			CreateProject: (data) => {
 				console.log(data)
 
-
-				if (data.nameProject === data.nameProject) {
-					// Si el nombre ya existe, mostrar alerta y salir de la función
-					alert("Error: El nombre del proyecto ya existe. Por favor, elige otro nombre.");
-					return;
-				}
+				// if (data.nameProject === data.nameProject) {
+				// 	// Si el nombre ya existe, mostrar alerta y salir de la función
+				// 	alert("Error: El nombre del proyecto ya existe. Por favor, elige otro nombre.");
+				// 	return;
+				// }
 
 				const requestOptions = {
 					method: 'POST',
@@ -98,17 +97,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 				fetch('https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
-						if (!response.ok) {
-							throw new Error(`HTTP error! Status: ${response.status}`);
-						}
+						// if (!response.ok) {
+						// 	throw new Error(`HTTP error! Status: ${response.status}`);
+						// }
 						return response.json();
 					})
 					.then(responseData => {
-						console.log(responseData.msg);
+
 						if (responseData.msg) {
 							alert("Proyecto creado con éxito");
+							console.log(responseData.msg);
 						} else {
-							alert("Error al crear Proyecto");
+							alert(responseData.Error)
+							// alert("Error al crear Proyecto");
 						}
 
 					})
