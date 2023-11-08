@@ -6,22 +6,30 @@ from api.models import db, User, Specialist, Administrator, Project
 from api.utils import generate_sitemap, APIException
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager,  get_jwt_identity
+from functools import wraps
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
+def admin_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        
+        id_admin = get_jwt_identity()
+        dataadmin=Administrator.query.filter_by(id=id_admin).first()
+        # Aquí puedes agregar lógica para verificar si el usuario es un administrador.
+        # Por ejemplo, podrías buscar el usuario en la base de datos y comprobar si tiene un rol de administrador.
+        if dataadmin:
+            return fn(*args, **kwargs)
+        else:
+            return jsonify({"message": "Acceso no autorizado para administradores"}), 403
+    return wrapper
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
 
 @api.route('/especialista', methods=['GET'])
+@admin_required
 def get_especialista():
     # Supongamos que deseas obtener todos los especialistas de la base de datos
     especialistas = Specialist.query.all()
@@ -32,6 +40,7 @@ def get_especialista():
     return jsonify(especialistas_serializados), 200
 
 @api.route('/especialista', methods=['POST'])
+@admin_required
 def create_especialista():
     # Obtiene los datos del especialista desde la solicitud
     data = request.json
@@ -84,6 +93,7 @@ def update_especialista(id):
     return jsonify({"message": "Especialista actualizado con éxito"}), 200
 
 @api.route('/especialista/<int:id>', methods=['DELETE'])
+@admin_required
 def delete_especialista(id):
     # Obtén el especialista por su ID
     especialista = Specialist.query.get(id)
@@ -99,6 +109,7 @@ def delete_especialista(id):
     return jsonify({"message": "Especialista eliminado con éxito"}), 200
 
 @api.route('/Project', methods=['GET'])
+@admin_required
 def get_project():
     projects = Project.query.all()
 
@@ -107,6 +118,7 @@ def get_project():
     return jsonify(result), 200
 
 @api.route('/Project', methods=['POST'])
+@admin_required
 def crete_project():
     nameProject = request.json.get("nameProject")
     if Project.query.filter_by(nameProject=nameProject).first() is not None:
@@ -124,6 +136,7 @@ def crete_project():
     return jsonify({"msg": "Proyecto creado satisfactoriamente"}), 200
 
 @api.route('/Project/<int:project_id>', methods=['PUT'])
+@admin_required
 def update_project(project_id):
     project = Project.query.get(project_id)
 
@@ -143,6 +156,7 @@ def update_project(project_id):
     return jsonify({"msg": "Proyecto actualizado satisfactoriamente"}), 200
 
 @api.route('/Project/<int:project_id>', methods=['DELETE'])
+@admin_required
 def delete_project(project_id):
     project = Project.query.get(project_id)
 
@@ -204,6 +218,7 @@ def loginadmin():
     return jsonify({"msg":"su usuario y contraseña son correctos", "token":token}), 201
 
 @api.route('/admon/<int:id>', methods=['PUT'])
+@admin_required
 def modifadmins(id):
     modifadmin = Administrator.query.get(id)
     modifadmin.name = request.json.get("name")
@@ -217,6 +232,7 @@ def modifadmins(id):
     return jsonify({"msg":"Usuario modificado"}), 201 
 
 @api.route('/admon/<int:id>', methods=['DELETE'])
+@admin_required
 def deleteadmins(id):
     deleteadmin = Administrator.query.filter_by(id=id).first()
     db.session.delete(deleteadmin)
