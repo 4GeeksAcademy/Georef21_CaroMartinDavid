@@ -47,7 +47,7 @@ class Administrator(db.Model):
     birthday = db.Column(db.Date, unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     position = db.Column(db.String(120), unique=False, nullable=False)
-    password = db.Column(db.String(10), unique=False, nullable=False)
+    password = db.Column(db.String(100), unique=False, nullable=False)
     aditional_info = db.Column(db.String(250), unique=False, nullable=False)
 
     def __repr__(self):

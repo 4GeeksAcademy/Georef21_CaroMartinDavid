@@ -4,8 +4,13 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Specialist, Administrator, Project
 from api.utils import generate_sitemap, APIException
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import create_access_token, jwt_required, JWTManager,  get_jwt_identity
 
 api = Blueprint('api', __name__)
+app = Flask(__name__)
+bcrypt = Bcrypt(app)
+
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -92,6 +97,7 @@ def delete_especialista(id):
     db.session.commit()
 
     return jsonify({"message": "Especialista eliminado con éxito"}), 200
+
 @api.route('/Project', methods=['GET'])
 def get_project():
     projects = Project.query.all()
@@ -155,29 +161,47 @@ def getadmins():
     results = list(map(lambda item: item.serialize(),all_admin))
     return jsonify(results), 200
 
-@api.route('/admon', methods=['POST'])
+@api.route('/admonreg', methods=['POST'])
 def newadmins():
     correo_electronico = request.json.get("email")
     if Administrator.query.filter_by(email=correo_electronico).first()is not None:
         return jsonify({"error": "El correo electronico ya esta registrado"}), 400
+    
     nombre = request.json.get("name")
     apellido = request.json.get("lastname")
     fecha_nacimiento = request.json.get("birthday")
     cargo = request.json.get("position")
     contraseña = request.json.get("password")
     informacion_adicional = request.json.get("aditional_info")
+    secure_password=bcrypt.generate_password_hash(contraseña,10).decode("utf-8")
+    print(secure_password)
+
     newadmin= Administrator(name=nombre, lastname = apellido, 
     birthday=fecha_nacimiento, 
     email = correo_electronico,
     position = cargo,
-    password = contraseña,
+    password = secure_password,
     aditional_info = informacion_adicional
     )
     print (newadmin)
-
     db.session.add(newadmin)
     db.session.commit()
     return jsonify({"msg":"Usuario administrador se creo satisfactoriamente"}), 201
+
+@api.route('/admonlogin', methods=['POST'])
+def loginadmin():
+    email = request.json.get("email")
+    password = request.json.get("password")
+    adminexist = Administrator.query.filter_by(email=email).first()
+    print (type(adminexist))
+    if not adminexist:
+        return jsonify({"msg":"El usuario no esta registrado"}), 401
+    
+    if not bcrypt.check_password_hash(adminexist.password, password):
+        return jsonify({"msg":"La contraseña no es correcta"}), 401
+    
+    token=create_access_token(identity=adminexist.id)
+    return jsonify({"msg":"su usuario y contraseña son correctos", "token":token}), 201
 
 @api.route('/admon/<int:id>', methods=['PUT'])
 def modifadmins(id):
