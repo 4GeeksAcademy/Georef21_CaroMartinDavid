@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/admon.css";
-
+import {Form} from '../component/form'
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
@@ -15,5 +15,7 @@ export const Home = () => {
                 <button type="button" className="btn btn-primary m-3">Administradores </button>
             </Link>
 		</div>
+		
 	);
 };
+<Form/>

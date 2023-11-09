@@ -1,11 +1,20 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, current_app
 from api.models import db, User, Specialist, Administrator, Project
 from api.utils import generate_sitemap, APIException
 
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+
+import json
+
+# api = Flask(__name__)
+
 api = Blueprint('api', __name__)
+
+# api.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+# jwt = JWTManager(api)
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -26,6 +35,7 @@ def get_especialista():
     
     return jsonify(especialistas_serializados), 200
 
+# ACÁ EMPIEZA EL SIGN UP DE ESPECIALISTA
 @api.route('/especialista', methods=['POST'])
 def create_especialista():
     # Obtiene los datos del especialista desde la solicitud
@@ -49,6 +59,43 @@ def create_especialista():
 
     # Retorna una respuesta con el nuevo especialista creado
     return jsonify({"message": "Especialista creado con éxito", "id": nuevo_especialista.id}), 201
+# ACÁ TERMINA EL SIGN UP DE ESPECIALISTA
+@api.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    user = User.query.filter_by(email = email).first()
+    if user is None:
+        return jsonify({"msg":"user not found"}), 404
+    valid_password = current_app.bcrypt.check_password_hash(user.password, password)
+    if valid_password is False:
+        return jsonify ({"msg": "invalidad password"}), 401
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token), 200
+
+
+
+
+
+
+
+
+
+
+
+@api.route("/loginSpecialist", methods=["POST"])
+def loginSpecilist():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    specialist = Specialist.query.filter_by(email=email).first()
+    if specialist is None:
+        return jsonify({"msg": "user not found"}), 404
+    if email != specialist.email or password != specialist.password:
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token), 200
+
 
 @api.route('/especialista/<int:id>', methods=['PUT'])
 def update_especialista(id):

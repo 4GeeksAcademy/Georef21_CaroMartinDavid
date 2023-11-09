@@ -17,7 +17,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			AllProjects: [],
 			administrators: [],
-			openError:"none"
+			openError:"none",
+			// AllSpecialist: [] //solo lo agregué acá, porque ya venían las otras, si lo agregaba a parte, me generaba error
+				
+
 		},
 
 		actions: {

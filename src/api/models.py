@@ -61,7 +61,7 @@ class Administrator(db.Model):
         "position":self.position,
         "aditional_info":self.aditional_info,
         "birthday": self.birthday
-            # do not serialize the password, its a security breach
+            
         }
     
 class Project(db.Model):
