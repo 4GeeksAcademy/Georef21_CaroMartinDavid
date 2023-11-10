@@ -92,18 +92,25 @@ def create_especialista():
     id_admin = get_jwt_identity()
     # Obtiene los datos del especialista desde la solicitud
     data = request.json
+    nombre=data.get("nombre")
+    apellido=data.get("apellido")
+    email=data.get("email")
+    profesion=data.get("profesion")
+    area_de_desempeno=data.get("area_de_desempeno")
+    password=data.get("password")
 
     if not data:
         return jsonify({"msg": "Datos no proporcionados"}), 400
-
+    if nombre == "" and apellido == "" and email == "" and profesion == "" and area_de_desempeno == "" and password == "":
+        return jsonify({"msg": "Formulario en blanco"}), 401
     # Crea un nuevo objeto Specialist
     nuevo_especialista = Specialist(
-        nombre=data.get("nombre"),
-        apellido=data.get("apellido"),
-        email=data.get("email"),
-        profesion=data.get("profesion"),
-        area_de_desempeno=data.get("area_de_desempeno"),
-        password=data.get("password"),
+        nombre=nombre,
+        apellido=apellido,
+        email=email,
+        profesion=profesion,
+        area_de_desempeno=area_de_desempeno,
+        password=password,
         administrator_id= id_admin
     )
     # Agrega el especialista a la base de datos
