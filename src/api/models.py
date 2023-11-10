@@ -38,6 +38,7 @@ class Specialist(db.Model):
             "email": self.email,
             "profesion": self.profesion,
             "area_de_desempeno": self.area_de_desempeno
+            
         }
     
 class Administrator(db.Model):
