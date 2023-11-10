@@ -21,7 +21,9 @@ export const Proyectos = () => {
 
             })
             }
-
+            <Link to="/profileadmon">
+					<button type="button" className="btn btn-outline-dark">Volver</button>
+			</Link>
         </div>
     );
 };

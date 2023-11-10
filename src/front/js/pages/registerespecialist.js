@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { Modal } from "../component/modal";
 import axios from "axios"; // Import Axios
 
 export const Register = props => {
@@ -15,6 +16,8 @@ export const Register = props => {
         profesion: "",
         password: ""
     });
+    const navigate = useNavigate();
+    const [error, seterror]= useState("");
 
     // useEffect(() => {
     //     axios.get("http://127.0.0.1:3001/api/especialista")
@@ -36,15 +39,22 @@ export const Register = props => {
 
     const handlesave = async (especialistaData) => {
         console.log(especialistaData);
-        actions.postespecialist(especialistaData);
-        setEspecialistaData({
-            nombre: "",
-            apellido: "",
-            email: "",
-            area_de_desempeno: "",
-            profesion: "",
-            password: ""
-        });
+        const respuesta = await actions.postespecialist(especialistaData);
+        if (respuesta === "realizado"){
+                setEspecialistaData({
+                    nombre: "",
+                    apellido: "",
+                    email: "",
+                    area_de_desempeno: "",
+                    profesion: "",
+                    password: ""
+                }
+                );
+                navigate("/profileadmon");
+        }else{
+            seterror(respuesta);
+            actions.openErrorlogin();
+        }
     }
     
     
@@ -91,6 +101,7 @@ export const Register = props => {
                     <button className="btn btn-primary" onClick={() => handlesave(especialistaData)}>
                         Save
                     </button>
+                    <Modal error={error}/>
                 </div>
 
                 {/* Agrega un botón que redirija a otra ruta */}

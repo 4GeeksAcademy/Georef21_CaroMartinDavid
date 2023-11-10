@@ -16,6 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 
 			AllProjects: [],
+			allspecialist:[],
 			administrator: {},
 			openError:"none",
 			session:false
@@ -313,23 +314,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 					if (resp.ok) {
-						// Mostrar una alerta cuando la respuesta es exitosa
-						alert("Especialista creado con éxito");
-						console.log("Especialista creado con éxito");
-			
-						// Restablecer los campos a sus valores iniciales
 						
-					} else {
-						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
-					}
-				} catch (error) {
+						console.log("realizado")
+						return "realizado"
+						} else {
+							const errordata = JSON.parse (await  resp.text())
+							if(resp.status === 401  || resp.status === 401 ){
+								return errordata.error;
+							
+							}
+				}} catch (error) {
 					console.error({ error });
 					return;
 				}
 				
 			},
+			// ACÁ TERMINA EL post especialista
+			getEspecialista : async () => {
+				const baseUrl = `https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista`;
+				const token = localStorage.getItem('tokenadmin');
+				try {
+					const response = await fetch(baseUrl, {
+						method: "GET",
+						headers: { 
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+					}});
+					if (response.ok) {
+						console.log ("realizado");	
+						const allspecialist= await response.json();
+						setStore({ allspecialist: allspecialist });
+            			console.log(allspecialist);
+					}
+		
+					
+				} catch (error) {
+					console.error(error);
+				}
+			},
+			// ACÁ TERMINA EL get especialista
+			logout: () => {
+				localStorage.removeItem("token");
+				setStore({ session: false });
 
-
+			}
 		}
 	};
 };

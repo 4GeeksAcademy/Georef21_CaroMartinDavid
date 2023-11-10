@@ -12,6 +12,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { PerfilEspecialista} from "./pages/perfilEspecialista";
 import { Register } from "./pages/registerespecialist.js"; 
+import {NavbarPerfilAdmon} from "./component/navbarperfiladmon.js"
 
 import injectContext from "./store/appContext";
 
@@ -30,7 +31,7 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                   
+                   <NavbarPerfilAdmon/>
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<LoginAdministrator/>} path="/admonlog" />

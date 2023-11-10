@@ -14,6 +14,11 @@ export const ProfileAdmon = () => {
         actions.GetProjects();
         navigate("/listaproyectos");
     }
+
+    function getspacialist(){
+        actions.getEspecialista();
+        navigate("/perfilEspecialista");
+    }
 		
 	return (
 		<div className="container">
@@ -41,7 +46,7 @@ export const ProfileAdmon = () => {
                             </button>
                         </Link>
                         
-                        <button type="button" className="btn btn-warning m-3">
+                        <button type="button" className="btn btn-warning m-3" onClick={()=>getspacialist()}>
                             Especialistas
                         </button>
                     </div>

@@ -62,7 +62,9 @@ export const CrearProyecto = () => {
             <div className="d-flex justify-content-center">
                 <button type="button" className="btn btn-primary btn-lg" onClick={()=>Send()}>{id? "Editar Proyecto":"Crear Proyecto"}</button>
             </div>
-
+            <Link to="/profileadmon">
+					<button type="button" className="btn btn-outline-dark">Volver</button>
+			</Link>
         </div>
     );
 };
