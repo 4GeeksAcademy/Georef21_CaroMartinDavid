@@ -7,6 +7,7 @@ export const CrearProyecto = () => {
     const { store, actions } = useContext(Context);
     const [data, setData] = useState({ nameProject: "", theme: "", location: "" })
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("id:", id);
@@ -25,11 +26,11 @@ export const CrearProyecto = () => {
         if (id) {
             actions.EditProject(id, data)
             actions.GetProjects()
-            e.preventDefault()
+           
         }
         else {
             actions.CreateProject(data);
-            e.preventDefault()
+            navigate("/profileadmon");
         }
     };
     const infoSetData = (e) => {
@@ -38,27 +39,29 @@ export const CrearProyecto = () => {
         })
     }
     return (
-        <div className="mt-5">
+        <div className="col-md-6 m-auto">
+            <div className="d-flex justify-content-center my-3">
+                <h1>{id? "Editar Proyecto":"Registrar Nuevo Proyecto"}</h1>
+            </div>
+            <p>Administrador</p>
             <select className="form-select" aria-label="Default select example">
-                <option value="">Administrador</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="">{store.administrator.name} {store.administrator.lastname}</option>
             </select>
             <div className="mb-3">
                 <label htmlFor="formGroupExampleInput" className="form-label">Nombre Proyecto</label>
-                <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" onChange={infoSetData} name="nameProject" required value={data.nameProject} />
+                <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Nombre" onChange={infoSetData} name="nameProject" required value={data.nameProject} />
             </div>
             <div className="mb-3">
                 <label htmlFor="formGroupExampleInput2" className="form-label">Temática</label>
-                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder" onChange={infoSetData} name="theme" required value={data.theme} />
+                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Temática" onChange={infoSetData} name="theme" required value={data.theme} />
             </div>
             <div className="mb-3">
                 <label htmlFor="formGroupExampleInput2" className="form-label">Ubicación</label>
-                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder" onChange={infoSetData} name="location" required value={data.location} />
+                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Ubicación" onChange={infoSetData} name="location" required value={data.location} />
             </div>
-
-            <button type="button" className="btn btn-primary btn-lg" onClick={Send}>Crear Proyecto</button>
+            <div className="d-flex justify-content-center">
+                <button type="button" className="btn btn-primary btn-lg" onClick={()=>Send()}>Crear Proyecto</button>
+            </div>
 
         </div>
     );

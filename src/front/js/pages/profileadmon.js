@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 import "../../styles/admon.css";
 
@@ -8,7 +8,12 @@ import { FaLocationDot, FaPhoneFlip, FaEnvelope, FaTrashCan,FaPencil } from "rea
 
 export const ProfileAdmon = () => {
 	const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
 
+    function getproyects(){
+        actions.GetProjects();
+        navigate("/listaproyectos");
+    }
 		
 	return (
 		<div className="container">
@@ -16,10 +21,12 @@ export const ProfileAdmon = () => {
 			<div>
                 <h1>Proyectos</h1>
                 <div className ="d-flex justify-content-evenly">
-                    <button>
-                        Crear Proyectos
-                    </button>
-                    <button>
+                    <Link to="/nuevoproyecto">
+                        <button type="button" className="btn btn-success m-3">
+                            Crear Proyectos
+                        </button>
+                    </Link>
+                    <button type="button" className="btn btn-success m-3" onClick={()=>getproyects()}>
                         Proyectos
                     </button>
                 </div>
@@ -28,10 +35,10 @@ export const ProfileAdmon = () => {
             <div>
                 <h1>Especialistas</h1>
                     <div className ="d-flex justify-content-evenly">
-                        <button>
+                        <button type="button" className="btn btn-warning m-3">
                             Crear Especialista
                         </button>
-                        <button>
+                        <button type="button" className="btn btn-warning m-3">
                             Especialistas
                         </button>
                     </div>
@@ -39,10 +46,10 @@ export const ProfileAdmon = () => {
             <div>
                 <h1>Visitas</h1>
                         <div className ="d-flex justify-content-evenly">
-                            <button>
+                            <button type="button" className="btn btn-info m-3">
                                 Crear Visitas
                             </button>
-                            <button>
+                            <button type="button" className="btn btn-info m-3">
                                 Visitas
                             </button>
                         </div>

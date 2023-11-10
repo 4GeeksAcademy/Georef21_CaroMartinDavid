@@ -57,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						if(resp.status === 201){
 							const token =dataresp.token;
 						
-							localStorage.setItem("token",token);
+							localStorage.setItem("tokenadmin",token);
 							const {getadmins}=getActions();
 							getadmins(token);
 							setStore({ session:true });
@@ -95,12 +95,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 			}, putadmin: async(id,data)=> {
-				
+				const token = localStorage.getItem('tokenadmin');
 				try{
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon'+"/"+ id, {
 						method:"PUT",
 						body: JSON.stringify(data),
-						headers:{"Content-Type": "application/json",},
+						headers:{
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
 					});
 					if (resp.ok) {
 						console.log ("realizado");	
@@ -122,11 +125,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				actions.delete(id)
 			},
 			delete: async(id)=>{
-				
+				const token = localStorage.getItem('tokenadmin');
 				try{
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon'+"/"+ id, {
 						method:"DELETE",
-						headers:{"Content-Type": "application/json",},
+						headers:{
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
 					});
 					if (resp.ok) {
 						console.log ("realizado");	
@@ -178,13 +184,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	setStore({ demo: demo });
 			// },
 
-			GetProjects: (data) => {
-				console.log(data)
+			GetProjects: () => {
+				
+				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'GET',
 					headers: {
-						'Content-Type': 'application/json'
-					},
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
+					}
 
 				};
 				fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/Project', requestOptions)
@@ -208,17 +216,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			CreateProject: (data) => {
 				console.log(data)
-
-				// if (data.nameProject === data.nameProject) {
-				// 	// Si el nombre ya existe, mostrar alerta y salir de la función
-				// 	alert("Error: El nombre del proyecto ya existe. Por favor, elige otro nombre.");
-				// 	return;
-				// }
-
+				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'POST',
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
 					},
 					body: JSON.stringify(data)
 				};
@@ -232,11 +235,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(responseData => {
 
 						if (responseData.msg) {
-							alert("Proyecto creado con éxito");
 							console.log(responseData.msg);
 						} else {
 							alert(responseData.Error)
-							// alert("Error al crear Proyecto");
+							
 						}
 
 					})
@@ -249,15 +251,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//acá empieza el DELETE
 			DeleteProject: (id) => {
 				console.log(id)
+				const token = localStorage.getItem('tokenadmin');
 				const store = getStore();
 				const AllProjects = store.AllProjects.filter((item) => item.id != id)
 				setStore({ AllProjects: AllProjects });
 				const requestOptions = {
 					method: 'DELETE',
 					headers: {
-						'Content-Type': 'application/json'
-					},
-
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
+					}
 				};
 
 				fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
@@ -275,10 +278,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			//ACÁ EMPIEZA EL PUT
 			EditProject: (id, data) => {
+				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'PUT',
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
 					},
 					body: JSON.stringify(data)
 				};
