@@ -6,6 +6,7 @@ import { BackendURL } from "./component/backendURL";
 import { Administrator } from "./pages/admon";
 import {DatosAdmon} from "./pages/datosadmons";
 import { Home } from "./pages/home";
+import {LoginAdministrator} from "./pages/loginadmon.js"
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { PerfilEspecialista} from "./pages/perfilEspecialista";
@@ -30,7 +31,8 @@ const Layout = () => {
                 <ScrollToTop>
                    
                     <Routes>
-                        <Route element={<Home />} path="/home" />
+                        <Route element={<Home />} path="/" />
+                        <Route element={<LoginAdministrator/>} path="/admonlog" />
                         <Route element={<Administrator />} path="/admon" />
                         <Route element={<Administrator />} path="/admon/:adminId" />
                         <Route element={<DatosAdmon />} path="/admons" />
@@ -40,7 +42,7 @@ const Layout = () => {
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" /> 
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CrearProyecto />} path="/NuevoProyecto" />
-                        <Route element={<Proyecto />} path="/" />
+                        <Route element={<Proyecto />} path="/Proyecto" />
                         <Route element={<Proyectos />} path="/ListaProyectos" />
                         <Route element={<CrearProyecto />} path="/NuevoProyecto/:id" />
                     </Routes>

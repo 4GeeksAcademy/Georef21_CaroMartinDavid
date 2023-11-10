@@ -13,9 +13,9 @@ export const LoginAdministrator = () => {
     async function handlesubmit(e){
         e.preventDefault()
         const formdata = new FormData(e.target);
-        const adminregistro= {};
+        const adminlogin= {};
         for (const entrada of formdata.entries()){
-            adminregistro[entrada[0]]=entrada[1];
+            adminlogin[entrada[0]]=entrada[1];
         } 
 		 
     }
@@ -27,7 +27,7 @@ export const LoginAdministrator = () => {
 				<form onSubmit={handlesubmit}>
 					<div className="mb-3">
 						<label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
-						<input type="email" className="form-control" id="exampleInputEmail1" name="email" defaultValue={adminData.email} aria-describedby="emailHelp"/>
+						<input type="email" className="form-control" id="exampleInputEmail1" name="email"  aria-describedby="emailHelp"/>
 					</div>
 					<div className="mb-3">
 						<label htmlFor="exampleInputPassword1" className="form-label">Password</label>
@@ -38,8 +38,17 @@ export const LoginAdministrator = () => {
 						<Modal error={error}/>
 					</div>
 				</form>
-        	</div>
-			
+				<div className="text-center">
+					<Link to="/admon">
+						<span>Do you want to register</span>
+					</Link>
+				</div>
+				<div>
+					<Link to="/">
+						<button type="button" className="btn btn-outline-dark">VolverInicio</button>
+					</Link></div>
+        		</div>
 		</div>
+
 	);
 };

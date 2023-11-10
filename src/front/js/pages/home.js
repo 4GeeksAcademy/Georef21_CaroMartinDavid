@@ -8,11 +8,11 @@ export const Home = () => {
 
 	return (
 		<div className="container">
-            <Link to="/admon">
-			    <button type="button" className="btn btn-primary m-3">Registro Administrador</button>
+            <Link to="/admonlog">
+			    <button type="button" className="btn btn-primary m-3">Administrador</button>
             </Link>
-            <Link to="/admons">
-                <button type="button" className="btn btn-primary m-3">Administradores </button>
+            <Link to="/perfilEspecialista">
+                <button type="button" className="btn btn-primary m-3">Especialista</button>
             </Link>
 		</div>
 	);

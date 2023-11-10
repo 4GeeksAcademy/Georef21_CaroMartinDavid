@@ -138,7 +138,7 @@ export const Administrator = () => {
 						<Modal error={error}/>
 					</div>
 				</form>
-				<Link to="/">
+				<Link to="/admonlog">
 					<button type="button" className="btn btn-outline-dark">Volver</button>
 				</Link>
         	</div>
