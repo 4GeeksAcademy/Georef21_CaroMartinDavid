@@ -17,6 +17,14 @@ export const LoginAdministrator = () => {
         for (const entrada of formdata.entries()){
             adminlogin[entrada[0]]=entrada[1];
         } 
+		const response = await actions.loginadmin(adminlogin);
+            if(response ==="autorizado"){
+                navigate("/profileadmon")
+            }else{
+                console.log ("error desde front " + response.msg);
+                seterror(response.msg);
+                actions.openErrorlogin();
+            }
 		 
     }
 

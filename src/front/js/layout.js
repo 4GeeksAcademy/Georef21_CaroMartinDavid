@@ -7,6 +7,7 @@ import { Administrator } from "./pages/admon";
 import {DatosAdmon} from "./pages/datosadmons";
 import { Home } from "./pages/home";
 import {LoginAdministrator} from "./pages/loginadmon.js"
+import { ProfileAdmon } from "./pages/profileadmon.js";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { PerfilEspecialista} from "./pages/perfilEspecialista";
@@ -35,6 +36,7 @@ const Layout = () => {
                         <Route element={<LoginAdministrator/>} path="/admonlog" />
                         <Route element={<Administrator />} path="/admon" />
                         <Route element={<Administrator />} path="/admon/:adminId" />
+                        <Route element={<ProfileAdmon/>} path="/profileadmon" />
                         <Route element={<DatosAdmon />} path="/admons" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />

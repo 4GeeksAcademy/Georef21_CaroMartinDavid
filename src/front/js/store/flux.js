@@ -16,8 +16,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 
 			AllProjects: [],
-			administrators: [],
-			openError:"none"
+			administrator: {},
+			openError:"none",
+			session:false
 		},
 
 		actions: {
@@ -42,17 +43,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error en la solicitud POST:", error)
 					return "Error en la solicitud"
 				}
-			}, getadmins: async()=> {
+			}, loginadmin:async(data) =>{
 				try{
-					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon', {
-						method:"GET",
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admonlogin', {
+						method:"POST",
+						body: JSON.stringify(data),
 						headers:{"Content-Type": "application/json",},
 					});
 					if (resp.ok) {
+						console.log ("realizado");
+					
+						const dataresp = await resp.json();
+						if(resp.status === 201){
+							const token =dataresp.token;
+						
+							localStorage.setItem("token",token);
+							const {getadmins}=getActions();
+							getadmins(token);
+							setStore({ session:true });
+							return "autorizado";
+						}
+					} else {
+						const resperror =  await resp.json();
+						console.error("Error al obtener datos de la API. Respuesta completa:",resperror);
+						 return resperror
+					}
+					
+				}catch (error){
+					console.error({error})
+					
+				}
+			},
+			 getadmins: async(tokenadmin)=> {
+				try{
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon', {
+						method:"GET",
+						headers:{'Authorization': 'Bearer ' + tokenadmin}
+					});
+					if (resp.ok) {
 						console.log ("realizado");	
-						const administrators = await resp.json();
-						setStore({ administrators: administrators });
-            			console.log(administrators);
+						const administrator = await resp.json();
+						setStore({ administrator: administrator });
+            			console.log(administrator);
 
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
