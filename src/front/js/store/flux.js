@@ -24,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Use getActions to call a function within a fuction
 			postadmin: async(data)=> {
 				try{
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon', {
 						method:"POST",
 						body: JSON.stringify(data),
 						headers:{"Content-Type": "application/json",},
@@ -44,7 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}, getadmins: async()=> {
 				try{
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon', {
 						method:"GET",
 						headers:{"Content-Type": "application/json",},
 					});
@@ -65,7 +65,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}, putadmin: async(id,data)=> {
 				
 				try{
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon'+"/"+ id, {
+					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon'+"/"+ id, {
 						method:"PUT",
 						body: JSON.stringify(data),
 						headers:{"Content-Type": "application/json",},
@@ -92,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			delete: async(id)=>{
 				
 				try{
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon'+"/"+ id, {
+					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon'+"/"+ id, {
 						method:"DELETE",
 						headers:{"Content-Type": "application/json",},
 					});
@@ -155,7 +155,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 
 				};
-				fetch('https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error(`HTTP error! Status: ${response.status}`);
@@ -190,7 +190,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(data)
 				};
-				fetch('https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						// if (!response.ok) {
 						// 	throw new Error(`HTTP error! Status: ${response.status}`);
@@ -228,7 +228,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch(`https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project` + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -251,7 +251,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(data)
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch(`https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project` + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);

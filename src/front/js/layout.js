@@ -10,6 +10,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { PerfilEspecialista} from "./pages/perfilEspecialista";
 import { Register } from "./pages/register"; // Importa el componente de registro que creaste
+import {Visits } from "./pages/visits.js";
 
 import injectContext from "./store/appContext";
 
@@ -36,7 +37,8 @@ const Layout = () => {
                         <Route element={<DatosAdmon />} path="/admons" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<Register />} path="/register" /> 
+                        <Route element={<Register />} path="/register" />
+                        <Route element={<Visits />} path="/visit" />
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" /> 
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CrearProyecto />} path="/NuevoProyecto" />

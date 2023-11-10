@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Specialist, Administrator, Project
+from api.models import db, User, Specialist, Administrator, Project, Visit
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -199,9 +199,42 @@ def deleteadmins(id):
     db.session.commit()
     return jsonify({"msg":"Usuario eliminado"}), 201 
 
+@api.route('/visits', methods=['GET'])
+def get_visits():
+    visits = Visit.query.all()
+    return jsonify([visit.serialize() for visit in visits]), 200
 
+@api.route('/visits', methods=['POST'])
+def create_visit():
+    data = request.get_json()
 
+    # Data Validation
+    required_fields = ['scope', 'date', 'project_id', 'specialist_id']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"error": f"Field '{field}' is required"}), 400
 
+    try:
+        new_visit = Visit(
+            scope=data['scope'],
+            date=data['date'],
+            project_id=data['project_id'],
+            specialist_id=data['specialist_id']
+        )
+
+        db.session.add(new_visit)
+        db.session.commit()
+
+        # Return 201 Created with the location of the new visit
+        response = jsonify(new_visit.serialize())
+        response.status_code = 201
+        response.headers['Location'] = url_for('api.get_visits', visit_id=new_visit.id)
+        return response
+
+    except Exception as e:
+        # Handle database errors or other exceptions
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
     
 
