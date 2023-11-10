@@ -301,6 +301,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(id)
 			},
 			// ACÁ TERMINA EL PUT
+			postespecialist: async (data) => {
+				const token = localStorage.getItem('tokenadmin');
+				try {
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista', {
+						method: "POST",
+						body: JSON.stringify(data),
+						headers: { 
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
+					});
+					if (resp.ok) {
+						// Mostrar una alerta cuando la respuesta es exitosa
+						alert("Especialista creado con éxito");
+						console.log("Especialista creado con éxito");
+			
+						// Restablecer los campos a sus valores iniciales
+						
+					} else {
+						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+					}
+				} catch (error) {
+					console.error({ error });
+					return;
+				}
+				
+			},
 
 
 		}

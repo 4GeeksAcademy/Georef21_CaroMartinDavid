@@ -60,7 +60,7 @@ export const CrearProyecto = () => {
                 <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Ubicación" onChange={infoSetData} name="location" required value={data.location} />
             </div>
             <div className="d-flex justify-content-center">
-                <button type="button" className="btn btn-primary btn-lg" onClick={()=>Send()}>Crear Proyecto</button>
+                <button type="button" className="btn btn-primary btn-lg" onClick={()=>Send()}>{id? "Editar Proyecto":"Crear Proyecto"}</button>
             </div>
 
         </div>

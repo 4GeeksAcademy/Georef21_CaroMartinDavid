@@ -35,9 +35,12 @@ export const ProfileAdmon = () => {
             <div>
                 <h1>Especialistas</h1>
                     <div className ="d-flex justify-content-evenly">
-                        <button type="button" className="btn btn-warning m-3">
-                            Crear Especialista
-                        </button>
+                        <Link to = "/registerespicialist">
+                            <button type="button" className="btn btn-warning m-3">
+                                Crear Especialista
+                            </button>
+                        </Link>
+                        
                         <button type="button" className="btn btn-warning m-3">
                             Especialistas
                         </button>
