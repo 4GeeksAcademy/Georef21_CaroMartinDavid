@@ -16,18 +16,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 
 			AllProjects: [],
-			administrators: [],
+			allspecialist: [],
+			administrator: {},
 			openError: "none",
-
-
-
+			session: false,
+			specialist: {}
 		},
 
 		actions: {
 			// Use getActions to call a function within a fuction
 			postadmin: async (data) => {
 				try {
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -45,17 +45,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error en la solicitud POST:", error)
 					return "Error en la solicitud"
 				}
-			}, getadmins: async () => {
+			}, loginadmin: async (data) => {
 				try {
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon', {
-						method: "GET",
-						headers: { "Content-Type": "application/json", },
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admonlogin', {
+						method: "POST",
+						body: JSON.stringify(data),
+						headers: { "Content-Type": "application/json", }
 					});
 					if (resp.ok) {
 						console.log("realizado");
-						const administrators = await resp.json();
-						setStore({ administrators: administrators });
-						console.log(administrators);
+
+						const dataresp = await resp.json();
+						if (resp.status === 201) {
+							const token = dataresp.token;
+
+							localStorage.setItem("tokenadmin", token);
+							const { getadmins } = getActions();
+							getadmins(token);
+							setStore({ session: true });
+							return "autorizado";
+						}
+					} else {
+						const resperror = await resp.json();
+						console.error("Error al obtener datos de la API. Respuesta completa:", resperror);
+						return resperror
+					}
+
+				} catch (error) {
+					console.error({ error })
+
+				}
+			},
+			getadmins: async (tokenadmin) => {
+				try {
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon', {
+						method: "GET",
+						headers: { 'Authorization': 'Bearer ' + tokenadmin }
+					});
+					if (resp.ok) {
+						console.log("realizado");
+						const administrator = await resp.json();
+						setStore({ administrator: administrator });
+						console.log(administrator);
 
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
@@ -66,12 +97,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 			}, putadmin: async (id, data) => {
-
+				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon' + "/" + id, {
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon' + "/" + id, {
 						method: "PUT",
 						body: JSON.stringify(data),
-						headers: { "Content-Type": "application/json", },
+						headers: {
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
 					});
 					if (resp.ok) {
 						console.log("realizado");
@@ -93,11 +127,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				actions.delete(id)
 			},
 			delete: async (id) => {
-
+				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://fictional-space-bassoon-q774pjv4v4f47g9-3001.app.github.dev/api/admon' + "/" + id, {
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon' + "/" + id, {
 						method: "DELETE",
-						headers: { "Content-Type": "application/json", },
+						headers: {
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
 					});
 					if (resp.ok) {
 						console.log("realizado");
@@ -118,47 +155,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			closeErrorlogin: () => {
 				setStore({ openError: "none" });
 			},
-			// exampleFunction: () => {
-			// 	getActions().changeColor(0, "green");
-			// },
+			GetProjects: () => {
 
-			// getMessage: async () => {
-			// 	try {
-			// 		// fetching data from the backend
-			// 		const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-			// 		const data = await resp.json()
-			// 		setStore({ message: data.message })
-			// 		// don't forget to return something, that is how the async resolves
-			// 		return data;
-			// 	} catch (error) {
-			// 		console.log("Error loading message from backend", error)
-			// 	}
-			// },
-			// changeColor: (index, color) => {
-			// 	//get the store
-			// 	const store = getStore();
-
-			// 	//we have to loop the entire demo array to look for the respective index
-			// 	//and change its color
-			// 	const demo = store.demo.map((elm, i) => {
-			// 		if (i === index) elm.background = color;
-			// 		return elm;
-			// 	});
-
-			// 	//reset the global store
-			// 	setStore({ demo: demo });
-			// },
-
-			GetProjects: (data) => {
-				console.log(data)
+				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'GET',
 					headers: {
-						'Content-Type': 'application/json'
-					},
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
+					}
 
 				};
-				fetch('https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error(`HTTP error! Status: ${response.status}`);
@@ -179,21 +187,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			CreateProject: (data) => {
 				console.log(data)
-
-				// if (data.nameProject === data.nameProject) {
-				// 	// Si el nombre ya existe, mostrar alerta y salir de la función
-				// 	alert("Error: El nombre del proyecto ya existe. Por favor, elige otro nombre.");
-				// 	return;
-				// }
-
+				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'POST',
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
 					},
 					body: JSON.stringify(data)
 				};
-				fetch('https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						// if (!response.ok) {
 						// 	throw new Error(`HTTP error! Status: ${response.status}`);
@@ -203,11 +206,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(responseData => {
 
 						if (responseData.msg) {
-							alert("Proyecto creado con éxito");
 							console.log(responseData.msg);
 						} else {
 							alert(responseData.Error)
-							// alert("Error al crear Proyecto");
+
 						}
 
 					})
@@ -220,18 +222,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//acá empieza el DELETE
 			DeleteProject: (id) => {
 				console.log(id)
+				const token = localStorage.getItem('tokenadmin');
 				const store = getStore();
 				const AllProjects = store.AllProjects.filter((item) => item.id != id)
 				setStore({ AllProjects: AllProjects });
 				const requestOptions = {
 					method: 'DELETE',
 					headers: {
-						'Content-Type': 'application/json'
-					},
-
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
+					}
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -246,15 +249,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			//ACÁ EMPIEZA EL PUT
 			EditProject: (id, data) => {
+				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'PUT',
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
 					},
 					body: JSON.stringify(data)
 				};
 
-				fetch(`https://ideal-space-rotary-phone-9vp4x7ggvgxc75pv-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -267,8 +272,122 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(id)
 			},
 			// ACÁ TERMINA EL PUT
+			postespecialist: async (data) => {
+				const token = localStorage.getItem('tokenadmin');
+				try {
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista', {
+						method: "POST",
+						body: JSON.stringify(data),
+						headers: {
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
+					});
+					if (resp.ok) {
+
+						console.log("realizado")
+						return "realizado"
+					} else {
+						const errordata = JSON.parse(await resp.text())
+						if (resp.status === 401 || resp.status === 401) {
+							return errordata.error;
+
+						}
+					}
+				} catch (error) {
+					console.error({ error });
+					return;
+				}
+
+			},
+			// ACÁ TERMINA EL post especialista
+			getEspecialista: async () => {
+				const baseUrl = `https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista`;
+				const token = localStorage.getItem('tokenadmin');
+				try {
+					const response = await fetch(baseUrl, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
+					});
+					if (response.ok) {
+						console.log("realizado");
+						const allspecialist = await response.json();
+						setStore({ allspecialist: allspecialist });
+						console.log(allspecialist);
+					}
 
 
+				} catch (error) {
+					console.error(error);
+				}
+			},
+			// ACÁ TERMINA EL get especialista
+			logout: () => {
+				localStorage.removeItem("token");
+				setStore({ session: false });
+
+			},
+			//acá empieza loginspecialist
+			loginSpecialist: async (data) => {
+				try {
+					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/especialistalog', {
+						method: "POST",
+						body: JSON.stringify(data),
+						headers: { "Content-Type": "application/json", },
+					});
+					if (resp.ok) {
+						console.log("realizado");
+
+						const dataresp = await resp.json();
+						if (resp.status === 200) {
+							const token = dataresp.token;
+
+							localStorage.setItem("tokenspecialist", token);
+							const { getspecialist } = getActions();
+							getspecialist(token);
+							setStore({ session: true });
+							return "autorizado";
+						}
+					} else {
+						const resperror = await resp.json();
+						console.error("Error al obtener datos de la API. Respuesta completa:", resperror);
+						return resperror
+					}
+
+				} catch (error) {
+					console.error({ error })
+
+				}
+
+			},
+			//acá termina loginspecialist
+
+			//acá empieza la función
+			getspecialist: async (tokenspecialist) => {
+				try {
+					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/loginSpecialist', {
+						method: "GET",
+						headers: { 'Authorization': 'Bearer ' + tokenspecialist }
+					});
+					if (resp.ok) {
+						console.log("realizado");
+						const specialist = await resp.json();
+						setStore({ specialist: specialist });
+						console.log(specialist);
+
+					} else {
+						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+					}
+
+				} catch (error) {
+					console.error({ error })
+					return
+				}
+			}
+			//acá termina la función
 		}
 	};
 };

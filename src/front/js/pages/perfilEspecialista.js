@@ -7,7 +7,7 @@ export const PerfilEspecialista = () => {
     const [especialista, setEspecialistas] = useState([]);
 
     const fetchEspecialista = async () => {
-        let baseUrl = `https://urban-disco-6j66wpx6jprc4rr6-3001.app.github.dev/api/especialista`;
+        let baseUrl = `https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/admin/specialist/`;
         try {
             let response = await fetch(baseUrl);
             if (!response.ok) return response.status;
@@ -22,7 +22,7 @@ export const PerfilEspecialista = () => {
 
     const eliminarEspecialista = async (id) => {
         // Realizar una solicitud DELETE a la API para eliminar al especialista con el ID proporcionado.
-        let deleteUrl = `https://urban-disco-6j66wpx6jprc4rr6-3001.app.github.dev/api/especialista/${id}`;
+        let deleteUrl = `https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/admin/specialist//${id}`;
         try {
             let response = await fetch(deleteUrl, {
                 method: "DELETE",
