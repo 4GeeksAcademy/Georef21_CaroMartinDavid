@@ -21,8 +21,8 @@ export const NavbarPerfilAdmon = () => {
 
 							<ul className="dropdown-menu">
 								<li><a className="dropdown-item" href="#">Mi Perfil</a></li>
-								<li><a className="dropdown-item" href="#">Another action</a></li>
-								<li><a className="dropdown-item" href="#">Something else here</a></li>
+								<li><a className="dropdown-item" href="#">Eliminar Cuenta</a></li>
+								<li><a className="dropdown-item" href="#">Cerrar sesión</a></li>
 							</ul>
 						</div>
 						<Link to="/">
