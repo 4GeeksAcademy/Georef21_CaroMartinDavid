@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import "../../styles/admon.css";
 
 export const ModalEliminarAdmon = (prop) => {
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
 
 function deleteadmin(id){
-    console.log ("eliminar cuenta");
-    console.log (id);
+    actions.deleteadmon(id);
+    actions.closeModaldelete();
+    actions.logout();
+    navigate("/");
 }
 
 return (

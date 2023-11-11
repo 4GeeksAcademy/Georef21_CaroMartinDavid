@@ -6,6 +6,9 @@ import { ModalEliminarAdmon } from "./modalEliminaradmon";
 
 export const NavbarPerfilAdmon = () => {
 	const { store, actions } = useContext(Context);
+
+
+
 	return (
 		<div className="d-flex justify-content-center">
 		<nav className="navbar navbar-light bg-light col-md-10 d-flex justify-content-end">
@@ -24,8 +27,10 @@ export const NavbarPerfilAdmon = () => {
 								<Link to="/admons">
 									<span>Mi Perfil</span>
 								</Link>
-								<li><a className="dropdown-item" href="#" onClick={()=>{actions.openModaldelete}}>Eliminar Cuenta</a></li>
-								<li><a className="dropdown-item" href="#" onClick={()=>{actions.logout()}}> Cerrar sesión</a></li>
+								<li><a className="dropdown-item" href="#" onClick={()=>{actions.openModaldelete()}}>Eliminar Cuenta</a></li>
+								<Link to="/">
+									<span onClick={()=>{actions.logout()}}> Cerrar sesión</span>
+								</Link>
 							</ul>
 						</div>
 						<Link to="/">

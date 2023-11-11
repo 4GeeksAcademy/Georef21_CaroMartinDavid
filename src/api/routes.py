@@ -299,9 +299,13 @@ def modifadmins(id):
 
 def deleteadmins(id):
     id_admin = get_jwt_identity()
+    print ("id:", id)
+    print ("idadmin:",id_admin)
     if id != id_admin:
         return jsonify({"msg":"No tiene permisos para modificar este administrador"}), 403 
-    deleteadmin = Administrator.query.filter_by(id=id).first()
+    
+    deleteadmin = Administrator.query.get(id)
+    print(deleteadmin)
     db.session.delete(deleteadmin)
     db.session.commit()
     return jsonify({"msg":"Usuario eliminado"}), 201 

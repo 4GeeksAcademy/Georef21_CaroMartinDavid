@@ -121,7 +121,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 			},
-			deleteadmin: async(id)=>{
+			deleteadmon: async(id)=>{
+				console.log("desde flux", id)
 				const token = localStorage.getItem('tokenadmin');
 				try{
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon'+"/"+ id, {
