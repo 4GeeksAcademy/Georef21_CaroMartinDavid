@@ -16,20 +16,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 
 			AllProjects: [],
-			allspecialist: [],
+			allspecialist:[],
 			administrator: {},
-			openError: "none",
-			session: false,
+			openError:"none",
+			openModalEliminar:"none",
+			session:false,
 			specialist: {},
 			sessionSpecialist: false
 		},
 
 		actions: {
 			// Use getActions to call a function within a fuction
-			postadmin: async (data) => {
-				try {
+			postadmin: async(data)=> {
+				try{
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon', {
-						method: "POST",
+						method:"POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
 					});
@@ -46,48 +47,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error en la solicitud POST:", error)
 					return "Error en la solicitud"
 				}
-			}, loginadmin: async (data) => {
-				try {
+			}, loginadmin:async(data) =>{
+				try{
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admonlogin', {
-						method: "POST",
+						method:"POST",
 						body: JSON.stringify(data),
-						headers: { "Content-Type": "application/json", }
+						headers:{"Content-Type": "application/json",},
 					});
 					if (resp.ok) {
-						console.log("realizado");
-
+						console.log ("realizado");
+					
 						const dataresp = await resp.json();
-						if (resp.status === 201) {
-							const token = dataresp.token;
-
-							localStorage.setItem("tokenadmin", token);
-							const { getadmins } = getActions();
+						if(resp.status === 201){
+							const token =dataresp.token;
+						
+							localStorage.setItem("tokenadmin",token);
+							const {getadmins}=getActions();
 							getadmins(token);
-							setStore({ session: true });
+							setStore({ session:true });
 							return "autorizado";
 						}
 					} else {
-						const resperror = await resp.json();
-						console.error("Error al obtener datos de la API. Respuesta completa:", resperror);
-						return resperror
+						const resperror =  await resp.json();
+						console.error("Error al obtener datos de la API. Respuesta completa:",resperror);
+						 return resperror
 					}
-
-				} catch (error) {
-					console.error({ error })
-
+					
+				}catch (error){
+					console.error({error})
+					
 				}
 			},
-			getadmins: async (tokenadmin) => {
-				try {
+			 getadmins: async(tokenadmin)=> {
+				try{
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon', {
-						method: "GET",
-						headers: { 'Authorization': 'Bearer ' + tokenadmin }
+						method:"GET",
+						headers:{'Authorization': 'Bearer ' + tokenadmin}
 					});
 					if (resp.ok) {
-						console.log("realizado");
+						console.log ("realizado");	
 						const administrator = await resp.json();
 						setStore({ administrator: administrator });
-						console.log(administrator);
+            			console.log(administrator);
 
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
@@ -97,20 +98,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error({ error })
 					return
 				}
-			}, putadmin: async (id, data) => {
+			}, putadmin: async(id,data)=> {
 				const token = localStorage.getItem('tokenadmin');
-				try {
-					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon' + "/" + id, {
-						method: "PUT",
+				try{
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon'+"/"+ id, {
+						method:"PUT",
 						body: JSON.stringify(data),
-						headers: {
+						headers:{
 							"Content-Type": "application/json",
 							'Authorization': `Bearer ${token}`
 						}
 					});
 					if (resp.ok) {
-						console.log("realizado");
-
+						console.log ("realizado");
+						const {getadmins}=getActions();
+						getadmins(token);
+						
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
@@ -120,19 +123,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 			},
-			adminDelete: (id) => {
-				const store = getStore();
-				const actions = getActions();
-				const administrators = store.administrators.filter((admin) => admin.id != id);
-				setStore({ administrators: administrators });
-				actions.delete(id)
-			},
-			delete: async (id) => {
+			deleteadmon: async(id)=>{
+				console.log("desde flux", id)
 				const token = localStorage.getItem('tokenadmin');
-				try {
-					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon' + "/" + id, {
-						method: "DELETE",
-						headers: {
+				try{
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon'+"/"+ id, {
+						method:"DELETE",
+						headers:{
 							"Content-Type": "application/json",
 							'Authorization': `Bearer ${token}`
 						}
@@ -143,21 +140,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
-
-				} catch (error) {
-					console.error({ error })
-
-				}
+					
+				}catch (error){
+					console.error({error}) 
+					
+			}
 			},
 			openErrorlogin: () => {
 				console.log("desdeflux modal error login")
 				setStore({ openError: "flex" });
 			},
-			closeErrorlogin: () => {
-				setStore({ openError: "none" });
+			closeErrorlogin: () =>{
+				setStore({openError:"none"});
+			},openModaldelete:()=>{
+				console.log ("desdeflux modal error login")
+				setStore({openModalEliminar: "flex"});
+			},closeModaldelete: () =>{
+				setStore({openModalEliminar:"none"});
 			},
 			GetProjects: () => {
-
+				
 				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'GET',
@@ -210,7 +212,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.log(responseData.msg);
 						} else {
 							alert(responseData.Error)
-
+							
 						}
 
 					})
@@ -274,54 +276,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			// ACÁ TERMINA EL PUT
 			postespecialist: async (data) => {
-                const token = localStorage.getItem('tokenadmin');
-                try {
-                    const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista', {
-                        method: "POST",
-                        body: JSON.stringify(data),
-                        headers: {
-                            "Content-Type": "application/json",
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    if (resp.ok) {
-
-                        console.log("realizado")
-                        return "realizado"
-                    } else {
-                        const errordata = JSON.parse(await resp.text())
-                        if (resp.status === 402 || resp.status === 401) {
-                            return errordata.error;
-
-                        }
-                    }
-                } catch (error) {
-                    console.error({ error });
-                    return;
-                }
-
-            },
-
+				const token = localStorage.getItem('tokenadmin');
+				try {
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista', {
+						method: "POST",
+						body: JSON.stringify(data),
+						headers: { 
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
+					});
+					if (resp.ok) {
+						
+						console.log("realizado")
+						return "realizado"
+						} else {
+							const errordata = JSON.parse (await  resp.text())
+							if(resp.status === 401  || resp.status === 402 ){
+								return errordata.error;
+							
+							}
+				}} catch (error) {
+					console.error({ error });
+					return;
+				}
+				
+			},
 			// ACÁ TERMINA EL post especialista
-			getEspecialista: async () => {
+			getEspecialista : async () => {
 				const baseUrl = `https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista`;
 				const token = localStorage.getItem('tokenadmin');
 				try {
 					const response = await fetch(baseUrl, {
 						method: "GET",
-						headers: {
+						headers: { 
 							"Content-Type": "application/json",
 							'Authorization': `Bearer ${token}`
-						}
-					});
+					}});
 					if (response.ok) {
-						console.log("realizado");
-						const allspecialist = await response.json();
+						console.log ("realizado");	
+						const allspecialist= await response.json();
 						setStore({ allspecialist: allspecialist });
-						console.log(allspecialist);
+            			console.log(allspecialist);
 					}
-
-
+		
+					
 				} catch (error) {
 					console.error(error);
 				}
@@ -332,70 +331,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ session: false });
 
 			},
+			// ACÁ TERMINA EL logout
+			eliminarEspecialista : async (id) => {
+				// Realizar una solicitud DELETE a la API para eliminar al especialista con el ID proporcionado.
+				let deleteUrl = `https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista/${id}`;
+				const token = localStorage.getItem('tokenadmin');
+				const store = getStore();
+				const allspecialist = store.allspecialist.filter((item) => item.id != id)
+				setStore({ allspecialist: allspecialist });
 
-			logoutSpecialist: () => {
-				localStorage.removeItem("tokenspecialist");
-				setStore({ sessionSpecialist: false });
-
-			},
-			//acá empieza loginspecialist
-			loginSpecialist: async (data) => {
 				try {
-					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/loginSpecialist', {
-						method: "POST",
-						body: JSON.stringify(data),
-						headers: { "Content-Type": "application/json", },
-					});
-					if (resp.ok) {
+					let response = await fetch(deleteUrl, {
+						method: "DELETE",
+						headers: { 
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+					}});
+				
+					if (response.ok) {
 						console.log("realizado");
-
-						const dataresp = await resp.json();
-						if (resp.status === 200) {
-							const token = dataresp.access_token;
-							console.log(token)
-							localStorage.setItem("tokenspecialist", token);
-							const { getspecialist } = getActions();
-							getspecialist(token);
-							setStore({ sessionSpecialist: true });
-							return "autorizado";
-						}
 					} else {
-						const resperror = await resp.json();
-						console.error("Error al obtener datos de la API. Respuesta completa:", resperror);
-						return resperror
+						console.error("Error al eliminar al especialista");
 					}
-
 				} catch (error) {
-					console.error({ error })
-
+					console.error(error);
 				}
-
 			},
-			//acá termina loginspecialist
-
-			//acá empieza la función
-			getspecialist: async (tokenspecialist) => {
-				try {
-					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/especialistalog', {
-						method: "GET",
-						headers: { 'Authorization': 'Bearer ' + tokenspecialist }
+			//ACÁ TERMINA EL delete especialista
+			putespecialist: async(id,data)=> {
+				const token = localStorage.getItem('tokenadmin');
+				try{
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista'+"/"+ id, {
+						method:"PUT",
+						body: JSON.stringify(data),
+						headers:{
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
 					});
 					if (resp.ok) {
-						console.log("realizado get specialist");
-						const specialist = await resp.json();
-						setStore({ specialist: specialist });
-						console.log(specialist);
-
+						console.log ("realizado");	
+						
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
-
-				} catch (error) {
-					console.error({ error })
+					
+				}catch (error){
+					console.error({error})
 					return
 				}
 			}
-			//acá termina la función
+			//ACÁ TERMINA EL put especialista
 		}
 	};
 };
