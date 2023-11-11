@@ -290,7 +290,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return "realizado"
 						} else {
 							const errordata = JSON.parse (await  resp.text())
-							if(resp.status === 401  || resp.status === 401 ){
+							if(resp.status === 401  || resp.status === 402 ){
 								return errordata.error;
 							
 							}
