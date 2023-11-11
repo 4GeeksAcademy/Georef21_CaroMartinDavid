@@ -20,7 +20,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			administrator: {},
 			openError: "none",
 			session: false,
-			specialist: {}
+			specialist: {},
+			sessionSpecialist: false
 		},
 
 		actions: {
@@ -273,33 +274,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			// ACÁ TERMINA EL PUT
 			postespecialist: async (data) => {
-				const token = localStorage.getItem('tokenadmin');
-				try {
-					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista', {
-						method: "POST",
-						body: JSON.stringify(data),
-						headers: {
-							"Content-Type": "application/json",
-							'Authorization': `Bearer ${token}`
-						}
-					});
-					if (resp.ok) {
+                const token = localStorage.getItem('tokenadmin');
+                try {
+                    const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista', {
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if (resp.ok) {
 
-						console.log("realizado")
-						return "realizado"
-					} else {
-						const errordata = JSON.parse(await resp.text())
-						if (resp.status === 401 || resp.status === 401) {
-							return errordata.error;
+                        console.log("realizado")
+                        return "realizado"
+                    } else {
+                        const errordata = JSON.parse(await resp.text())
+                        if (resp.status === 402 || resp.status === 401) {
+                            return errordata.error;
 
-						}
-					}
-				} catch (error) {
-					console.error({ error });
-					return;
-				}
+                        }
+                    }
+                } catch (error) {
+                    console.error({ error });
+                    return;
+                }
 
-			},
+            },
+
 			// ACÁ TERMINA EL post especialista
 			getEspecialista: async () => {
 				const baseUrl = `https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista`;
@@ -330,10 +332,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ session: false });
 
 			},
+
+			logoutSpecialist: () => {
+				localStorage.removeItem("tokenspecialist");
+				setStore({ sessionSpecialist: false });
+
+			},
 			//acá empieza loginspecialist
 			loginSpecialist: async (data) => {
 				try {
-					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/especialistalog', {
+					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/loginSpecialist', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -343,12 +351,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						const dataresp = await resp.json();
 						if (resp.status === 200) {
-							const token = dataresp.token;
-
+							const token = dataresp.access_token;
+							console.log(token)
 							localStorage.setItem("tokenspecialist", token);
 							const { getspecialist } = getActions();
 							getspecialist(token);
-							setStore({ session: true });
+							setStore({ sessionSpecialist: true });
 							return "autorizado";
 						}
 					} else {
@@ -368,12 +376,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//acá empieza la función
 			getspecialist: async (tokenspecialist) => {
 				try {
-					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/loginSpecialist', {
+					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/especialistalog', {
 						method: "GET",
 						headers: { 'Authorization': 'Bearer ' + tokenspecialist }
 					});
 					if (resp.ok) {
-						console.log("realizado");
+						console.log("realizado get specialist");
 						const specialist = await resp.json();
 						setStore({ specialist: specialist });
 						console.log(specialist);
