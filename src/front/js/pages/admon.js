@@ -23,17 +23,18 @@ export const Administrator = () => {
 
 	useEffect(() => {
 		console.log("adminId:", adminId);
-        if (adminId) {
-			
+        if(store.administrator.id==adminId){
             // Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
-            const adminToEdit = store.administrators.find(admin => admin.id === parseInt(adminId));
-            if (adminToEdit) {
-				const formattedBirthday = format(new Date(adminToEdit.birthday), "yyyy-MM-dd");
-                adminToEdit.birthday = formattedBirthday;
-                setAdminData(adminToEdit);
-            }
-        }
-    }, [adminId, store.administrators]);
+            	const adminToEdit = store.administrator;
+				if (adminToEdit) {
+					const formattedBirthday = format(new Date(adminToEdit.birthday), "yyyy-MM-dd");
+					adminToEdit.birthday = formattedBirthday;
+					setAdminData(adminToEdit);
+				}
+			}
+            
+        
+    }, [adminId, store.administrator]);
 
     function edad(date){
         const birthday = Date.parse(date)
@@ -55,7 +56,7 @@ export const Administrator = () => {
 				if(edadadmin >= 18){
 					await actions.putadmin(adminId,adminregistro);
 					actions.getadmins();
-					navigate("/");
+					navigate("/profileadmon");
 					
 				}else{ 
 					console.log("es menor de edad"); 

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { BsPersonCircle } from "react-icons/bs";
+import { ModalEliminarAdmon } from "./modalEliminaradmon";
 
 export const NavbarPerfilAdmon = () => {
 	const { store, actions } = useContext(Context);
@@ -20,14 +21,17 @@ export const NavbarPerfilAdmon = () => {
 							</a>
 
 							<ul className="dropdown-menu">
-								<li><a className="dropdown-item" href="#">Mi Perfil</a></li>
-								<li><a className="dropdown-item" href="#">Eliminar Cuenta</a></li>
-								<li><a className="dropdown-item" href="#">Cerrar sesión</a></li>
+								<Link to="/admons">
+									<span>Mi Perfil</span>
+								</Link>
+								<li><a className="dropdown-item" href="#" onClick={()=>{actions.openModaldelete}}>Eliminar Cuenta</a></li>
+								<li><a className="dropdown-item" href="#" onClick={()=>{actions.logout()}}> Cerrar sesión</a></li>
 							</ul>
 						</div>
 						<Link to="/">
 						<button className="btn btn-danger mx-3 px-1" onClick={()=>{actions.logout()}}>Log Out </button>
 						</Link>
+						<ModalEliminarAdmon id={store.administrator.id}/>
 					</>
 					:<span></span>
 					}

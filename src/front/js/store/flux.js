@@ -19,6 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allspecialist:[],
 			administrator: {},
 			openError:"none",
+			openModalEliminar:"none",
 			session:false
 		},
 
@@ -107,7 +108,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 					if (resp.ok) {
-						console.log ("realizado");	
+						console.log ("realizado");
+						const {getadmins}=getActions();
+						getadmins(token);
 						
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
@@ -118,14 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 			},
-			adminDelete:(id)=>{
-				const store = getStore();
-				const actions=getActions();
-				const administrators = store.administrators.filter((admin)=>admin.id!=id);
-				setStore({ administrators: administrators });
-				actions.delete(id)
-			},
-			delete: async(id)=>{
+			deleteadmin: async(id)=>{
 				const token = localStorage.getItem('tokenadmin');
 				try{
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon'+"/"+ id, {
@@ -153,6 +149,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			closeErrorlogin: () =>{
 				setStore({openError:"none"});
+			},openModaldelete:()=>{
+				console.log ("desdeflux modal error login")
+				setStore({openModalEliminar: "flex"});
+			},closeModaldelete: () =>{
+				setStore({openModalEliminar:"none"});
 			},
 			GetProjects: () => {
 				
