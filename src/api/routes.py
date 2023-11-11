@@ -303,7 +303,16 @@ def deleteadmins(id):
     print ("idadmin:",id_admin)
     if id != id_admin:
         return jsonify({"msg":"No tiene permisos para modificar este administrador"}), 403 
-    
+    deleteproyectadmin = Project.query.filter_by(admon_id=id).all()
+    for project in deleteproyectadmin:
+        db.session.delete(project)
+    db.session.commit()
+
+    deleteespecialistaadmin =Specialist.query.filter_by(administrator_id=id).all()
+    for specialist in deleteespecialistaadmin:
+        db.session.delete(specialist)
+    db.session.commit()
+
     deleteadmin = Administrator.query.get(id)
     print(deleteadmin)
     db.session.delete(deleteadmin)
