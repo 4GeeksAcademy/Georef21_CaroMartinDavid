@@ -5,7 +5,21 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Specialist, Administrator, Project
 from api.utils import generate_sitemap, APIException
 
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from flask_bcrypt import Bcrypt 
+import json
+
 api = Blueprint('api', __name__)
+app = Flask(__name__)
+
+
+
+bcrypt = Bcrypt(app)
+
+
+
+# api.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+# jwt = JWTManager(api)
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -26,29 +40,123 @@ def get_especialista():
     
     return jsonify(especialistas_serializados), 200
 
+# ACÁ EMPIEZA EL SIGN UP DE ESPECIALISTA
+
+@api.route('/especialistalog', methods=['GET'])
+@jwt_required()
+def especialista_logeado():
+    emailspecialist = get_jwt_identity()
+    # Supongamos que deseas obtener todos los especialistas de la base de datos
+    especialista = Specialist.query.filter_by(email=emailspecialist).first()
+    if not especialista:
+        return jsonify({"msg": "no existe este especialista"}), 404
+    results = especialista.serialize()
+    return jsonify(results), 200
+    # Convierte los objetos Specialist en un formato serializable
+
+  
+    
+   
 @api.route('/especialista', methods=['POST'])
 def create_especialista():
-    # Obtiene los datos del especialista desde la solicitud
+    #id_admin = get_jwt_identity()
+       
     data = request.json
+    nombre=data.get("nombre")
+    apellido=data.get("apellido")
+    email=data.get("email")
+    profesion=data.get("profesion")
+    area_de_desempeno=data.get("area_de_desempeno")
+    password=data.get("password")
 
     if not data:
-        return jsonify({"message": "Datos no proporcionados"}), 400
-
+        return jsonify({"error": "Datos no proporcionados"}), 400
+    if nombre == "" and apellido == "" and email == "" and profesion == "" and area_de_desempeno == "" and password == "":
+        return jsonify({"error": "diligencie el formulario completo"}), 401
+    
+    if Specialist.query.filter_by(email=email).first()is not None:
+        return jsonify({"error": "El correo electronico ya esta registrado"}), 402
+    
+    secure_password=bcrypt.generate_password_hash(password,10).decode("utf-8")
+    print(secure_password)
     # Crea un nuevo objeto Specialist
     nuevo_especialista = Specialist(
-        nombre=data.get("nombre"),
-        apellido=data.get("apellido"),
-        email=data.get("email"),
-        profesion=data.get("profesion"),
-        area_de_desempeno=data.get("area_de_desempeno"),
-        password=data.get("password")
+
+        nombre=nombre,
+        apellido=apellido,
+        email=email,
+        profesion=profesion,
+        area_de_desempeno=area_de_desempeno,
+        password=secure_password
+        
+        #administrator_id= id_admin
     )
+
+    print(nuevo_especialista)
     # Agrega el especialista a la base de datos
     db.session.add(nuevo_especialista)
     db.session.commit()
 
     # Retorna una respuesta con el nuevo especialista creado
-    return jsonify({"message": "Especialista creado con éxito", "id": nuevo_especialista.id}), 201
+    return jsonify({"msg": "Especialista creado con éxito", "id": nuevo_especialista.id}), 201
+# def create_especialista():
+#     # Obtiene los datos del especialista desde la solicitud
+#     data = request.json
+
+#     if not data:
+#         return jsonify({"message": "Datos no proporcionados"}), 400
+
+#     # Crea un nuevo objeto Specialist
+#     nuevo_especialista = Specialist(
+#         nombre=data.get("nombre"),
+#         apellido=data.get("apellido"),
+#         email=data.get("email"),
+#         profesion=data.get("profesion"),
+#         area_de_desempeno=data.get("area_de_desempeno"),
+#         password=data.get("password")
+#     )
+#     # Agrega el especialista a la base de datos
+#     db.session.add(nuevo_especialista)
+#     db.session.commit()
+
+#     # Retorna una respuesta con el nuevo especialista creado
+#     return jsonify({"message": "Especialista creado con éxito", "id": nuevo_especialista.id}), 201
+# ACÁ TERMINA EL SIGN UP DE ESPECIALISTA
+
+# @api.route("/login", methods=["POST"])
+# def login():
+#     email = request.json.get("email", None)
+#     password = request.json.get("password", None)
+#     specialist = Specialist.query.filter_by(email = email).first()
+#     if specialist is None:
+#         return jsonify({"msg":"Specialist not found"}), 404
+#     valid_password = bcrypt.check_password_hash(specialist.password, password)
+#     if valid_password is False:
+#         return jsonify ({"msg": "invalidad password"}), 401
+#     access_token = create_access_token(identity=email)
+#     return jsonify(access_token=access_token), 200
+
+
+
+
+
+@api.route("/loginSpecialist", methods=["POST"])
+def loginSpecilist():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    specialist = Specialist.query.filter_by(email=email).first()
+    if specialist is None:
+        return jsonify({"msg": "user not found"}), 404
+    # if email != specialist.email or password != specialist.password:
+        # return jsonify({"msg": "Bad email or password"}), 401
+        
+    if not bcrypt.check_password_hash(specialist.password, password):
+        return jsonify({"msg":"La contraseña no es correcta"}), 401
+
+
+    access_token = create_access_token(identity=specialist.email)
+    return jsonify(access_token=access_token), 200
+
 
 @api.route('/especialista/<int:id>', methods=['PUT'])
 def update_especialista(id):

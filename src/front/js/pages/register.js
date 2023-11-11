@@ -37,7 +37,7 @@ export const Register = props => {
     const handleSave = async (especialistaData) => {
         console.log(especialistaData);
         try {
-            const resp = await fetch('https://urban-disco-6j66wpx6jprc4rr6-3001.app.github.dev/api/especialista', {
+            const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/admin/specialist/', {
                 method: "POST",
                 body: JSON.stringify(especialistaData),
                 headers: { "Content-Type": "application/json" },
