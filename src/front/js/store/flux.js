@@ -154,37 +154,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			closeErrorlogin: () =>{
 				setStore({openError:"none"});
 			},
-			// exampleFunction: () => {
-			// 	getActions().changeColor(0, "green");
-			// },
-
-			// getMessage: async () => {
-			// 	try {
-			// 		// fetching data from the backend
-			// 		const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-			// 		const data = await resp.json()
-			// 		setStore({ message: data.message })
-			// 		// don't forget to return something, that is how the async resolves
-			// 		return data;
-			// 	} catch (error) {
-			// 		console.log("Error loading message from backend", error)
-			// 	}
-			// },
-			// changeColor: (index, color) => {
-			// 	//get the store
-			// 	const store = getStore();
-
-			// 	//we have to loop the entire demo array to look for the respective index
-			// 	//and change its color
-			// 	const demo = store.demo.map((elm, i) => {
-			// 		if (i === index) elm.background = color;
-			// 		return elm;
-			// 	});
-
-			// 	//reset the global store
-			// 	setStore({ demo: demo });
-			// },
-
 			GetProjects: () => {
 				
 				const token = localStorage.getItem('tokenadmin');
@@ -357,7 +326,58 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("token");
 				setStore({ session: false });
 
+			},
+			// ACÁ TERMINA EL logout
+			eliminarEspecialista : async (id) => {
+				// Realizar una solicitud DELETE a la API para eliminar al especialista con el ID proporcionado.
+				let deleteUrl = `https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista/${id}`;
+				const token = localStorage.getItem('tokenadmin');
+				const store = getStore();
+				const allspecialist = store.allspecialist.filter((item) => item.id != id)
+				setStore({ allspecialist: allspecialist });
+
+				try {
+					let response = await fetch(deleteUrl, {
+						method: "DELETE",
+						headers: { 
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+					}});
+				
+					if (response.ok) {
+						console.log("realizado");
+					} else {
+						console.error("Error al eliminar al especialista");
+					}
+				} catch (error) {
+					console.error(error);
+				}
+			},
+			//ACÁ TERMINA EL delete especialista
+			putespecialist: async(id,data)=> {
+				const token = localStorage.getItem('tokenadmin');
+				try{
+					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/especialista'+"/"+ id, {
+						method:"PUT",
+						body: JSON.stringify(data),
+						headers:{
+							"Content-Type": "application/json",
+							'Authorization': `Bearer ${token}`
+						}
+					});
+					if (resp.ok) {
+						console.log ("realizado");	
+						
+					} else {
+						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+					}
+					
+				}catch (error){
+					console.error({error})
+					return
+				}
 			}
+			//ACÁ TERMINA EL put especialista
 		}
 	};
 };

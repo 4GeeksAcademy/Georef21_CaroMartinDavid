@@ -1,33 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const PerfilEspecialista = () => {
     const { store, actions } = useContext(Context);
-   
-
     
-
-    const eliminarEspecialista = async (id) => {
-        // Realizar una solicitud DELETE a la API para eliminar al especialista con el ID proporcionado.
-        let deleteUrl = `https://urban-disco-6j66wpx6jprc4rr6-3001.app.github.dev/api/especialista/${id}`;
-        try {
-            let response = await fetch(deleteUrl, {
-                method: "DELETE",
-            });
-            if (response.ok) {
-                // Es posible que desees mostrar un mensaje o actualizar la lista de especialistas después de la eliminación.
-                fetchEspecialista();
-            } else {
-                console.error("Error al eliminar al especialista");
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-
-
+  
     return (
         <div className="container">
             {store.allspecialist.map((item, index) => {
@@ -40,9 +18,10 @@ export const PerfilEspecialista = () => {
                             <h3>email: {item.email}</h3>
                             <h3>area_de_desempeno: {item.area_de_desempeno}</h3>
                             <h3>profesion: {item.profesion}</h3>
-                            <h3>password: {item.password}</h3>
-                            <button onClick={() => eliminarEspecialista(item.id)}>Eliminar</button>
-                            <button>Editar</button>
+                            <button onClick={() => actions.eliminarEspecialista(item.id)}>Eliminar</button>
+                            <Link to={`/registerespicialist/${item.id}`}>
+                                <button >Editar</button>
+                            </Link>
                         </div>
                         <Link to="/profileadmon">
 					    <button type="button" className="btn btn-outline-dark">Volver</button>

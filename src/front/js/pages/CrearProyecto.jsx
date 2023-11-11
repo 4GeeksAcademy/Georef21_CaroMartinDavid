@@ -26,7 +26,7 @@ export const CrearProyecto = () => {
         if (id) {
             actions.EditProject(id, data)
             actions.GetProjects()
-           
+            navigate("/profileadmon");
         }
         else {
             actions.CreateProject(data);

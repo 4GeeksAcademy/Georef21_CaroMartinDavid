@@ -126,6 +126,9 @@ def create_especialista():
     return jsonify({"msg": "Especialista creado con éxito", "id": nuevo_especialista.id}), 201
 
 @api.route('/especialista/<int:id>', methods=['PUT'])
+@jwt_required()
+@admin_required
+
 def update_especialista(id):
     id_admin = get_jwt_identity()
     # Obtén el especialista existente por su ID
@@ -144,16 +147,13 @@ def update_especialista(id):
         return jsonify({"msg": "Datos no proporcionados"}), 400
 
     # Actualiza los campos del especialista con los nuevos datos
-    especialista.nombre = data.get("nombre", especialista.nombre)
-    especialista.apellido = data.get("apellido", especialista.apellido)
-    especialista.email = data.get("email", especialista.email)
-    especialista.profesion = data.get("profesion", especialista.profesion)
-    especialista.area_de_desempeno = data.get("area_de_desempeno", especialista.area_de_desempeno)
-    especialista.password = data.get("password", especialista.password)
-
-    # Guarda los cambios en la base de datos
+    especialista.nombre = data.get("nombre")
+    especialista.apellido = data.get("apellido")
+    especialista.email = data.get("email")
+    especialista.profesion = data.get("profesion")
+    especialista.area_de_desempeno = data.get("area_de_desempeno")
+        # Guarda los cambios en la base de datos
     db.session.commit()
-
     return jsonify({"msg": "Especialista actualizado con éxito"}), 200
 
 @api.route('/especialista/<int:id>', methods=['DELETE'])
