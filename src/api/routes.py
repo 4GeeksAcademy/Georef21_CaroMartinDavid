@@ -84,6 +84,23 @@ def get_especialista():
     
     return jsonify(especialistas_serializados), 200
 
+# ACÁ EMPIEZA EL SIGN UP DE ESPECIALISTA
+
+@api.route('/especialistalog', methods=['GET'])
+@jwt_required()
+def especialista_logeado():
+    emailspecialist = get_jwt_identity()
+    # Supongamos que deseas obtener todos los especialistas de la base de datos
+    especialista = Specialist.query.filter_by(email=emailspecialist).first()
+    if not especialista:
+        return jsonify({"msg": "no existe este especialista"}), 404
+    results = especialista.serialize()
+    return jsonify(results), 200
+    # Convierte los objetos Specialist en un formato serializable
+
+  
+    
+   
 @api.route('/especialista', methods=['POST'])
 @jwt_required()
 @admin_required
@@ -107,6 +124,9 @@ def create_especialista():
     
     if Specialist.query.filter_by(email=email).first()is not None:
         return jsonify({"error": "El correo electronico ya esta registrado"}), 402
+    
+    secure_password=bcrypt.generate_password_hash(password,10).decode("utf-8")
+    print(secure_password)
     # Crea un nuevo objeto Specialist
     nuevo_especialista = Specialist(
 
@@ -115,7 +135,7 @@ def create_especialista():
         email=email,
         profesion=profesion,
         area_de_desempeno=area_de_desempeno,
-        password=password,
+        password=secure_password,
         administrator_id= id_admin
     )
     # Agrega el especialista a la base de datos

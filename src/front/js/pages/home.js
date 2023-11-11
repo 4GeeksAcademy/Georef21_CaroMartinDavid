@@ -11,7 +11,8 @@ export const Home = () => {
             <Link to="/admonlog">
 			    <button type="button" className="btn btn-primary m-3">Administrador</button>
             </Link>
-            <Link to="/perfilEspecialista">
+            
+            <Link to="/logSpecialist">
                 <button type="button" className="btn btn-primary m-3">Especialista</button>
             </Link>
 		</div>

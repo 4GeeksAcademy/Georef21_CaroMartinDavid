@@ -20,7 +20,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			administrator: {},
 			openError:"none",
 			openModalEliminar:"none",
-			session:false
+			session:false,
+			specialist: {},
+			sessionSpecialist: false
 		},
 
 		actions: {
@@ -30,18 +32,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const resp = await fetch('https://expert-guacamole-5ggrxjvr5p2vpq7-3001.app.github.dev/api/admon', {
 						method:"POST",
 						body: JSON.stringify(data),
-						headers:{"Content-Type": "application/json",},
+						headers: { "Content-Type": "application/json", },
 					});
 					if (resp.ok) {
-						console.log ("realizado");
-						return "realizado"						
+						console.log("realizado");
+						return "realizado"
 					} else {
-						const errordata = JSON.parse (await  resp.text())
-						if(resp.status === 400 && errordata.error === "El correo electronico ya esta registrado"){
+						const errordata = JSON.parse(await resp.text())
+						if (resp.status === 400 && errordata.error === "El correo electronico ya esta registrado") {
 							return errordata.error;
 						}
 					}
-				}catch (error){
+				} catch (error) {
 					console.log("Error en la solicitud POST:", error)
 					return "Error en la solicitud"
 				}
@@ -91,9 +93,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
-					
-				}catch (error){
-					console.error({error})
+
+				} catch (error) {
+					console.error({ error })
 					return
 				}
 			}, putadmin: async(id,data)=> {
@@ -115,9 +117,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
-					
-				}catch (error){
-					console.error({error})
+
+				} catch (error) {
+					console.error({ error })
 					return
 				}
 			},
@@ -133,8 +135,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 					if (resp.ok) {
-						console.log ("realizado");	
-						
+						console.log("realizado");
+
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
@@ -144,9 +146,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 			}
 			},
-			openErrorlogin:()=>{
-				console.log ("desdeflux modal error login")
-				setStore({openError: "flex"});
+			openErrorlogin: () => {
+				console.log("desdeflux modal error login")
+				setStore({ openError: "flex" });
 			},
 			closeErrorlogin: () =>{
 				setStore({openError:"none"});
