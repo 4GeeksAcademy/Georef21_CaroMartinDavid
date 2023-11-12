@@ -8,19 +8,24 @@ export const Proyectos = () => {
 
     return (
         <div className="mt-5">
+            {store.AllProjects.length==0 ? <h1>No tienes proyectos</h1>:
+            <>
+                {store.AllProjects.map((Projects, index) => {
+                    return (
+                        <div key={index}>
+                            <h1>{Projects.nameProject}</h1>
+                            <Link to={`/NuevoProyecto/${Projects.id}`}>
+                            <button>Editar</button></Link>
+                            <button onClick={() => actions.DeleteProject(Projects.id)}>Borrar</button>
+                        </div>
+                    );
 
-            {store.AllProjects.map((Projects, index) => {
-                return (
-                    <div key={index}>
-                        <h1>{Projects.nameProject}</h1>
-                        <Link to={`/NuevoProyecto/${Projects.id}`}>
-                        <button>Editar</button></Link>
-                        <button onClick={() => actions.DeleteProject(Projects.id)}>Borrar</button>
-                    </div>
-                );
+                })
+                }
+            </>
+        }
 
-            })
-            }
+
             <Link to="/profileadmon">
 					<button type="button" className="btn btn-outline-dark">Volver</button>
 			</Link>

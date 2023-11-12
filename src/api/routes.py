@@ -270,7 +270,7 @@ def delete_project(project_id):
     if not project:
         raise APIException('Proyecto no encontrado', status_code=404)
 
-    if project.admon_id == id_admin:
+    if project.admon_id != id_admin:
         raise APIException('No tienes permiso para eliminar este proyecto', status_code=403)
     
     db.session.delete(project)

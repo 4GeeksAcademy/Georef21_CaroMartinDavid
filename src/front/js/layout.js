@@ -16,7 +16,7 @@ import {NavbarPerfilAdmon} from "./component/navbarperfiladmon.js"
 import { NavbarEspecialista } from "./component/navbarEspecialista.js";
 import injectContext from "./store/appContext";
 import { VistaIncialEspecialista } from "./pages/vistaInicialEspecialista.js";
-
+import {PerfilEspecialista} from "./pages/perfilEspecialista.js"
 import { Footer } from "./component/footer";
 
 import { CrearProyecto } from "./pages/CrearProyecto.jsx";
@@ -53,6 +53,7 @@ const Layout = () => {
                         <Route element={<Proyectos />} path="/listaproyectos" />
                         <Route element={<CrearProyecto />} path="/nuevoproyecto/:id" />
                         <Route element={<VistaIncialEspecialista />} path="/vInicial" />
+                        <Route element={<PerfilEspecialista />} path="/perfilEspecialista" />
                     </Routes>
                     
                 </ScrollToTop>
