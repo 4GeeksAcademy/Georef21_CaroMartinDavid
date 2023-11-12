@@ -23,15 +23,17 @@ export const Administrator = () => {
 
 	useEffect(() => {
 		console.log("adminId:", adminId);
-        if(store.administrator.id==adminId){
-            // Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
-            	const adminToEdit = store.administrator;
-				if (adminToEdit) {
-					const formattedBirthday = format(new Date(adminToEdit.birthday), "yyyy-MM-dd");
-					adminToEdit.birthday = formattedBirthday;
-					setAdminData(adminToEdit);
+		if(adminId){
+			if(store.administrator.id==adminId){
+				// Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
+					const adminToEdit = store.administrator;
+					if (adminToEdit) {
+						const formattedBirthday = format(new Date(adminToEdit.birthday), "yyyy-MM-dd");
+						adminToEdit.birthday = formattedBirthday;
+						setAdminData(adminToEdit);
+					}
 				}
-			}
+		}
             
         
     }, [adminId, store.administrator]);
@@ -75,8 +77,7 @@ export const Administrator = () => {
 				if(edadadmin >= 18){
 					const respuesta = await actions.postadmin(adminregistro);
 					if (respuesta === "realizado"){
-						actions.getadmins();
-						navigate("/");
+						navigate("/admonlog");
 					}else if(respuesta === "El correo electronico ya esta registrado"){
 						seterror("El correo electronico ya esta registrado");
 						actions.openErrorlogin();
