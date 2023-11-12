@@ -390,7 +390,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//acá empieza loginspecialist
 			loginSpecialist: async (data) => {
 				try {
-					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/loginSpecialist', {
+					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/loginSpecialist', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -424,7 +424,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//acá empieza la función
 				getspecialist: async (tokenspecialist) => {
 					try {
-						const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/especialistalog', {
+						const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/especialistalog', {
 							method: "GET",
 							headers: { 'Authorization': 'Bearer ' + tokenspecialist }
 						});

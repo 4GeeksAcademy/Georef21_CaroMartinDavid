@@ -83,24 +83,7 @@ def get_especialista():
     especialistas_serializados = [especialista.serialize() for especialista in especialistas]
     
     return jsonify(especialistas_serializados), 200
-
-# ACÁ EMPIEZA EL SIGN UP DE ESPECIALISTA
-
-@api.route('/especialistalog', methods=['GET'])
-@jwt_required()
-def especialista_logeado():
-    emailspecialist = get_jwt_identity()
-    # Supongamos que deseas obtener todos los especialistas de la base de datos
-    especialista = Specialist.query.filter_by(email=emailspecialist).first()
-    if not especialista:
-        return jsonify({"msg": "no existe este especialista"}), 404
-    results = especialista.serialize()
-    return jsonify(results), 200
-    # Convierte los objetos Specialist en un formato serializable
-
-  
     
-   
 @api.route('/especialista', methods=['POST'])
 @jwt_required()
 @admin_required
