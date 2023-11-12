@@ -12,6 +12,41 @@
     align-items: center;
 }
 
-.admon{
-    display:flex;
+.admon {
+    display: flex;
 }
+
+/* .container {
+    border: 3px solid white;
+
+    background-color: white;
+
+    width: 400px;
+    height: 550px;
+
+    padding: auto;
+}
+
+.bg-primary {
+    --ct-bg-opacity: 1;
+    background-color: rgba(114, 124, 245, var(--ct-bg-opacity)) !important;
+    text-emphasis-color: white;
+
+}
+
+.account-pages {
+    background-color: rgb(195, 237, 240);
+    border-radius: 50%;
+    
+    margin-top: 00px;
+
+    margin-bottom: 0px;
+
+    margin-right: 400px;
+
+    margin-left: 400px;
+}
+
+.Administrador {
+    width: 400px;
+} */

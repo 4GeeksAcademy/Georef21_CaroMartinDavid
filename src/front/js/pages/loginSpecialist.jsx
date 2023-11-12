@@ -61,7 +61,15 @@ export const LoginSpecialist = () => {
                         <input type="password" onChange={infoSetData} name="password" required value={data.password} />
                     </div >
                     <button type="submit" className="btn btn-primary">Ingresar</button>
+                    
+                    <div>
+					<Link to="/">
+						<button type="button" className="btn btn-outline-dark">VolverInicio</button>
+					</Link></div>
+        		    
                     <Modal error={error} />
+
+                    
                 </form>
 
             </div>
