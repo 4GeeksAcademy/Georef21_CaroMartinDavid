@@ -331,6 +331,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ session: false });
 
 			},
+			logoutSpecialist: () => {
+				localStorage.removeItem("tokenspecialist");
+				setStore({ sessionSpecialist: false });
+
+			},
 			// ACÁ TERMINA EL logout
 			eliminarEspecialista : async (id) => {
 				// Realizar una solicitud DELETE a la API para eliminar al especialista con el ID proporcionado.
@@ -380,8 +385,65 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error({error})
 					return
 				}
-			}
+			},
 			//ACÁ TERMINA EL put especialista
+			//acá empieza loginspecialist
+			loginSpecialist: async (data) => {
+				try {
+					const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/loginSpecialist', {
+						method: "POST",
+						body: JSON.stringify(data),
+						headers: { "Content-Type": "application/json", },
+					});
+					if (resp.ok) {
+						console.log("realizado");
+
+						const dataresp = await resp.json();
+						if (resp.status === 200) {
+							const token = dataresp.access_token;
+							console.log(token)
+							localStorage.setItem("tokenspecialist", token);
+							const { getspecialist } = getActions();
+							getspecialist(token);
+							setStore({ sessionSpecialist: true });
+							return "autorizado";
+						}
+					} else {
+						const resperror = await resp.json();
+						console.error("Error al obtener datos de la API. Respuesta completa:", resperror);
+						return resperror
+					}
+
+				} catch (error) {
+					console.error({ error })
+
+				}
+
+			},
+			//acá termina loginspecialist
+				//acá empieza la función
+				getspecialist: async (tokenspecialist) => {
+					try {
+						const resp = await fetch('https://humble-succotash-qrwgx755w993x7p-3001.app.github.dev/api/especialistalog', {
+							method: "GET",
+							headers: { 'Authorization': 'Bearer ' + tokenspecialist }
+						});
+						if (resp.ok) {
+							console.log("realizado get specialist");
+							const specialist = await resp.json();
+							setStore({ specialist: specialist });
+							console.log(specialist);
+	
+						} else {
+							console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+						}
+	
+					} catch (error) {
+						console.error({ error })
+						return
+					}
+				}
+				//acá termina la función
 		}
 	};
 };

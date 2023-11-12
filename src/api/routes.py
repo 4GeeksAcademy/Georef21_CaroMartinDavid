@@ -339,9 +339,34 @@ def deleteadmins(id):
     db.session.commit()
     return jsonify({"msg":"Usuario eliminado"}), 201 
  
+@api.route('/especialistalog', methods=['GET'])
+@jwt_required()
+def especialista_logeado():
+    emailspecialist = get_jwt_identity()
+    # Supongamos que deseas obtener todos los especialistas de la base de datos
+    especialista = Specialist.query.filter_by(email=emailspecialist).first()
+    if not especialista:
+        return jsonify({"msg": "no existe este especialista"}), 404
+    results = especialista.serialize()
+    return jsonify(results), 200
+    # Convierte los objetos Specialist en un formato serializable
+
+@api.route("/loginSpecialist", methods=["POST"])
+def loginSpecilist():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    specialist = Specialist.query.filter_by(email=email).first()
+    if specialist is None:
+        return jsonify({"msg": "user not found"}), 404
+    # if email != specialist.email or password != specialist.password:
+        # return jsonify({"msg": "Bad email or password"}), 401
+        
+    if not bcrypt.check_password_hash(specialist.password, password):
+        return jsonify({"msg":"La contraseña no es correcta"}), 401
 
 
-
+    access_token = create_access_token(identity=specialist.email)
+    return jsonify(access_token=access_token), 200
 
     
 
