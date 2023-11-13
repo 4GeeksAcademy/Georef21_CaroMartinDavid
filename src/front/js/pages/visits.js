@@ -13,7 +13,7 @@ export const Visits = (props) => {
         specialist_id: "",
     });
     const [specialists, setSpecialists] = useState([]); // Estado para almacenar la lista de especialistas
-    
+
     const handleInputChange = (e) => {
         setVisitsData({
             ...VisitsData,
@@ -23,7 +23,7 @@ export const Visits = (props) => {
 
     const handleSave = async () => {
         try {
-            const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/visits', {
+            const resp = await fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/visits', {
                 method: "POST",
                 body: JSON.stringify(VisitsData),
                 headers: { "Content-Type": "application/json" },

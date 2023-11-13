@@ -7,7 +7,7 @@ export const PerfilVisitas = () => {
     const [visitas, setVisitas] = useState([]);
 
     const fetchVisitas = async () => {
-        let baseUrl = `https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/visits`;
+        let baseUrl = `https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/visits`;
         try {
             let response = await fetch(baseUrl);
             if (!response.ok) return response.status;
@@ -21,7 +21,7 @@ export const PerfilVisitas = () => {
     };
 
     const eliminarVisita = async (id) => {
-        let deleteUrl = `https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/visits/${id}`;
+        let deleteUrl = `https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/visits/${id}`;
         try {
             let response = await fetch(deleteUrl, {
                 method: "DELETE",

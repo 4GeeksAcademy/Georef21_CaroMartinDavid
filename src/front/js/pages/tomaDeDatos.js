@@ -9,8 +9,8 @@ export const DataCaptureRegister = () => {
         description: "",
         image: "",
         georeferencing: "",
-        visit_id: "", 
-        specialist_id: "" 
+        visit_id: "",
+        specialist_id: ""
     });
 
     const handleInputChange = (e) => {
@@ -24,7 +24,7 @@ export const DataCaptureRegister = () => {
         console.log(dataCaptureData);
 
         try {
-            const response = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/datacapture', {
+            const response = await fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/datacapture', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,11 +33,9 @@ export const DataCaptureRegister = () => {
             });
 
             if (response.ok) {
-                // Mostrar una alerta cuando la respuesta es exitosa
                 alert("DataCapture creado con éxito");
                 console.log("DataCapture creado con éxito");
 
-                // Restablecer los campos a sus valores iniciales
                 setDataCaptureData({
                     title: "",
                     description: "",
@@ -63,8 +61,8 @@ export const DataCaptureRegister = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label htmlFor="description" className="form-label">Descripción</label>
+                    <textarea className="form-control" id="description" name="description" value={dataCaptureData.description} onChange={handleInputChange} rows="3"></textarea>
                 </div>
 
                 <div className="mb-3">
@@ -77,14 +75,23 @@ export const DataCaptureRegister = () => {
                     <input type="text" className="form-control" id="georeferencing" name="georeferencing" value={dataCaptureData.georeferencing} onChange={handleInputChange} />
                 </div>
 
+                <div className="mb-3">
+                    <label htmlFor="visit_id" className="form-label">ID de la Visita</label>
+                    <input type="text" className="form-control" id="visit_id" name="visit_id" value={dataCaptureData.visit_id} onChange={handleInputChange} />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="specialist_id" className="form-label">ID del Especialista</label>
+                    <input type="text" className="form-control" id="specialist_id" name="specialist_id" value={dataCaptureData.specialist_id} onChange={handleInputChange} />
+                </div>
+
                 <button className="btn btn-primary" onClick={handleSave}>
                     Save
                 </button>
 
-                {/* Agrega un botón que redirija a otra ruta
-                <Link to="/datacaptures" className="btn btn-secondary">
-                    DataCaptures
-                </Link> */}
+                <Link to="/perfilVisitas" className="btn btn-secondary">
+                    Visitas
+                </Link>
             </div>
         </div>
     );

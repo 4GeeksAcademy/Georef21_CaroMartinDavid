@@ -26,7 +26,7 @@ export const Register = props => {
     const handleSave = async (especialistaData) => {
         console.log(especialistaData);
         try {
-            const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/especialista', {
+            const resp = await fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/especialista', {
                 method: "POST",
                 body: JSON.stringify(especialistaData),
                 headers: { "Content-Type": "application/json" },

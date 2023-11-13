@@ -25,7 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Use getActions to call a function within a fuction
 			postadmin: async (data) => {
 				try {
-					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/admon', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}, getadmins: async () => {
 				try {
-					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/admon', {
 						method: "GET",
 						headers: { "Content-Type": "application/json", },
 					});
@@ -66,7 +66,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}, putadmin: async (id, data) => {
 
 				try {
-					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon' + "/" + id, {
+					const resp = await fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/admon' + "/" + id, {
 						method: "PUT",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -93,7 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			delete: async (id) => {
 
 				try {
-					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon' + "/" + id, {
+					const resp = await fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/admon' + "/" + id, {
 						method: "DELETE",
 						headers: { "Content-Type": "application/json", },
 					});
@@ -156,7 +156,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 
 				};
-				fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error(`HTTP error! Status: ${response.status}`);
@@ -191,7 +191,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(data)
 				};
-				fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						// if (!response.ok) {
 						// 	throw new Error(`HTTP error! Status: ${response.status}`);
@@ -229,7 +229,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				};
 
-				fetch(`https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch(`https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -252,7 +252,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(data)
 				};
 
-				fetch(`https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch(`https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -267,7 +267,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ACÁ TERMINA EL PUT
 
 			loadEspecialista: () => {
-				fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/especialista')
+				fetch('https://opulent-rotary-phone-4x446rp4x493j7r7-3001.app.github.dev/api/especialista')
 					.then((response) => response.json())
 					.then((data) => {
 						// console.log(data)
