@@ -22,7 +22,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			openModalEliminar:"none",
 			session:false,
 			specialist: {},
-			sessionSpecialist: false
+			sessionSpecialist: false, 
+			location: {}
 		},
 
 		actions: {
@@ -442,8 +443,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error({ error })
 						return
 					}
-				}
+				},
 				//acá termina la función
+
+				// postgeolocalizacion
+				location: async () => {
+					try {
+						if ("geolocation" in navigator) {
+							navigator.geolocation.getCurrentPosition(async (position) => {
+								const { latitude, longitude } = position.coords;
+								const location = {latitude, longitude}
+								setStore({ location: location });
+								console.log(location);
+								console.log("Ubicación:", latitude, longitude);
+				
+								// Aquí puedes realizar alguna acción con la ubicación obtenida
+							});
+						} else {
+							console.error("Geolocalización no está disponible");
+						}
+					} catch (error) {
+						console.error("Error al obtener la ubicación:", error);
+					}
+				}
+				
+				// aqui termina el post geolocalizacion
 		}
 	};
 };

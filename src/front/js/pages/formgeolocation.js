@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import credentials from './credentials';
 import MapComponent from './map';
@@ -8,6 +8,9 @@ export const FormGeolocation = () => {
 	const { store, actions } = useContext(Context);
 	const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}`;
 
+	useEffect(() => {
+       actions.location();
+    }, []);
 	return (
 		<div className = "conteinerMap">
 			<MapComponent
@@ -16,6 +19,7 @@ export const FormGeolocation = () => {
 				mapElement={<div style={{ height: '100%' }} />}
 				loadingElement={<p>Cargando</p>}
 			/>
+			
 		</div>
 	);
 };
