@@ -465,9 +465,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} catch (error) {
 						console.error("Error al obtener la ubicación:", error);
 					}
-				}
+				},
 				
 				// aqui termina el post geolocalizacion
+				setLocation: (coord) =>{
+					const location = coord
+					setStore({ location: location });
+
+				}
+
+
+				//aqui acaba funcion setLocation
 		}
 	};
 };
