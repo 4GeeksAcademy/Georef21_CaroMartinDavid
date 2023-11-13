@@ -73,6 +73,7 @@
 		]
 	},
 	"dependencies": {
+		"@googlemaps/js-api-loader": "^1.16.2",
 		"axios": "^1.6.0",
 		"bootstrap": "^5.3.2",
 		"cors": "^2.8.5",
@@ -83,7 +84,6 @@
 		"react-icons": "^4.11.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
-		"restify": "^11.1.0",
-		"react-google-maps":"*"
+		"restify": "^11.1.0"
 	}
 }
