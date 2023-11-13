@@ -135,7 +135,6 @@ def update_project(project_id):
     db.session.commit()
     return jsonify({"msg": "Proyecto actualizado satisfactoriamente"}), 200
 
-# @api.route('/Project/<string:nameProject>', methods=['GET'])
 
 @api.route('/Project/<int:project_id>', methods=['DELETE'])
 def delete_project(project_id):
@@ -237,6 +236,62 @@ def create_visit():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-    
+@app.route('/visits/<int:visit_id>', methods=['PUT'])
+def update_visit(visit_id):
+    try:
+        # Obtener la visita existente por ID
+        visit = Visit.query.get(visit_id)
+
+        # Si la visita no existe, devolver un error 404
+        if not visit:
+            return jsonify({"error": "Visit not found"}), 404
+
+        # Obtener los datos JSON de la solicitud
+        data = request.get_json()
+
+        # Actualizar los campos relevantes
+        if 'scope' in data:
+            visit.scope = data['scope']
+        if 'date' in data:
+            visit.date = data['date']
+        if 'project_id' in data:
+            visit.project_id = data['project_id']
+        if 'specialist_id' in data:
+            visit.specialist_id = data['specialist_id']
+
+        # Guardar los cambios en la base de datos
+        db.session.commit()
+
+        # Devolver la visita actualizada
+        response = jsonify(visit.serialize())
+        response.status_code = 200
+        response.headers['Location'] = url_for('get_visits', visit_id=visit.id)
+        return response
+
+    except Exception as e:
+        # Manejar errores de la base de datos u otras excepciones
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/visits/<int:visit_id>', methods=['DELETE'])
+def delete_visit(visit_id):
+    try:
+        visit = Visit.query.get(visit_id)
+
+        # Si la visita no existe, devolver un error 404
+        if not visit:
+            return jsonify({"error": "Visit not found"}), 404
+
+        db.session.delete(visit)
+        db.session.commit()
+
+        # Devolver una respuesta exitosa
+        response = jsonify({"message": "Visit deleted successfully"})
+        response.status_code = 200
+        return response
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
    
