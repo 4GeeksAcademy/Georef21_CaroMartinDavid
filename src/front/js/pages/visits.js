@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import axios from "axios";
 
 export const Visits = (props) => {
     const { store, actions } = useContext(Context);
@@ -14,17 +13,7 @@ export const Visits = (props) => {
         specialist_id: "",
     });
     const [specialists, setSpecialists] = useState([]); // Estado para almacenar la lista de especialistas
-
-    useEffect(() => {
-        // Obtener la lista de especialistas desde tu API
-        fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/especialista')
-            .then((response) => response.json())
-            .then((data) => {
-                setSpecialists(data);
-            })
-            .catch((error) => console.error(error));
-    }, []);
-
+    
     const handleInputChange = (e) => {
         setVisitsData({
             ...VisitsData,
@@ -34,7 +23,7 @@ export const Visits = (props) => {
 
     const handleSave = async () => {
         try {
-            const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/visits', {
+            const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/visits', {
                 method: "POST",
                 body: JSON.stringify(VisitsData),
                 headers: { "Content-Type": "application/json" },
@@ -58,7 +47,8 @@ export const Visits = (props) => {
             console.error({ error });
         }
     };
-
+    console.log(specialists)
+    console.log(store.especialista)
     return (
         <div className="center-content">
             <div className="content-container">
@@ -78,6 +68,7 @@ export const Visits = (props) => {
                 </div>
 
                 <div className="mb-3">
+                    {specialists.map((item, index) => <p key={index}>{item.id}</p>)}
                     <label htmlFor="specialist_id" className="form-label">Especialista</label>
                     <select
                         className="form-select"
@@ -87,16 +78,20 @@ export const Visits = (props) => {
                         onChange={handleInputChange}
                     >
                         <option value="">Selecciona un especialista</option>
-                        {specialists.map((specialist) => (
-                            <option key={specialist.id} value={specialist.id}>
-                                {specialist.name}
+                        {store.especialista.map((specialist, index) => (
+                            <option key={index} value={specialist.id}>
+                                Id: {specialist.id} | Nombre: {specialist.nombre} | Email: {specialist.email}
                             </option>
                         ))}
                     </select>
+
                 </div>
                 <button className="btn btn-primary" onClick={handleSave}>
                     Save
                 </button>
+                <Link to="/ListaProyectos" className="btn btn-secondary">
+                    Proyectos
+                </Link>
             </div>
         </div>
     );

@@ -133,8 +133,9 @@ def update_project(project_id):
     project.location = location
 
     db.session.commit()
-
     return jsonify({"msg": "Proyecto actualizado satisfactoriamente"}), 200
+
+# @api.route('/Project/<string:nameProject>', methods=['GET'])
 
 @api.route('/Project/<int:project_id>', methods=['DELETE'])
 def delete_project(project_id):

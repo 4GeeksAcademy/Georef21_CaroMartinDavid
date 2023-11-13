@@ -37,7 +37,7 @@ export const Register = props => {
     const handleSave = async (especialistaData) => {
         console.log(especialistaData);
         try {
-            const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/especialista', {
+            const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/especialista', {
                 method: "POST",
                 body: JSON.stringify(especialistaData),
                 headers: { "Content-Type": "application/json" },
@@ -46,7 +46,7 @@ export const Register = props => {
                 // Mostrar una alerta cuando la respuesta es exitosa
                 alert("Especialista creado con éxito");
                 console.log("Especialista creado con éxito");
-    
+
                 // Restablecer los campos a sus valores iniciales
                 setEspecialistaData({
                     nombre: "",
@@ -64,8 +64,8 @@ export const Register = props => {
             return;
         }
     };
-    
-    
+
+
     return (
         <div className="center-content">
             <div className="content-container">

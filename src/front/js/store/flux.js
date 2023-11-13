@@ -17,103 +17,104 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			AllProjects: [],
 			administrators: [],
-			openError:"none"
+			especialista: [],
+			openError: "none"
 		},
 
 		actions: {
 			// Use getActions to call a function within a fuction
-			postadmin: async(data)=> {
-				try{
-					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon', {
-						method:"POST",
+			postadmin: async (data) => {
+				try {
+					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon', {
+						method: "POST",
 						body: JSON.stringify(data),
-						headers:{"Content-Type": "application/json",},
+						headers: { "Content-Type": "application/json", },
 					});
 					if (resp.ok) {
-						console.log ("realizado");
-						return "realizado"						
+						console.log("realizado");
+						return "realizado"
 					} else {
-						const errordata = JSON.parse (await  resp.text())
-						if(resp.status === 400 && errordata.error === "El correo electronico ya esta registrado"){
+						const errordata = JSON.parse(await resp.text())
+						if (resp.status === 400 && errordata.error === "El correo electronico ya esta registrado") {
 							return errordata.error;
 						}
 					}
-				}catch (error){
+				} catch (error) {
 					console.log("Error en la solicitud POST:", error)
 					return "Error en la solicitud"
 				}
-			}, getadmins: async()=> {
-				try{
-					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon', {
-						method:"GET",
-						headers:{"Content-Type": "application/json",},
+			}, getadmins: async () => {
+				try {
+					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon', {
+						method: "GET",
+						headers: { "Content-Type": "application/json", },
 					});
 					if (resp.ok) {
-						console.log ("realizado");	
+						console.log("realizado");
 						const administrators = await resp.json();
 						setStore({ administrators: administrators });
-            			console.log(administrators);
+						console.log(administrators);
 
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
-					
-				}catch (error){
-					console.error({error})
+
+				} catch (error) {
+					console.error({ error })
 					return
 				}
-			}, putadmin: async(id,data)=> {
-				
-				try{
-					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon'+"/"+ id, {
-						method:"PUT",
+			}, putadmin: async (id, data) => {
+
+				try {
+					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon' + "/" + id, {
+						method: "PUT",
 						body: JSON.stringify(data),
-						headers:{"Content-Type": "application/json",},
+						headers: { "Content-Type": "application/json", },
 					});
 					if (resp.ok) {
-						console.log ("realizado");	
-						
+						console.log("realizado");
+
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
-					
-				}catch (error){
-					console.error({error})
+
+				} catch (error) {
+					console.error({ error })
 					return
 				}
 			},
-			adminDelete:(id)=>{
+			adminDelete: (id) => {
 				const store = getStore();
-				const actions=getActions();
-				const administrators = store.administrators.filter((admin)=>admin.id!=id);
+				const actions = getActions();
+				const administrators = store.administrators.filter((admin) => admin.id != id);
 				setStore({ administrators: administrators });
 				actions.delete(id)
 			},
-			delete: async(id)=>{
-				
-				try{
-					const resp = await fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/admon'+"/"+ id, {
-						method:"DELETE",
-						headers:{"Content-Type": "application/json",},
+			delete: async (id) => {
+
+				try {
+					const resp = await fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/admon' + "/" + id, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json", },
 					});
 					if (resp.ok) {
-						console.log ("realizado");	
-						
+						console.log("realizado");
+
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 					}
-					
-				}catch (error){
-					console.error({error})
-					
-			}
+
+				} catch (error) {
+					console.error({ error })
+
+				}
 			},
-			openErrorlogin:()=>{
-				console.log ("desdeflux modal error login")
-				setStore({openError: "flex"});
+			openErrorlogin: () => {
+				console.log("desdeflux modal error login")
+				setStore({ openError: "flex" });
 			},
-			closeErrorlogin: () =>{
-				setStore({openError:"none"});
+			closeErrorlogin: () => {
+				setStore({ openError: "none" });
 			},
 			// exampleFunction: () => {
 			// 	getActions().changeColor(0, "green");
@@ -155,7 +156,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 
 				};
-				fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project', requestOptions)
+				fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error(`HTTP error! Status: ${response.status}`);
@@ -190,7 +191,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(data)
 				};
-				fetch('https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project', requestOptions)
+				fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						// if (!response.ok) {
 						// 	throw new Error(`HTTP error! Status: ${response.status}`);
@@ -228,7 +229,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				};
 
-				fetch(`https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch(`https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -251,7 +252,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(data)
 				};
 
-				fetch(`https://fluffy-dollop-xj66x4gjrxgcvrww-3001.preview.app.github.dev/api/Project` + "/" + id, requestOptions)
+				fetch(`https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/Project` + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -265,7 +266,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			// ACÁ TERMINA EL PUT
 
+			loadEspecialista: () => {
+				fetch('https://studious-potato-ww66x4qwvg5fv4xp-3001.app.github.dev/api/especialista')
+					.then((response) => response.json())
+					.then((data) => {
+						// console.log(data)
+						const especialista = data
+						setStore({ especialista: especialista });
+						console.log(especialista);
 
+					})
+					.catch((error) => console.error(error));
+
+			}
 		}
 	};
 };
