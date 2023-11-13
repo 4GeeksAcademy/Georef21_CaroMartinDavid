@@ -9,8 +9,9 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { PerfilEspecialista} from "./pages/perfilEspecialista";
-import { Register } from "./pages/register"; // Importa el componente de registro que creaste
+import { Register } from "./pages/register";
 import {Visits } from "./pages/visits.js";
+
 
 import injectContext from "./store/appContext";
 
@@ -20,6 +21,8 @@ import { Footer } from "./component/footer";
 import { CrearProyecto } from "./pages/CrearProyecto.jsx";
 import { Proyecto } from "./pages/Proyecto.jsx";
 import { Proyectos } from "./pages/Proyectos.jsx";
+import { DataCaptureRegister } from "./pages/tomaDeDatos.js";
+import { PerfilVisitas } from "./pages/verVisitas.js";
 const Layout = () => {
     const basename = process.env.BASENAME || "";
 
@@ -39,6 +42,8 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Visits />} path="/visit" />
+                        <Route element={<PerfilVisitas />} path="/perfilVisitas" />
+                        <Route element={<DataCaptureRegister />} path="/datacapture" />
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" /> 
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CrearProyecto />} path="/NuevoProyecto" />

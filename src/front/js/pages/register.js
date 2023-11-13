@@ -16,17 +16,6 @@ export const Register = props => {
         password: ""
     });
 
-    // useEffect(() => {
-    //     axios.get("http://127.0.0.1:3001/api/especialista")
-    //         .then(response => {
-
-    //             setEspecialistaData(response.data);
-    //         })
-    //         .catch(error => {
-
-    //         });
-    // }, []);
-
     const handleInputChange = (e) => {
         setEspecialistaData({
             ...especialistaData,

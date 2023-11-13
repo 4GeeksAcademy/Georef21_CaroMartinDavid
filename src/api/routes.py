@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Specialist, Administrator, Project, Visit
+from api.models import db, User, Specialist, Administrator, Project, Visit, DataCapture
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -294,4 +294,92 @@ def delete_visit(visit_id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-   
+@api.route('/datacapture', methods=['GET'])
+def get_data_captures():
+    data_captures = DataCapture.query.all()
+    serialized_data_captures = [data_capture.serialize() for data_capture in data_captures]
+    return jsonify(serialized_data_captures), 200
+
+@api.route('/datacapture', methods=['POST'])
+def create_data_capture():
+    # Obtén los datos del DataCapture desde la solicitud
+    data = request.json
+
+    if not data:
+        return jsonify({"message": "Datos no proporcionados"}), 400
+
+    # Crea una nueva instancia de DataCapture
+    nuevo_data_capture = DataCapture(
+        title=data.get("title"),
+        description=data.get("description"),
+        image=data.get("image"),
+        georeferencing=data.get("georeferencing"),
+        visit_id=data.get("visit_id"),
+        specialist_id=data.get("specialist_id")
+    )
+
+    # Agrega la nueva instancia a la base de datos
+    db.session.add(nuevo_data_capture)
+    
+    try:
+        # Intenta realizar la operación de commit
+        db.session.commit()
+
+        # Devuelve una respuesta con el nuevo DataCapture creado
+        return jsonify({"message": "DataCapture creado con éxito", "id": nuevo_data_capture.id}), 201
+    except Exception as e:
+        # Maneja los errores de la base de datos y realiza un rollback
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/datacapture/<int:data_capture_id>', methods=['PUT'])
+def update_data_capture(data_capture_id):
+    # Obtén la instancia existente de DataCapture por su ID
+    data_capture = DataCapture.query.get(data_capture_id)
+
+    # Comprueba si la instancia existe
+    if data_capture is None:
+        return jsonify({"message": "DataCapture no encontrado"}), 404
+
+    # Obtén los datos actualizados desde la solicitud
+    data = request.json
+
+    if not data:
+        return jsonify({"message": "Datos no proporcionados"}), 400
+
+    # Actualiza los campos del DataCapture con los nuevos datos
+    data_capture.title = data.get("title", data_capture.title)
+    data_capture.description = data.get("description", data_capture.description)
+    data_capture.image = data.get("image", data_capture.image)
+    data_capture.georeferencing = data.get("georeferencing", data_capture.georeferencing)
+    data_capture.visit_id = data.get("visit_id", data_capture.visit_id)
+    data_capture.specialist_id = data.get("specialist_id", data_capture.specialist_id)
+
+    # Guarda los cambios en la base de datos
+    try:
+        db.session.commit()
+        return jsonify({"message": "DataCapture actualizado con éxito"}), 200
+    except Exception as e:
+        # Maneja los errores de la base de datos y realiza un rollback
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/datacapture/<int:data_capture_id>', methods=['DELETE'])
+def delete_data_capture(data_capture_id):
+    # Obtén la instancia de DataCapture por su ID
+    data_capture = DataCapture.query.get(data_capture_id)
+
+    # Comprueba si la instancia existe
+    if data_capture is None:
+        return jsonify({"message": "DataCapture no encontrado"}), 404
+
+    # Elimina la instancia de la base de datos
+    try:
+        db.session.delete(data_capture)
+        db.session.commit()
+        return jsonify({"message": "DataCapture eliminado con éxito"}), 200
+    except Exception as e:
+        # Maneja los errores de la base de datos y realiza un rollback
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
