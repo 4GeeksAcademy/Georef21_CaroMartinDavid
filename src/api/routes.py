@@ -236,7 +236,7 @@ def create_visit():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-@app.route('/visits/<int:visit_id>', methods=['PUT'])
+@api.route('/visits/<int:visit_id>', methods=['PUT'])
 def update_visit(visit_id):
     try:
         # Obtener la visita existente por ID
@@ -273,7 +273,7 @@ def update_visit(visit_id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-@app.route('/visits/<int:visit_id>', methods=['DELETE'])
+@api.route('/visits/<int:visit_id>', methods=['DELETE'])
 def delete_visit(visit_id):
     try:
         visit = Visit.query.get(visit_id)

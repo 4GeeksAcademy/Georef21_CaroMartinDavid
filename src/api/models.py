@@ -105,4 +105,28 @@ class Visit(db.Model):
             "specialist_id": self.specialist_id
         }
 
+class DataCapture(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(255), nullable=False)  # Puedes ajustar el tipo de campo según tus necesidades
+    georeferencing = db.Column(db.String(120), nullable=False)
+    visit_id = db.Column(db.Integer, db.ForeignKey('visit.id'), nullable=False)
+    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=False)
 
+    visit = db.relationship('Visit', backref=db.backref('data_captures', lazy=True))
+    specialist = db.relationship('Specialist', backref=db.backref('data_captures', lazy=True))
+
+    def __repr__(self):
+        return f'<DataCapture {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "image": self.image,
+            "georeferencing": self.georeferencing,
+            "visit_id": self.visit_id,
+            "specialist_id": self.specialist_id
+        }
