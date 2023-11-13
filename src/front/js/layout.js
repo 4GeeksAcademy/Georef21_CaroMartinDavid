@@ -18,6 +18,7 @@ import injectContext from "./store/appContext";
 import { VistaIncialEspecialista } from "./pages/vistaInicialEspecialista.js";
 import {PerfilEspecialista} from "./pages/perfilEspecialista.js"
 import { Footer } from "./component/footer";
+import {FormGeolocation} from "./pages/formgeolocation.js"
 
 import { CrearProyecto } from "./pages/CrearProyecto.jsx";
 import { Proyecto } from "./pages/Proyecto.jsx";
@@ -35,7 +36,8 @@ const Layout = () => {
                    <NavbarPerfilAdmon/>
                    <NavbarEspecialista/>
                     <Routes>
-                        <Route element={<Home />} path="/" />
+                        {/* <Route element={<Home />} path="/" /> */}
+                        <Route element={<FormGeolocation/>} path="/" />
                         <Route element={<LoginAdministrator/>} path="/admonlog" />
                         <Route element={<LoginSpecialist/>} path="/logSpecialist" />
                         <Route element={<Administrator />} path="/admon" />

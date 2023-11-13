@@ -1,18 +1,23 @@
-import React , { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import { Modal } from "../component/modal";
+import credentials from './credentials';
+import MapComponent from './map';
+import "../../styles/home.css";
 
-export const Formgeolocation= () => {
+export const FormGeolocation = () => {
 	const { store, actions } = useContext(Context);
-    const navigate = useNavigate();
-    const [error, seterror]= useState("");
-    const { adminId } = useParams();
-
+	const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}`;
 
 	return (
-		<div className="map">
-			
+		<div className = "conteinerMap">
+			<MapComponent
+				googleMapURL={mapURL}
+				containerElement={<div style={{ height: '600px', width:'600px' }} />}
+				mapElement={<div style={{ height: '100%' }} />}
+				loadingElement={<p>Cargando</p>}
+			/>
 		</div>
 	);
 };
+
+export default FormGeolocation;
