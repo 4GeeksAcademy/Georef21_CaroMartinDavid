@@ -8,7 +8,7 @@ export const Home = () => {
 
 	return (
 		<section className="pt-4 pt-md-11">
-			
+
 			<div className="container">
 				<div class="row align-items-center">
 					<div class="col-12 col-md-5 col-lg-6 order-md-2">
@@ -32,10 +32,12 @@ export const Home = () => {
 							<button type="button" className="btn btn-primary btn-lg m-3">Especialista</button>
 						</Link>
 					</div>
+
 				</div>
-				
+
+				<footer className="footer footer-alt min-vh-10">2023 © Georef21 - Proyecto Final</footer>
 			</div>
-			
+
 		</section>
 	);
 };

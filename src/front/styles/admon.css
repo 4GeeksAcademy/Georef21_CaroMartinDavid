@@ -16,16 +16,16 @@
     display: flex;
 }
 
-/* .container {
+.containerAdmon {
     border: 3px solid white;
-
     background-color: white;
-
-    width: 400px;
+    width: 404px;
     height: 550px;
-
     padding: auto;
+    flex-direction: column;
+    align-items: center;
 }
+
 
 .bg-primary {
     --ct-bg-opacity: 1;
@@ -35,18 +35,36 @@
 }
 
 .account-pages {
-    background-color: rgb(195, 237, 240);
+    background-color: rgb(237, 248, 249);
     border-radius: 50%;
-    
+
     margin-top: 00px;
-
     margin-bottom: 0px;
-
     margin-right: 400px;
-
     margin-left: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .Administrador {
     width: 400px;
-} */
+}
+
+.account-pages1 {
+    background-color: rgb(194, 245, 248);
+    border-radius: 90%;
+}
+
+.datos {
+    width: 100%;
+    justify-content: center;
+}
+
+.botonVolver {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 50px;
+
+    }
