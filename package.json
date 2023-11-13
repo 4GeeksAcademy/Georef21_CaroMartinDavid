@@ -83,6 +83,7 @@
 		"react-icons": "^4.11.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
-		"restify": "^11.1.0"
+		"restify": "^11.1.0",
+		"react-google-maps":"*"
 	}
 }
