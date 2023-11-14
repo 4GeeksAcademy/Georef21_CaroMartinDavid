@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Specialist, Administrator, Project
+from api.models import db, User, Specialist, Administrator, Project, Visit, DataCapture
 from api.utils import generate_sitemap, APIException
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager,  get_jwt_identity
@@ -242,6 +242,7 @@ def update_project(project_id):
     db.session.commit()
     return jsonify({"msg": "Proyecto actualizado satisfactoriamente"}), 200
 
+
 @api.route('/Project/<int:project_id>', methods=['DELETE'])
 @jwt_required()
 @admin_required
@@ -321,35 +322,193 @@ def deleteadmins(id):
     db.session.delete(deleteadmin)
     db.session.commit()
     return jsonify({"msg":"Usuario eliminado"}), 201 
- 
-@api.route('/especialistalog', methods=['GET'])
-@jwt_required()
-def especialista_logeado():
-    emailspecialist = get_jwt_identity()
-    # Supongamos que deseas obtener todos los especialistas de la base de datos
-    especialista = Specialist.query.filter_by(email=emailspecialist).first()
-    if not especialista:
-        return jsonify({"msg": "no existe este especialista"}), 404
-    results = especialista.serialize()
-    return jsonify(results), 200
-    # Convierte los objetos Specialist en un formato serializable
+@api.route('/visits', methods=['GET'])
+def get_visits():
+    visits = Visit.query.all()
+    return jsonify([visit.serialize() for visit in visits]), 200
 
-@api.route("/loginSpecialist", methods=["POST"])
-def loginSpecilist():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    specialist = Specialist.query.filter_by(email=email).first()
-    if specialist is None:
-        return jsonify({"msg": "user not found"}), 404
-    # if email != specialist.email or password != specialist.password:
-        # return jsonify({"msg": "Bad email or password"}), 401
-        
-    if not bcrypt.check_password_hash(specialist.password, password):
-        return jsonify({"msg":"La contraseña no es correcta"}), 401
+@api.route('/visits', methods=['POST'])
+def create_visit():
+    data = request.get_json()
+
+    # Data Validation
+    required_fields = ['scope', 'date', 'project_id', 'specialist_id']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"error": f"Field '{field}' is required"}), 400
+
+    try:
+        new_visit = Visit(
+            scope=data['scope'],
+            date=data['date'],
+            project_id=data['project_id'],
+            specialist_id=data['specialist_id']
+        )
+
+        db.session.add(new_visit)
+        db.session.commit()
+
+        # Return 201 Created with the location of the new visit
+        response = jsonify(new_visit.serialize())
+        response.status_code = 201
+        response.headers['Location'] = url_for('api.get_visits', visit_id=new_visit.id)
+        return response
+
+    except Exception as e:
+        # Handle database errors or other exceptions
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/visits/<int:visit_id>', methods=['PUT'])
+def update_visit(visit_id):
+    try:
+        # Obtener la visita existente por ID
+        visit = Visit.query.get(visit_id)
+
+        # Si la visita no existe, devolver un error 404
+        if not visit:
+            return jsonify({"error": "Visit not found"}), 404
+
+        # Obtener los datos JSON de la solicitud
+        data = request.get_json()
+
+        # Actualizar los campos relevantes
+        if 'scope' in data:
+            visit.scope = data['scope']
+        if 'date' in data:
+            visit.date = data['date']
+        if 'project_id' in data:
+            visit.project_id = data['project_id']
+        if 'specialist_id' in data:
+            visit.specialist_id = data['specialist_id']
+
+        # Guardar los cambios en la base de datos
+        db.session.commit()
+
+        # Devolver la visita actualizada
+        response = jsonify(visit.serialize())
+        response.status_code = 200
+        response.headers['Location'] = url_for('get_visits', visit_id=visit.id)
+        return response
+
+    except Exception as e:
+        # Manejar errores de la base de datos u otras excepciones
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/visits/<int:visit_id>', methods=['DELETE'])
+def delete_visit(visit_id):
+    try:
+        visit = Visit.query.get(visit_id)
+
+        # Si la visita no existe, devolver un error 404
+        if not visit:
+            return jsonify({"error": "Visit not found"}), 404
+
+        db.session.delete(visit)
+        db.session.commit()
+
+        # Devolver una respuesta exitosa
+        response = jsonify({"message": "Visit deleted successfully"})
+        response.status_code = 200
+        return response
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/datacapture', methods=['GET'])
+def get_data_captures():
+    data_captures = DataCapture.query.all()
+    serialized_data_captures = [data_capture.serialize() for data_capture in data_captures]
+    return jsonify(serialized_data_captures), 200
+
+@api.route('/datacapture', methods=['POST'])
+def create_data_capture():
+    # Obtén los datos del DataCapture desde la solicitud
+    data = request.json
+
+    if not data:
+        return jsonify({"message": "Datos no proporcionados"}), 400
+
+    # Crea una nueva instancia de DataCapture
+    nuevo_data_capture = DataCapture(
+        title=data.get("title"),
+        description=data.get("description"),
+        image=data.get("image"),
+        georeferencing=data.get("georeferencing"),
+        visit_id=data.get("visit_id"),
+        specialist_id=data.get("specialist_id")
+    )
+
+    # Agrega la nueva instancia a la base de datos
+    db.session.add(nuevo_data_capture)
+    
+    try:
+        # Intenta realizar la operación de commit
+        db.session.commit()
+
+        # Devuelve una respuesta con el nuevo DataCapture creado
+        return jsonify({"message": "DataCapture creado con éxito", "id": nuevo_data_capture.id}), 201
+    except Exception as e:
+        # Maneja los errores de la base de datos y realiza un rollback
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/datacapture/<int:data_capture_id>', methods=['PUT'])
+def update_data_capture(data_capture_id):
+    # Obtén la instancia existente de DataCapture por su ID
+    data_capture = DataCapture.query.get(data_capture_id)
+
+    # Comprueba si la instancia existe
+    if data_capture is None:
+        return jsonify({"message": "DataCapture no encontrado"}), 404
+
+    # Obtén los datos actualizados desde la solicitud
+    data = request.json
+
+    if not data:
+        return jsonify({"message": "Datos no proporcionados"}), 400
+
+    # Actualiza los campos del DataCapture con los nuevos datos
+    data_capture.title = data.get("title", data_capture.title)
+    data_capture.description = data.get("description", data_capture.description)
+    data_capture.image = data.get("image", data_capture.image)
+    data_capture.georeferencing = data.get("georeferencing", data_capture.georeferencing)
+    data_capture.visit_id = data.get("visit_id", data_capture.visit_id)
+    data_capture.specialist_id = data.get("specialist_id", data_capture.specialist_id)
+
+    # Guarda los cambios en la base de datos
+    try:
+        db.session.commit()
+        return jsonify({"message": "DataCapture actualizado con éxito"}), 200
+    except Exception as e:
+        # Maneja los errores de la base de datos y realiza un rollback
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/datacapture/<int:data_capture_id>', methods=['DELETE'])
+def delete_data_capture(data_capture_id):
+    # Obtén la instancia de DataCapture por su ID
+    data_capture = DataCapture.query.get(data_capture_id)
+
+    # Comprueba si la instancia existe
+    if data_capture is None:
+        return jsonify({"message": "DataCapture no encontrado"}), 404
+
+    # Elimina la instancia de la base de datos
+    try:
+        db.session.delete(data_capture)
+        db.session.commit()
+        return jsonify({"message": "DataCapture eliminado con éxito"}), 200
+    except Exception as e:
+        # Maneja los errores de la base de datos y realiza un rollback
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 
-    access_token = create_access_token(identity=specialist.email)
-    return jsonify(access_token=access_token), 200
+
+
 
     
 
