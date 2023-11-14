@@ -12,7 +12,7 @@ import { ProfileAdmon } from "./pages/profileadmon.js";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { DatosEspecialista} from "./pages/datosEspecialista.js";
-import { Register } from "./pages/registerespecialist.js"; 
+import { Register } from "./pages/registerespecialist.js";
 import {NavbarPerfilAdmon} from "./component/navbarperfiladmon.js"
 import { NavbarEspecialista } from "./component/navbarEspecialista.js";
 import injectContext from "./store/appContext";
@@ -47,8 +47,9 @@ const Layout = () => {
                         <Route element={<DatosAdmon />} path="/admons" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Register />} path="/registerespicialist" /> 
+                        <Route element={<Register />} path="/registerespicialist/:id" />
 
-                        <Route element={<Register />} path="/register" /> 
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" /> 
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CrearProyecto />} path="/nuevoproyecto" />
