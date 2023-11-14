@@ -28,7 +28,7 @@ export const DataCaptureRegister = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                },
+                },                                      
                 body: JSON.stringify(dataCaptureData),
             });
 
