@@ -24,6 +24,8 @@
     padding: auto;
     flex-direction: column;
     align-items: center;
+    border-radius: 30px;
+    
 }
 
 
@@ -49,16 +51,19 @@
 
 .Administrador {
     width: 400px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
 }
 
 .account-pages1 {
-    background-color: rgb(194, 245, 248);
-    border-radius: 90%;
+    background-color: rgb(210, 246, 248);
+    border-radius: 150px;
 }
 
 .datos {
     width: 100%;
     justify-content: center;
+    border-radius: 50px;
 }
 
 .botonVolver {
@@ -67,4 +72,18 @@
     display: flex;
     margin-top: 50px;
 
+    }
+
+    .btn-primary{
+        background-color: #727cf5;
+        color: #fff;
+    }
+
+    .card-header:first-child {
+        border-radius: calc(1.25rem - 1px) calc(1.25rem - 1px) 0 0;
+    }
+
+    *, ::after, ::before {
+        box-sizing: border-box;
+        border-radius: 5%;
     }

@@ -29,7 +29,7 @@ export const LoginAdministrator = () => {
 	}
 
 	return (
-		<div className="account-pages1 pt-sm-5 pb-sm-5" >
+		<div className="account-pages1" >
 			<div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
 				<div className="containerAdmon">
 					<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
@@ -38,14 +38,14 @@ export const LoginAdministrator = () => {
 
 					<div class="text-center w-75 m-auto"><p class="text-muted mb-4">A continuación digite su correo electronico y password</p></div>
 
-					<div className=" datos col-md-6">
-						<form onSubmit={handlesubmit}>
+					<div className="datos col-md-6 d-flex flex-column align-items-center">
+						<form onSubmit={handlesubmit} className="text-center">
 							<div className="mb-3">
-								<label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
+								<label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>
 								<input type="email" placeholder="@" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" />
 							</div>
 							<div className="mb-3">
-								<label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+								<label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
 								<input type="password" className="form-control" name="password" id="exampleInputPassword1" />
 							</div>
 							<div className="d-flex justify-content-center py-3">
@@ -60,7 +60,7 @@ export const LoginAdministrator = () => {
 						</div>
 						<div className="botonVolver">
 							<Link to="/">
-								<button type="button" className="btn btn-outline-dark" style={{ backgroundColor: '#6169d0' }}>
+								<button type="button" className="btn btn-primary">
 									Volver a Inicio
 								</button>
 							</Link>

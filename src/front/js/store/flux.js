@@ -29,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Use getActions to call a function within a fuction
 			postadmin: async(data)=> {
 				try{
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/admonreg', {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/admonreg', {
 						method:"POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -49,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}, loginadmin:async(data) =>{
 				try{
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/admonlogin', {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/admonlogin', {
 						method:"POST",
 						body: JSON.stringify(data),
 						headers:{"Content-Type": "application/json",},
@@ -80,7 +80,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			 getadmins: async(tokenadmin)=> {
 				try{
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/admon', {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/admon', {
 						method:"GET",
 						headers:{'Authorization': 'Bearer ' + tokenadmin}
 					});
@@ -101,7 +101,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}, putadmin: async(id,data)=> {
 				const token = localStorage.getItem('tokenadmin');
 				try{
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/admon'+"/"+ id, {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/admon'+"/"+ id, {
 						method:"PUT",
 						body: JSON.stringify(data),
 						headers:{
@@ -127,7 +127,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("desde flux", id)
 				const token = localStorage.getItem('tokenadmin');
 				try{
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/admon'+"/"+ id, {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/admon'+"/"+ id, {
 						method:"DELETE",
 						headers:{
 							"Content-Type": "application/json",
@@ -169,7 +169,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 				};
-				fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error(`HTTP error! Status: ${response.status}`);
@@ -199,7 +199,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(data)
 				};
-				fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/Project', requestOptions)
+				fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/Project', requestOptions)
 					.then(response => {
 						// if (!response.ok) {
 						// 	throw new Error(`HTTP error! Status: ${response.status}`);
@@ -237,7 +237,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				};
 
-				fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
+				fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -262,7 +262,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(data)
 				};
 
-				fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
+				fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -278,7 +278,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			postespecialist: async (data) => {
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/especialista', {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/especialista', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { 
@@ -304,7 +304,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			// ACÁ TERMINA EL post especialista
 			getEspecialista : async () => {
-				const baseUrl = `https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/especialista`;
+				const baseUrl = `https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/especialista`;
 				const token = localStorage.getItem('tokenadmin');
 				try {
 					const response = await fetch(baseUrl, {
@@ -339,7 +339,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ACÁ TERMINA EL logout
 			eliminarEspecialista : async (id) => {
 				// Realizar una solicitud DELETE a la API para eliminar al especialista con el ID proporcionado.
-				let deleteUrl = `https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/especialista/${id}`;
+				let deleteUrl = `https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/especialista/${id}`;
 				const token = localStorage.getItem('tokenadmin');
 				const store = getStore();
 				const allspecialist = store.allspecialist.filter((item) => item.id != id)
@@ -366,7 +366,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			putespecialist: async(id,data)=> {
 				const token = localStorage.getItem('tokenadmin');
 				try{
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/especialista'+"/"+ id, {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/especialista'+"/"+ id, {
 						method:"PUT",
 						body: JSON.stringify(data),
 						headers:{
@@ -390,7 +390,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//acá empieza loginspecialist
 			loginSpecialist: async (data) => {
 				try {
-					const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/loginSpecialist', {
+					const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/loginSpecialist', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -424,7 +424,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//acá empieza la función
 				getspecialist: async (tokenspecialist) => {
 					try {
-						const resp = await fetch('https://effective-space-system-w6rrjppwrxc95rv-3001.app.github.dev/api/especialistalog', {
+						const resp = await fetch('https://congenial-carnival-q7vxpxwgj4524994-3001.app.github.dev/api/especialistalog', {
 							method: "GET",
 							headers: { 'Authorization': 'Bearer ' + tokenspecialist }
 						});
