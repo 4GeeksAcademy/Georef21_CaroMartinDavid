@@ -117,7 +117,7 @@ export const LoginSpecialist = () => {
                             </div>
                         </form>
                         <div className="text-center">
-                            <Link to="/admon">
+                            <Link to="/registerespicialist">
                                 <span>Do you want to register</span>
                             </Link>
                         </div>

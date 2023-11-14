@@ -55,16 +55,25 @@ export const LoginAdministrator = () => {
 						</form>
 						<div className="text-center">
 							<Link to="/admon">
-								<span>Do you want to register</span>
+								<span>¿No tienes cuenta? Regístrate acá</span>
 							</Link>
 						</div>
-						<div className="botonVolver">
+						{/* <div className="botonVolver">
 							<Link to="/">
 								<button type="button" className="btn btn-primary">
 									Volver a Inicio
 								</button>
 							</Link>
-						</div>
+						</div> */}
+						<footer className="footer footer-alt min-vh-10">
+							<div className="botonVolver">
+								<Link to="/">
+									<button type="button" className="btn btn-primary">
+										Volver a Inicio
+									</button>
+								</Link>
+							</div>
+						</footer>
 					</div>
 				</div>
 			</div>
