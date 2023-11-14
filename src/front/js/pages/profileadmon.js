@@ -18,7 +18,13 @@ export const ProfileAdmon = () => {
     function getspacialist(){
         actions.getEspecialista();
         navigate("/perfilEspecialista");
-    }
+    };
+
+    function createvisit(){
+        actions.getEspecialista();
+        actions.GetProjects();
+        navigate('/regvisit');
+    };
 		
 	return (
 		<div className="container">
@@ -54,9 +60,12 @@ export const ProfileAdmon = () => {
             <div>
                 <h1>Visitas</h1>
                         <div className ="d-flex justify-content-evenly">
-                            <button type="button" className="btn btn-info m-3">
+                        
+                            <button type="button" className="btn btn-info m-3" onClick={()=>createvisit()}>
                                 Crear Visitas
                             </button>
+                        
+                        
                             <button type="button" className="btn btn-info m-3">
                                 Visitas
                             </button>

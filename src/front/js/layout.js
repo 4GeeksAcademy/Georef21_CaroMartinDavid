@@ -6,7 +6,7 @@ import { BackendURL } from "./component/backendURL";
 import { Administrator } from "./pages/admon";
 import {DatosAdmon} from "./pages/datosadmons";
 import { Home } from "./pages/home";
-import {Visits } from "./pages/visits.js";
+import { RegVisits } from "./pages/regvisits.js";
 import {LoginAdministrator} from "./pages/loginadmon.js"
 import { ProfileAdmon } from "./pages/profileadmon.js";
 import { Demo } from "./pages/demo";
@@ -54,7 +54,7 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CrearProyecto />} path="/nuevoproyecto" />
                         <Route element={<Proyecto />} path="/Proyecto" />
-                        <Route element={<Visits />} path="/visit" />
+                        <Route element={<RegVisits />} path="/regvisit" />
                         <Route element={<PerfilVisitas />} path="/perfilVisitas" />
                         <Route element={<DataCaptureRegister />} path="/datacapture" />
                         <Route element={<Proyectos />} path="/listaproyectos" />

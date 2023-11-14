@@ -322,100 +322,156 @@ def deleteadmins(id):
     db.session.delete(deleteadmin)
     db.session.commit()
     return jsonify({"msg":"Usuario eliminado"}), 201 
+
+@api.route('/especialistalog', methods=['GET'])
+@jwt_required()
+def especialista_logeado():
+    emailspecialist = get_jwt_identity()
+    # Supongamos que deseas obtener todos los especialistas de la base de datos
+    especialista = Specialist.query.filter_by(email=emailspecialist).first()
+    if not especialista:
+        return jsonify({"msg": "no existe este especialista"}), 404
+    results = especialista.serialize()
+    return jsonify(results), 200
+    # Convierte los objetos Specialist en un formato serializable
+
+@api.route("/loginSpecialist", methods=["POST"])
+def loginSpecilist():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    specialist = Specialist.query.filter_by(email=email).first()
+    if specialist is None:
+        return jsonify({"msg": "user not found"}), 404
+    # if email != specialist.email or password != specialist.password:
+        # return jsonify({"msg": "Bad email or password"}), 401
+        
+    if not bcrypt.check_password_hash(specialist.password, password):
+        return jsonify({"msg":"La contraseña no es correcta"}), 401
+
+
+    access_token = create_access_token(identity=specialist.email)
+    return jsonify(access_token=access_token), 200
+
 @api.route('/visits', methods=['GET'])
+@jwt_required()
+@admin_required
 def get_visits():
-    visits = Visit.query.all()
-    return jsonify([visit.serialize() for visit in visits]), 200
+    id_admin = get_jwt_identity()
+    visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
+    if not visits:
+        return jsonify({"msg": "No tienes visitas registradas"}), 404
 
-@api.route('/visits', methods=['POST'])
+    visits_serializados = [visits.serialize() for visit in visits]
+    return jsonify(visits_serializados), 200
+
+@api.route('/visitsEsp', methods=['GET'])
+@jwt_required()
+def get_visitsesp():
+    emailspecialist = get_jwt_identity()
+    visits = Visit.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
+    if not visits:
+        return jsonify({"msg": "No tienes visitas registradas"}), 404
+
+    visits_serializados = [visits.serialize() for visit in visits]
+
+    return jsonify(visits_serializados), 200
+
+@api.route('/admonvisits', methods=['POST'])
+@jwt_required()
+@admin_required
 def create_visit():
+    id_admin = get_jwt_identity()
     data = request.get_json()
-
     # Data Validation
-    required_fields = ['scope', 'date', 'project_id', 'specialist_id']
-    for field in required_fields:
-        if field not in data:
-            return jsonify({"error": f"Field '{field}' is required"}), 400
+    if not data:
+        return jsonify({"error": "Datos no proporcionados"}), 400
+    
+    if data['scope'] == "" or data['date'] == "" or data['project_id'] == "" or data['specialist_id'] == "":
+        return jsonify({"error": "Datos incompletos"}), 401
+    
+    existing_visit = Visit.query.filter_by(date=data['date'], specialist_id=data['specialist_id']).first()
+    if existing_visit:
+        error_message = f"Ya existe una visita para este día ({data['date']}) con el mismo especialista ({data['specialist_id']})"
+        return jsonify({"error": error_message}), 402
+        
+    new_visit = Visit(
+        scope=data['scope'],
+        date=data['date'],
+        project_id=data['project_id'],
+        specialist_id=data['specialist_id']
+    )
 
-    try:
-        new_visit = Visit(
-            scope=data['scope'],
-            date=data['date'],
-            project_id=data['project_id'],
-            specialist_id=data['specialist_id']
-        )
-
-        db.session.add(new_visit)
-        db.session.commit()
-
-        # Return 201 Created with the location of the new visit
-        response = jsonify(new_visit.serialize())
-        response.status_code = 201
-        response.headers['Location'] = url_for('api.get_visits', visit_id=new_visit.id)
-        return response
-
-    except Exception as e:
-        # Handle database errors or other exceptions
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
-
+    db.session.add(new_visit)
+    db.session.commit()
+    return jsonify({"msg": "visita creado satisfactoriamente"}), 200
+            
 @api.route('/visits/<int:visit_id>', methods=['PUT'])
+@jwt_required()
+@admin_required
 def update_visit(visit_id):
-    try:
-        # Obtener la visita existente por ID
-        visit = Visit.query.get(visit_id)
+    id_admin = get_jwt_identity()
+    visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
+    if any(visit.id == visit_id for visit in visits):
+        try:
+            # Obtener la visita existente por ID
+            visit = Visit.query.get(visit_id)
+            
+            # Obtener los datos JSON de la solicitud
+            data = request.get_json()
 
-        # Si la visita no existe, devolver un error 404
-        if not visit:
-            return jsonify({"error": "Visit not found"}), 404
+            # Actualizar los campos relevantes
+            if 'scope' in data:
+                visit.scope = data['scope']
+            if 'date' in data:
+                visit.date = data['date']
+            if 'project_id' in data:
+                visit.project_id = data['project_id']
+            if 'specialist_id' in data:
+                visit.specialist_id = data['specialist_id']
 
-        # Obtener los datos JSON de la solicitud
-        data = request.get_json()
+            # Guardar los cambios en la base de datos
+            db.session.commit()
 
-        # Actualizar los campos relevantes
-        if 'scope' in data:
-            visit.scope = data['scope']
-        if 'date' in data:
-            visit.date = data['date']
-        if 'project_id' in data:
-            visit.project_id = data['project_id']
-        if 'specialist_id' in data:
-            visit.specialist_id = data['specialist_id']
-
-        # Guardar los cambios en la base de datos
-        db.session.commit()
-
-        # Devolver la visita actualizada
-        response = jsonify(visit.serialize())
-        response.status_code = 200
-        response.headers['Location'] = url_for('get_visits', visit_id=visit.id)
-        return response
-
-    except Exception as e:
+            # Devolver la visita actualizada
+            response = jsonify(visit.serialize())
+            response.status_code = 200
+            response.headers['Location'] = url_for('get_visits', visit_id=visit.id)
+            return response
+        except Exception as e:
         # Manejar errores de la base de datos u otras excepciones
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
+            db.session.rollback()
+            return jsonify({"error": str(e)}), 500
+    
+         
+    else:
+        # El visit_id no está en la lista de visits, devolver un error
+        return jsonify({"error": f"No se encontró la visita con ID {visit_id}"}), 404
+   
 
 @api.route('/visits/<int:visit_id>', methods=['DELETE'])
+@jwt_required()
+@admin_required
 def delete_visit(visit_id):
-    try:
-        visit = Visit.query.get(visit_id)
+    id_admin = get_jwt_identity()
+    visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
+    if any(visit.id == visit_id for visit in visits):
+        try:
+            visit = Visit.query.get(visit_id)
+            db.session.delete(visit)
+            db.session.commit()
 
-        # Si la visita no existe, devolver un error 404
-        if not visit:
-            return jsonify({"error": "Visit not found"}), 404
+            # Devolver una respuesta exitosa
+            response = jsonify({"message": "Visit deleted successfully"})
+            response.status_code = 200
+            return response
 
-        db.session.delete(visit)
-        db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"error": str(e)}), 500
+    else:
+        # El visit_id no está en la lista de visits, devolver un error
+        return jsonify({"error": f"No se encontró la visita con ID {visit_id}"}), 404
 
-        # Devolver una respuesta exitosa
-        response = jsonify({"message": "Visit deleted successfully"})
-        response.status_code = 200
-        return response
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
 
 @api.route('/datacapture', methods=['GET'])
 def get_data_captures():
