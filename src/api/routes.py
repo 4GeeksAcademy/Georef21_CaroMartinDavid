@@ -455,9 +455,7 @@ def delete_visit(visit_id):
             db.session.commit()
 
             # Devolver una respuesta exitosa
-            response = jsonify({"message": "Visit deleted successfully"})
-            response.status_code = 200
-            return response
+            return jsonify({"msg": "visita eliminada"}), 200
 
         except Exception as e:
             db.session.rollback()

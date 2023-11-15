@@ -2,25 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
+
 export const PerfilVisitas = () => {
     const { store, actions } = useContext(Context);
-    
+    const navigate = useNavigate();
 
-    const eliminarVisita = async (id) => {
-        let deleteUrl = 'https://effective-halibut-qwrr6x5w99xf965g-3001.app.github.dev/api/visits/${id}';
-        try {
-            let response = await fetch(deleteUrl, {
-                method: "DELETE",
-            });
-            if (response.ok) {
-                fetchVisitas();
-            } else {
-                console.error("Error al eliminar la visita");
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    function eliminarVisita(id){
+        actions.eliminarVisita(id);
+        actions.gevisitaadmon();
+        navigate("/profileadmon")
+    }
+    
 
  
     return (
@@ -32,13 +24,13 @@ export const PerfilVisitas = () => {
                     <div className="card" key={index}>
                         <div className="card-body my-3">
                             <h3>Id: {item.id}</h3>
-                            <h3>Fecha: {item.date}</h3>
+                            <h3>Fecha: {new Date(item.date).toISOString().slice(0, 10)}</h3>
                             <h3>Alcance: {item.scope}</h3>
                             <h3>ID Proyecto: {item.project_id }</h3>
                             <h3>ID Especialista: {item.specialist_id }</h3>
                             <div className="d-flex justify-content-center">
-                            <Link to={`/perfilVisitas/${item.id}`}>
-                                <button onClick={() => editarVisita(item.id)}>Editar</button>
+                            <Link to={`/regvisit/${item.id}`}>
+                                <button >Editar</button>
                             </Link>                                                                                                                                                                                                             
                                 <button onClick={() => eliminarVisita(item.id)}>Eliminar</button>
                             </div>

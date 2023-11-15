@@ -19,14 +19,17 @@ export const RegVisits = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        // console.log("id:", id);
+        
         if (id) {
-
-            // Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
             const visitToEdit = store.allvisits.find(visit => visit.id === parseInt(id));
             if (visitToEdit) {
+                visitToEdit.date = new Date(visitToEdit.date).toISOString().slice(0, 10);
+                visitToEdit.specialist_id ="";
+                visitToEdit.project_id ="";
+               
                 setVisitsData(visitToEdit);
             }
+            
         }
     }, [id, store.allvisits]);
 
@@ -41,7 +44,9 @@ export const RegVisits = () => {
         console.log(data)
         if(id){
             try {
-                const respuesta = await actions.putvisitaadmon();
+                const respuesta = await actions.putvisitaadmon(data, id);
+                actions.getEspecialista();
+                actions.GetProjects();
                 if (respuesta === "realizado"){
                     setVisitsData({
                         scope: "",

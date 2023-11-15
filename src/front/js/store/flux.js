@@ -65,6 +65,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("tokenadmin", token);
 						const { getadmins } = getActions();
 						getadmins(token);
+						const {getEspecialista}= getActions();
+						getEspecialista();
+						const {GetProjects}= getActions();
+						GetProjects();
 						setStore({ session: true });
 						return "autorizado";
 					}
@@ -532,8 +536,36 @@ putvisitaadmon: async(data, id) =>{
 	} catch (error) {
 		console.error("Error al realizar la solicitud:", error);
 	}
-}
+},
 //termina editar visita admon
+//eliminar visita
+
+eliminarVisita : async (id) => {
+	const token = localStorage.getItem('tokenadmin');
+	let deleteUrl =`https://upgraded-space-adventure-44jj954jp4h5xxw-3001.app.github.dev/api/visits/${id}`;
+	try {
+		let response = await fetch(deleteUrl, {
+			method: "DELETE",
+			headers:{
+				"Content-Type": "application/json",
+				'Authorization': `Bearer ${token}`
+			}
+		});
+		if (response.ok) {
+			console.log("realizado");
+			
+			return "realizado"
+		} else {
+			const errordata = JSON.parse (await  response.text())
+			console.log (errordata);
+			if(response.status === 404 ){
+				return errordata.error;
+		}}
+	} catch (error) {
+		console.error(error);
+	}
+}
+//termina eliminar visita
 		}
 	};
 };
