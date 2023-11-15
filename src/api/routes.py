@@ -358,10 +358,12 @@ def loginSpecilist():
 def get_visits():
     id_admin = get_jwt_identity()
     visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
+
     if not visits:
         return jsonify({"msg": "No tienes visitas registradas"}), 404
 
-    visits_serializados = [visits.serialize() for visit in visits]
+    visits_serializados = [visit.serialize() for visit in visits]  # Cambio aquí
+    print(visits_serializados)
     return jsonify(visits_serializados), 200
 
 @api.route('/visitsEsp', methods=['GET'])

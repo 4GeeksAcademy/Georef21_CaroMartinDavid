@@ -17,6 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			AllProjects: [],
 			allspecialist: [],
+			allvisits:[],
 			administrator: {},
 			openError: "none",
 			openModalEliminar: "none",
@@ -474,8 +475,37 @@ registrovisita: async(data) =>{
 	} catch (error) {
 		console.error("Error al realizar la solicitud:", error);
 	}
-}
+},
 //termina crearvisita
+//obtener visitas de admon
+gevisitaadmon: async() =>{
+	const token = localStorage.getItem('tokenadmin');
+	try {
+		const resp = await fetch('https://upgraded-space-adventure-44jj954jp4h5xxw-3001.app.github.dev/api/visits', {
+			method: "GET",
+			headers:{
+				"Content-Type": "application/json",
+				'Authorization': `Bearer ${token}`
+			}
+		});
+		if (resp.ok) {
+			console.log("realizado");
+			const allvisits= await resp.json();
+			setStore({ allvisits: allvisits });
+			console.log(allvisits);
+
+		} else {
+			const errordata = JSON.parse (await  resp.text())
+			console.log (errordata);
+			if(resp.status === 404 ){
+				return errordata.error;
+			// console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+		}}
+	} catch (error) {
+		console.error("Error al realizar la solicitud:", error);
+	}
+}
+//termina obtener visitas de admon
 		}
 	};
 };

@@ -25,6 +25,11 @@ export const ProfileAdmon = () => {
         actions.GetProjects();
         navigate('/regvisit');
     };
+
+    function getvisits(){
+        actions.gevisitaadmon();
+        navigate('/perfilVisitas');
+    };
 		
 	return (
 		<div className="container">
@@ -66,7 +71,7 @@ export const ProfileAdmon = () => {
                             </button>
                         
                         
-                            <button type="button" className="btn btn-info m-3">
+                            <button type="button" className="btn btn-info m-3" onClick={()=>getvisits()}>
                                 Visitas
                             </button>
                         </div>
