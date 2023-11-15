@@ -116,11 +116,11 @@ export const LoginSpecialist = () => {
                                 <Modal error={error} />
                             </div>
                         </form>
-                        <div className="text-center">
+                        {/* <div className="text-center">
                             <Link to="/registerespicialist">
                                 <span>Do you want to register</span>
                             </Link>
-                        </div>
+                        </div> */}
                         <div className="botonVolver">
                             <Link to="/">
                                 <button type="button" className="btn btn-primary">

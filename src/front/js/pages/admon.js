@@ -135,10 +135,10 @@ export const Administrator = () => {
 									<input type="password" className="form-control" name="password" id="exampleInputPassword1" />
 								</div>}
 
-							{/* <div className="form-floating">
+							<div className="form-floating">
 						<textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="aditional_info" defaultValue={adminData.aditional_info} style={{height: '100px'}}></textarea>
 						<label htmlFor="floatingTextarea2">Información adicional si quiere</label>
-					</div> */}
+					</div>
 							<div className="d-flex justify-content-center py-1">
 								<button type="submit" className="btn btn-primary">{adminId ? "Editar" : "Crear"}</button>
 								<Modal error={error} />

@@ -39,32 +39,50 @@ export const CrearProyecto = () => {
         })
     }
     return (
-        <div className="col-md-6 m-auto">
-            <div className="d-flex justify-content-center my-3">
-                <h1>{id? "Editar Proyecto":"Registrar Nuevo Proyecto"}</h1>
+        <div className="account-pages1" >
+            <div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
+                <div className="containerAdmon">
+                    <div className="RegistroProyecto pt-2 text-center bg-primary card-header col-md-6" style={{ color: 'white' }} width-400px>
+                        <h1>{id ? "Editar Proyecto" : "Registrar Nuevo Proyecto"}</h1>
+                    </div>
+                    <div className="col-md-6 m-auto">
+
+                        <div className="datos col-md-6 d-flex flex-column align-items-center">
+                            <p>Administrador</p>
+                            <select className="form-select" aria-label="Default select example">
+                                <option value="">{store.administrator.name} {store.administrator.lastname}</option>
+                            </select>
+                            <div className="mb-3">
+                                <label htmlFor="formGroupExampleInput" className="form-label">Nombre Proyecto</label>
+                                <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Nombre" onChange={infoSetData} name="nameProject" required value={data.nameProject} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="formGroupExampleInput2" className="form-label">Temática</label>
+                                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Temática" onChange={infoSetData} name="theme" required value={data.theme} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="formGroupExampleInput2" className="form-label">Ubicación</label>
+                                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Ubicación" onChange={infoSetData} name="location" required value={data.location} />
+                            </div>
+                            <div className="d-flex justify-content-center">
+                                <button type="button" className="btn btn-primary btn-lg" onClick={() => Send()}>{id ? "Editar Proyecto" : "Crear Proyecto"}</button>
+                            </div>
+                            {/* <Link to="/profileadmon">
+                        <button type="button" className="btn btn-primary">Volver</button>
+                    </Link> */}
+                            <footer className="footer footer-alt min-vh-10">
+                                <div className="botonVolver">
+                                    <Link to="/">
+                                        <button type="button" className="btn btn-primary">
+                                            Volver a Inicio
+                                        </button>
+                                    </Link>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p>Administrador</p>
-            <select className="form-select" aria-label="Default select example">
-                <option value="">{store.administrator.name} {store.administrator.lastname}</option>
-            </select>
-            <div className="mb-3">
-                <label htmlFor="formGroupExampleInput" className="form-label">Nombre Proyecto</label>
-                <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Nombre" onChange={infoSetData} name="nameProject" required value={data.nameProject} />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="formGroupExampleInput2" className="form-label">Temática</label>
-                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Temática" onChange={infoSetData} name="theme" required value={data.theme} />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="formGroupExampleInput2" className="form-label">Ubicación</label>
-                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Ubicación" onChange={infoSetData} name="location" required value={data.location} />
-            </div>
-            <div className="d-flex justify-content-center">
-                <button type="button" className="btn btn-primary btn-lg" onClick={()=>Send()}>{id? "Editar Proyecto":"Crear Proyecto"}</button>
-            </div>
-            <Link to="/profileadmon">
-					<button type="button" className="btn btn-outline-dark">Volver</button>
-			</Link>
         </div>
     );
 };
