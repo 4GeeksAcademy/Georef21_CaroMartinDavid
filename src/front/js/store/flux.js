@@ -25,7 +25,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			specialist: {},
 			sessionSpecialist: false,
 			allvisitsspc:[],
-			allprojectspc:[]
+			allprojectspc:[],
+			location: {}
 		},
 
 		actions: {
@@ -598,8 +599,30 @@ gevisitaesp: async() =>{
 	} catch (error) {
 		console.error("Error al realizar la solicitud:", error);
 	}
-}
+},
 //termina visita esp
+// postgeolocalizacion
+location: async () => {
+	try {
+	   if ("geolocation" in navigator) {
+		  navigator.geolocation.getCurrentPosition(async (position) => {
+			 const { latitude, longitude } = position.coords;
+			 const location = { latitude, longitude };
+			 setStore({ location: location });
+			 console.log(location);
+			 console.log("Ubicación:", latitude, longitude);
+ 
+			 // Aquí puedes realizar alguna acción con la ubicación obtenida
+		  });
+	   } else {
+		  console.error("Geolocalización no está disponible");
+	   }
+	} catch (error) {
+	   console.error("Error al obtener la ubicación:", error);
+	}
+ },
+
+// aqui termina el post geolocalizacion
 		}
 	};
 };

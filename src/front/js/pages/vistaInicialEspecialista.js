@@ -43,10 +43,11 @@ export const VistaIncialEspecialista = () => {
                             Visitas Asignadas
                         </button>
                     
-
-                    <button type="button" className="btn btn-warning m-3">
-                        Toma de Datos
-                    </button>
+                    <Link to="/vistaDatos">
+                        <button type="button" className="btn btn-warning m-3">
+                            Toma de Datos
+                        </button>
+                    </Link>
                 </div>
             </div>
 

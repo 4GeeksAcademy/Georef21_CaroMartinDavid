@@ -27,6 +27,10 @@ import { DataCaptureRegister } from "./pages/tomaDeDatos.js";
 import { PerfilVisitas } from "./pages/verVisitas.js";
 import { LoginSpecialist } from "./pages/loginSpecialist.jsx";
 import { PerfilProjectEsp } from "./pages/projectEsp.js";
+import { DataCapture } from "./pages/vistadatos.js";
+import { DatasCapture } from "./pages/datoscapturados.js";
+
+
 
 const Layout = () => {
     const basename = process.env.BASENAME || "";
@@ -61,11 +65,12 @@ const Layout = () => {
                         <Route element={<PerfilVisitasEsp />} path="/perfilvisitasEsp" />
                         <Route element={<PerfilProjectEsp />} path="/perfilprojEsp" />
                         <Route element={<RegVisits />} path="/regvisit/:id" />
-                        <Route element={<DataCaptureRegister />} path="/datacapture" />
+                        <Route element={<DataCaptureRegister />} path="/captdatareg" />
                         <Route element={<Proyectos />} path="/listaproyectos" />
                         <Route element={<CrearProyecto />} path="/nuevoproyecto/:id" />
                         <Route element={<VistaIncialEspecialista />} path="/vInicial" />
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" />
+                        <Route element={< DataCapture />} path="/vistaDatos" />
                     </Routes>
                     
                 </ScrollToTop>

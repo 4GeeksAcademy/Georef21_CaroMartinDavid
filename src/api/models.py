@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import JSON
 
 db = SQLAlchemy()
 
@@ -123,7 +124,7 @@ class DataCapture(db.Model):
     title = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(255), nullable=False)  # Puedes ajustar el tipo de campo según tus necesidades
-    georeferencing = db.Column(db.String(120), nullable=False)
+    georeferencing = db.Column(JSON, nullable=False)
     visit_id = db.Column(db.Integer, db.ForeignKey('visit.id'), nullable=False)
     specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=False)
 

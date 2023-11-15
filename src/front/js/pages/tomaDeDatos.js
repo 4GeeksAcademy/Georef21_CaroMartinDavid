@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import credentials from './credentials';
+import MapComponent from './map';
 
 export const DataCaptureRegister = () => {
     const { store, actions } = useContext(Context);
@@ -12,6 +14,8 @@ export const DataCaptureRegister = () => {
         visit_id: "",
         specialist_id: ""
     });
+
+    const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}&libraries=places`;
 
     const handleInputChange = (e) => {
         setDataCaptureData({
@@ -53,8 +57,9 @@ export const DataCaptureRegister = () => {
 };
 
 return (
-    <div className="center-content">
-        <div className="content-container">
+    <div className="container" >
+        <h1>Capturar Datos</h1>
+        <div className="col-md-6">
             <div className="mb-3">
                 <label htmlFor="title" className="form-label">Título</label>
                 <input type="text" className="form-control" id="title" name="title" value={dataCaptureData.title} onChange={handleInputChange} />
@@ -71,27 +76,62 @@ return (
             </div>
 
             <div className="mb-3">
-                <label htmlFor="georeferencing" className="form-label">Georreferenciación</label>
-                <input type="text" className="form-control" id="georeferencing" name="georeferencing" value={dataCaptureData.georeferencing} onChange={handleInputChange} />
+                <h6>Georreferenciación</h6>
+                <p>Latitud : {store.location.latitude} Longitud: {store.location.longitude } </p>
             </div>
+            <div className = "conteinerMap">
+				<MapComponent
+					googleMapURL={mapURL}
+					containerElement={<div style={{ height: '600px', width:'600px' }} />}
+					mapElement={<div style={{ height: '100%' }} />}
+					loadingElement={<p>Cargando</p>}
+				/>
+			</div>
 
             <div className="mb-3">
-                <label htmlFor="visit_id" className="form-label">ID de la Visita</label>
-                <input type="text" className="form-control" id="visit_id" name="visit_id" value={dataCaptureData.visit_id} onChange={handleInputChange} />
-            </div>
+                    <label htmlFor="visit_id" className="form-label">ID de la Visita</label>
+                    <select
+                        className="form-select"
+                        id="visit_id"
+                        name="visit_id"
+                        value={dataCaptureData.visit_id}
+                        onChange={handleInputChange}
+                    >
+                        <option value="">Selecciona visita</option>
+                        {store.allvisitsspc.map((visit, index) => (
+                            <option key={index} value={visit.id}>
+                                Id: {visit.id} | Proyecto: {store.allprojectspc.filter(project => project.id ===visit.project_id)[0]?.nameProject}
+                            </option>
+                        ))}
+                    </select>
+
+                </div>
 
             <div className="mb-3">
-                <label htmlFor="specialist_id" className="form-label">ID del Especialista</label>
-                <input type="text" className="form-control" id="specialist_id" name="specialist_id" value={dataCaptureData.specialist_id} onChange={handleInputChange} />
-            </div>
+                    <label htmlFor="specialist_id" className="form-label">Especialista</label>
+                    <select
+                        className="form-select"
+                        id="specialist_id"
+                        name="specialist_id"
+                        value={dataCaptureData.specialist_id}
+                        onChange={handleInputChange}
+                    >
+                        <option value={store.specialist.id}>Selecciona un especialista</option>
+                             <option>
+                                Id: {store.specialist.id} | Nombre: {store.specialist.nombre} {store.specialist.apellido}| Email: {store.specialist.email}
+                            </option>
+                      
+                    </select>
 
+                </div>
             <button className="btn btn-primary" onClick={handleSave}>
                 Save
             </button>
-
-            <Link to="/perfilVisitas" className="btn btn-secondary">
-                Visitas
-            </Link>
+            <div>
+                <Link to="/vistaDatos" className="btn btn-secondary">
+                    Volver
+                </Link>
+            </div>
         </div>
     </div>
 );
