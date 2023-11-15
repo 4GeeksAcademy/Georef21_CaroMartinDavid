@@ -56,6 +56,7 @@ const Layout = () => {
                         <Route element={<Proyecto />} path="/Proyecto" />
                         <Route element={<RegVisits />} path="/regvisit" />
                         <Route element={<PerfilVisitas />} path="/perfilVisitas" />
+                        <Route element={<PerfilVisitas />} path="/perfilVisitas/:id" />
                         <Route element={<DataCaptureRegister />} path="/datacapture" />
                         <Route element={<Proyectos />} path="/listaproyectos" />
                         <Route element={<CrearProyecto />} path="/nuevoproyecto/:id" />

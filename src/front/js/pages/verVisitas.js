@@ -37,7 +37,9 @@ export const PerfilVisitas = () => {
                             <h3>ID Proyecto: {item.project_id }</h3>
                             <h3>ID Especialista: {item.specialist_id }</h3>
                             <div className="d-flex justify-content-center">
+                            <Link to={`/perfilVisitas/${item.id}`}>
                                 <button onClick={() => editarVisita(item.id)}>Editar</button>
+                            </Link>                                                                                                                                                                                                             
                                 <button onClick={() => eliminarVisita(item.id)}>Eliminar</button>
                             </div>
                         </div>

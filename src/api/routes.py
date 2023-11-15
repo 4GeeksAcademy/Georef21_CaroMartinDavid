@@ -422,29 +422,21 @@ def update_visit(visit_id):
             data = request.get_json()
 
             # Actualizar los campos relevantes
-            if 'scope' in data:
-                visit.scope = data['scope']
-            if 'date' in data:
-                visit.date = data['date']
-            if 'project_id' in data:
-                visit.project_id = data['project_id']
-            if 'specialist_id' in data:
-                visit.specialist_id = data['specialist_id']
+            
+            visit.scope = data['scope']
+            visit.date = data['date']
+            visit.project_id = data['project_id']
+            visit.specialist_id = data['specialist_id']
 
             # Guardar los cambios en la base de datos
             db.session.commit()
 
             # Devolver la visita actualizada
-            response = jsonify(visit.serialize())
-            response.status_code = 200
-            response.headers['Location'] = url_for('get_visits', visit_id=visit.id)
-            return response
+            return jsonify({"msg": "visita actualizada"}), 200
         except Exception as e:
         # Manejar errores de la base de datos u otras excepciones
             db.session.rollback()
             return jsonify({"error": str(e)}), 500
-    
-         
     else:
         # El visit_id no está en la lista de visits, devolver un error
         return jsonify({"error": f"No se encontró la visita con ID {visit_id}"}), 404

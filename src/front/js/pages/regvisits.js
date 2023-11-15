@@ -16,6 +16,19 @@ export const RegVisits = () => {
     
     const [error, seterror]= useState("");
     const navigate = useNavigate();
+    const { id } = useParams();
+
+    useEffect(() => {
+        // console.log("id:", id);
+        if (id) {
+
+            // Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
+            const visitToEdit = store.allvisits.find(visit => visit.id === parseInt(id));
+            if (visitToEdit) {
+                setVisitsData(visitToEdit);
+            }
+        }
+    }, [id, store.allvisits]);
 
     const handleInputChange = (e) => {
         setVisitsData({
@@ -24,9 +37,32 @@ export const RegVisits = () => {
         });
     };
 
-    const handleSave = async (data) => {
+    const handleSave = async (data, id) => {
         console.log(data)
-       
+        if(id){
+            try {
+                const respuesta = await actions.putvisitaadmon();
+                if (respuesta === "realizado"){
+                    setVisitsData({
+                        scope: "",
+                        date: "",
+                        project_id: "",
+                        specialist_id: ""
+                    }
+                    );
+                navigate("/profileadmon");
+                }else {
+                seterror(respuesta);
+                actions.openErrorlogin();
+                }
+            } catch (error) {
+        
+            seterror(error.message || "Error desconocido");
+            actions.openErrorlogin();
+            console.error(error);
+            }
+            
+        }else{
             try{
                 const respuesta = await actions.registrovisita(data);
                     if (respuesta === "realizado"){
@@ -48,6 +84,7 @@ export const RegVisits = () => {
                     actions.openErrorlogin();
                     console.error(error);
                 }
+            }
            
     };
     
@@ -100,7 +137,7 @@ export const RegVisits = () => {
                     </select>
 
                 </div>
-                <button className="btn btn-primary" onClick={() =>{handleSave(visitsData)}}>
+                <button className="btn btn-primary" onClick={() =>{handleSave(visitsData, id)}}>
                     Save
                 </button>
                     <Modal error={error}/>

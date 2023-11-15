@@ -504,8 +504,36 @@ gevisitaadmon: async() =>{
 	} catch (error) {
 		console.error("Error al realizar la solicitud:", error);
 	}
-}
+},
 //termina obtener visitas de admon
+// editar visita admon
+putvisitaadmon: async(data, id) =>{
+	const token = localStorage.getItem('tokenadmin');
+	try {
+		const resp = await fetch('https://upgraded-space-adventure-44jj954jp4h5xxw-3001.app.github.dev/api/visits'+'/' + id, {
+			method: "PUT",
+			body: JSON.stringify(data),
+			headers:{
+				"Content-Type": "application/json",
+				'Authorization': `Bearer ${token}`
+			}
+		});
+		if (resp.ok) {
+			console.log("realizado");
+			return "realizado"
+
+		} else {
+			const errordata = JSON.parse (await  resp.text())
+			console.log (errordata);
+			if(resp.status === 404 ){
+				return errordata.error;
+			// console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+		}}
+	} catch (error) {
+		console.error("Error al realizar la solicitud:", error);
+	}
+}
+//termina editar visita admon
 		}
 	};
 };
