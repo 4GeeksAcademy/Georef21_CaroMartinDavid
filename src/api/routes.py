@@ -374,9 +374,15 @@ def get_visitsesp():
     if not visits:
         return jsonify({"msg": "No tienes visitas registradas"}), 404
 
-    visits_serializados = [visits.serialize() for visit in visits]
+    visits_serializados = [visit.serialize() for visit in visits]
+    projects = []
+    for visitasig in visits_serializados:
+        id =visitasig["project_id"]
+        projects.append(Project.query.get(id))
+    
+    projects_serializados = [proj.serialize() for proj in projects]
 
-    return jsonify(visits_serializados), 200
+    return jsonify({"visitAsig":visits_serializados,"projectAsig":projects_serializados}), 200
 
 @api.route('/admonvisits', methods=['POST'])
 @jwt_required()

@@ -19,13 +19,15 @@ import injectContext from "./store/appContext";
 import { VistaIncialEspecialista } from "./pages/vistaInicialEspecialista.js";
 import {PerfilEspecialista} from "./pages/perfilEspecialista.js"
 import { Footer } from "./component/footer";
-
+import { PerfilVisitasEsp } from "./pages/visitaesp.js";
 import { CrearProyecto } from "./pages/CrearProyecto.jsx";
 import { Proyecto } from "./pages/Proyecto.jsx";
 import { Proyectos } from "./pages/Proyectos.jsx";
 import { DataCaptureRegister } from "./pages/tomaDeDatos.js";
 import { PerfilVisitas } from "./pages/verVisitas.js";
 import { LoginSpecialist } from "./pages/loginSpecialist.jsx";
+import { PerfilProjectEsp } from "./pages/projectEsp.js";
+
 const Layout = () => {
     const basename = process.env.BASENAME || "";
 
@@ -56,6 +58,8 @@ const Layout = () => {
                         <Route element={<Proyecto />} path="/Proyecto" />
                         <Route element={<RegVisits />} path="/regvisit" />
                         <Route element={<PerfilVisitas />} path="/perfilVisitas" />
+                        <Route element={<PerfilVisitasEsp />} path="/perfilvisitasEsp" />
+                        <Route element={<PerfilProjectEsp />} path="/perfilprojEsp" />
                         <Route element={<RegVisits />} path="/regvisit/:id" />
                         <Route element={<DataCaptureRegister />} path="/datacapture" />
                         <Route element={<Proyectos />} path="/listaproyectos" />
