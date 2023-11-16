@@ -71,6 +71,7 @@ const Layout = () => {
                         <Route element={<VistaIncialEspecialista />} path="/vInicial" />
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" />
                         <Route element={< DataCapture />} path="/vistaDatos" />
+                        <Route element={< DatasCapture />} path="/datacapture" />
                     </Routes>
                     
                 </ScrollToTop>

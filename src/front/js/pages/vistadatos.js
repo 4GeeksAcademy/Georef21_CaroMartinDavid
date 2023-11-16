@@ -12,12 +12,17 @@ function regdata(){
         navigate("/captdatareg");
 }
 
+function datacapt(){
+    actions.getcapturedata();
+    navigate("/datacapture");
+}
+
 return (
     <div className="center-content">
       
             <button onClick={()=>regdata()}>Tomar datos</button>
         
-            <button>Datos Capturados</button>
+            <button onClick={()=>datacapt()}>Datos Capturados</button>
        
      </div>
 );

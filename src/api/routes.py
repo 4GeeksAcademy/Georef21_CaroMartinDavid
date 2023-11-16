@@ -472,12 +472,20 @@ def delete_visit(visit_id):
 
 
 @api.route('/datacapture', methods=['GET'])
+@jwt_required()
 def get_data_captures():
-    data_captures = DataCapture.query.all()
+    emailspecialist = get_jwt_identity()
+    data_captures = DataCapture.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
+    if not data_captures:
+        return jsonify({"msg": "No tienes datos registradas"}), 404
+
     serialized_data_captures = [data_capture.serialize() for data_capture in data_captures]
     return jsonify(serialized_data_captures), 200
 
+
+
 @api.route('/datacapture', methods=['POST'])
+@jwt_required()
 def create_data_capture():
     # Obtén los datos del DataCapture desde la solicitud
     data = request.json
@@ -503,13 +511,14 @@ def create_data_capture():
         db.session.commit()
 
         # Devuelve una respuesta con el nuevo DataCapture creado
-        return jsonify({"message": "DataCapture creado con éxito", "id": nuevo_data_capture.id}), 201
+        return jsonify({"msg": "DataCapture creado con éxito", "id": nuevo_data_capture.id}), 201
     except Exception as e:
         # Maneja los errores de la base de datos y realiza un rollback
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
 @api.route('/datacapture/<int:data_capture_id>', methods=['PUT'])
+@jwt_required()
 def update_data_capture(data_capture_id):
     # Obtén la instancia existente de DataCapture por su ID
     data_capture = DataCapture.query.get(data_capture_id)
@@ -542,6 +551,7 @@ def update_data_capture(data_capture_id):
         return jsonify({"error": str(e)}), 500
 
 @api.route('/datacapture/<int:data_capture_id>', methods=['DELETE'])
+@jwt_required()
 def delete_data_capture(data_capture_id):
     # Obtén la instancia de DataCapture por su ID
     data_capture = DataCapture.query.get(data_capture_id)

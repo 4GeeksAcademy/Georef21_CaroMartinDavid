@@ -12,6 +12,8 @@ export const DataCaptureRegister = () => {
     const [imagen, setimagen] = useState(null);
     const [error, seterror]= useState("");
     const [urlimg, seturlimg]= useState("");
+    const [datos, setdatos]=useState({});
+    
 
     const [dataCaptureData, setDataCaptureData] = useState({
         title: "",
@@ -29,14 +31,13 @@ export const DataCaptureRegister = () => {
         for (const entrada of formdata.entries()){
             datos[entrada[0]]=entrada[1];
         } 
-        console.log(datos)
+        setdatos(datos);
     }
     async function saveImage(e){
         e.preventDefault();
         try {
         const respuesta = await uploadFile(imagen);
         seturlimg(respuesta);
-        console.log(urlimg);
 
         }catch(error){
             console.error(error);
@@ -45,37 +46,14 @@ export const DataCaptureRegister = () => {
         }
     }
 
-    const handleSave = async () => {
-        console.log(dataCaptureData);
+    function sendinfo(data, ruta){
+        
+        data.image = ruta;
+        data.georeferencing=store.location;
+        console.log (data);
+        actions.postcapturedata(data);
+    }
 
-    //     try {
-    //         const response = await fetch('https://effective-halibut-qwrr6x5w99xf965g-3001.app.github.dev/api/datacapture', {
-    //             method: 'POST',
-    //             headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //             body: JSON.stringify(dataCaptureData),
-    //         });
-
-    //     if (response.ok) {
-    //         alert("DataCapture creado con éxito");
-    //         console.log("DataCapture creado con éxito");
-
-    //         setDataCaptureData({
-    //             title: "",
-    //             description: "",
-    //             image: "",
-    //             georeferencing: "",
-    //             visit_id: "",
-    //             specialist_id: ""
-    //         });
-    //     } else {
-    //         console.error("Error al obtener datos de la API. Respuesta completa:", response);
-    //     }
-    // } catch (error) {
-    //     console.error("Error al obtener datos de la API:", error);
-    // }
-};
 
 return (
     <div className="container" >
@@ -135,7 +113,8 @@ return (
 					loadingElement={<p>Cargando</p>}
 				/>
 			</div>
-            <button>Cargar Información</button>
+            
+            <button onClick={()=>sendinfo(datos, urlimg)}>Cargar Información</button>
             <div>
                 <Link to="/vistaDatos" className="btn btn-secondary">
                     Volver
