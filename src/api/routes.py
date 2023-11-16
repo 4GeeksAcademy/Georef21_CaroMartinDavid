@@ -553,23 +553,19 @@ def update_data_capture(data_capture_id):
 @api.route('/datacapture/<int:data_capture_id>', methods=['DELETE'])
 @jwt_required()
 def delete_data_capture(data_capture_id):
+    emailspecialist = get_jwt_identity()
+    data_captures = DataCapture.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
     # Obtén la instancia de DataCapture por su ID
-    data_capture = DataCapture.query.get(data_capture_id)
+    matching_data_capture = next((dc for dc in data_captures if dc.id == data_capture_id), None)
 
-    # Comprueba si la instancia existe
-    if data_capture is None:
-        return jsonify({"message": "DataCapture no encontrado"}), 404
-
-    # Elimina la instancia de la base de datos
-    try:
-        db.session.delete(data_capture)
+    if matching_data_capture:
+        # Si el data_capture_id es válido, procede con la eliminación
+        db.session.delete(matching_data_capture)
         db.session.commit()
-        return jsonify({"message": "DataCapture eliminado con éxito"}), 200
-    except Exception as e:
-        # Maneja los errores de la base de datos y realiza un rollback
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
-
+        return jsonify({"message": "Data capture deleted successfully"}), 200
+    else:
+        return jsonify({"message": "Data capture not found or does not belong to the specialist"}), 404
+   
 
 
 

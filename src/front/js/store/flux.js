@@ -663,12 +663,35 @@ getcapturedata: async() =>{
 		        });
 	
 		    if (response.ok) {
-		        alert("DataCapture creado con éxito");
 		        console.log("DataCapture creado con éxito");
 				const respuesta= await response.json()
 				const dataesp= respuesta
 				setStore({ dataesp: dataesp});
-				console.log(dataesp);
+	
+		    } else {
+		        console.error("Error al obtener datos de la API. Respuesta completa:", response);
+		    }
+		} catch (error) {
+		    console.error("Error al obtener datos de la API:", error);
+		}
+	},
+//aqui termina el get captura de datos
+// aqui empieza el delete captura de datos
+deletecapturedata: async(id) =>{
+	const token = localStorage.getItem("tokenspecialist");
+	try {
+		const response = await fetch('https://upgraded-space-adventure-44jj954jp4h5xxw-3001.app.github.dev/api/datacapture'+"id", {
+		    method: 'DELETE',
+		    headers: {
+		            'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`
+		        }
+		        });
+	
+		    if (response.ok) {
+		        console.log("Eliminado Dato visita");
+				const { getcapturedata} = getActions();
+				getcapturedata();
 	
 		    } else {
 		        console.error("Error al obtener datos de la API. Respuesta completa:", response);
@@ -677,7 +700,8 @@ getcapturedata: async() =>{
 		    console.error("Error al obtener datos de la API:", error);
 		}
 	}
-//aqui termina el get captura de datos
+
+// aqui termina el delete captura de datos 
 		}
 	};
 };
