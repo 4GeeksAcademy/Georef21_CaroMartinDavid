@@ -2,6 +2,19 @@
     border-top: 1px solid rgba(152, 166, 173, .2);
     bottom: 0;
     padding: 19px 24px 20px;
+    /* position: absolute; */
+    /* right: 260px; */
+    color: #98a6ad;
+    left: 260px;
+    transition: all .2s ease-in-out;
+    text-align: center;
+    margin-top:auto;
+}
+
+.footer1 {
+    border-top: 1px solid rgba(152, 166, 173, .2);
+    bottom: 0;
+    padding: 19px 24px 20px;
     position: absolute;
     right: 260px;
     color: #98a6ad;
@@ -10,4 +23,3 @@
     text-align: center;
     margin-top:auto;
 }
-

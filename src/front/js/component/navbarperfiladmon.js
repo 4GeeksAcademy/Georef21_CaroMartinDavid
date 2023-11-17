@@ -24,11 +24,11 @@ export const NavbarPerfilAdmon = () => {
 							</a>
 
 							<ul className="dropdown-menu">
-								<Link to="/admons">
+								<Link to="/admons" style={{textDecoration: 'none', color: 'black' }}>
 									<span>Mi Perfil</span>
 								</Link>
-								<li><a className="dropdown-item" href="#" onClick={()=>{actions.openModaldelete()}}>Eliminar Cuenta</a></li>
-								<Link to="/">
+								<li><a className="dropdown-item p-0" href="#" onClick={()=>{actions.openModaldelete()}}>Eliminar Cuenta</a></li>
+								<Link to="/" style={{textDecoration: 'none', color: 'black' }}>
 									<span onClick={()=>{actions.logout()}}> Cerrar sesión</span>
 								</Link>
 							</ul>

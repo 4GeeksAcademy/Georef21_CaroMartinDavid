@@ -102,6 +102,7 @@ export const Administrator = () => {
 	}
 
 	return (
+		
 		<div className="account-pages1" >
 			<div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
 				<div className="containerRegistro">

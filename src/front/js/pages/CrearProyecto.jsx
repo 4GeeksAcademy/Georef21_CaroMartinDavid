@@ -70,12 +70,10 @@ export const CrearProyecto = () => {
                             {/* <Link to="/profileadmon">
                         <button type="button" className="btn btn-primary">Volver</button>
                     </Link> */}
-                            <footer className="footer footer-alt min-vh-10">
+                            <footer className="footer1 footer-alt min-vh-10">
                                 <div className="botonVolver">
-                                    <Link to="/">
-                                        <button type="button" className="btn btn-primary">
-                                            Volver a Inicio
-                                        </button>
+                                    <Link to="/profileadmon">
+                                        <button type="button" className="btn btn-primary">Volver</button>
                                     </Link>
                                 </div>
                             </footer>
