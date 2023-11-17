@@ -10,8 +10,148 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
-.admon{
-    display:flex;
+.admon {
+    display: flex;
+}
+
+.containerAdmon {
+    border: 3px solid white;
+    background-color: white;
+    width: 404px;
+    height: 550px;
+    padding: auto;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 22px;
+    box-shadow: 8px 5px 5px 12px lightblue
+}
+
+
+.bg-primary {
+    --ct-bg-opacity: 1;
+    background-color: rgba(114, 124, 245, var(--ct-bg-opacity)) !important;
+    text-emphasis-color: white;
+
+}
+
+.account-pages {
+    background-color: rgb(237, 248, 249);
+    border-radius: 50%;
+
+    margin-top: 00px;
+    margin-bottom: 0px;
+    margin-right: 400px;
+    margin-left: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.Administrador {
+    width: 400px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+.account-pages1 {
+    background-color: rgb(210, 246, 248);
+    border-radius: 150px;
+
+}
+
+.datos {
+    width: 100%;
+    justify-content: center;
+    border-radius: 50px;
+}
+
+/* .botonVolver {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 50px;
+
+} */
+
+.btn-primary {
+    background-color: #727cf5;
+    color: #fff;
+
+
+}
+
+.card-header:first-child {
+    border-radius: calc(1.25rem - 1px) calc(1.25rem - 1px) 0 0;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+    border-radius: 5%;
+}
+
+.RegistroAdministrador {
+    width: 500px;
+}
+
+.containerRegistro {
+
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+
+    background-color: white;
+
+}
+
+/* .col-md-6{
+    
+} */
+
+.form-label {
+    margin-bottom: -1.5rem;
+    padding: 10px;
+}
+
+.btn-secondary {
+    background-color: #727cf5;
+    /* background-color: #6c757d;
+    border-color: #6c757d; */
+}
+
+.RegistroProyecto {
+    width: 400px;
+    height: 130px;
+
+}
+
+.bg-light {
+    --bs-bg-opacity: 0;
+    background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.Navbarhome {
+    background-color: #727cf5;
+    color: #fff;
+
+}
+
+.flex-shrink-0 {
+    box-shadow: 5px 5px 5px 5px lightblue
+    
+}
+
+.btn-toggle::before {
+    width: 1.25em;
+    line-height: 0;
+    content: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e);
+    transition: transform .35s ease;
+    transform-origin: 0.5em 50%;
 }

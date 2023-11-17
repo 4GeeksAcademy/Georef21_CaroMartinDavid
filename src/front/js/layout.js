@@ -4,8 +4,18 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Administrator } from "./pages/admon";
-import {DatosAdmon} from "./pages/datosadmons";
+import { DatosAdmon } from "./pages/datosadmons";
 import { Home } from "./pages/home";
+<<<<<<< HEAD
+import { LoginAdministrator } from "./pages/loginadmon.js"
+import { ProfileAdmon } from "./pages/profileadmon.js";
+import { Demo } from "./pages/demo";
+import { Single } from "./pages/single";
+import { DatosEspecialista } from "./pages/datosEspecialista.js";
+import { Register } from "./pages/registerespecialist.js";
+import { Navbarhome } from "./component/navbarhome.js"
+import { NavbarPerfilAdmon } from "./component/navbarperfiladmon.js"
+=======
 import { RegVisits } from "./pages/regvisits.js";
 import {LoginAdministrator} from "./pages/loginadmon.js"
 import { ProfileAdmon } from "./pages/profileadmon.js";
@@ -14,10 +24,11 @@ import { Single } from "./pages/single";
 import { DatosEspecialista} from "./pages/datosEspecialista.js";
 import { Register } from "./pages/registerespecialist.js";
 import {NavbarPerfilAdmon} from "./component/navbarperfiladmon.js"
+>>>>>>> Develop
 import { NavbarEspecialista } from "./component/navbarEspecialista.js";
 import injectContext from "./store/appContext";
 import { VistaIncialEspecialista } from "./pages/vistaInicialEspecialista.js";
-import {PerfilEspecialista} from "./pages/perfilEspecialista.js"
+import { PerfilEspecialista } from "./pages/perfilEspecialista.js"
 import { Footer } from "./component/footer";
 import { PerfilVisitasEsp } from "./pages/visitaesp.js";
 import { CrearProyecto } from "./pages/CrearProyecto.jsx";
@@ -41,22 +52,31 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                   <NavbarPerfilAdmon/>
-                   <NavbarEspecialista/>
+
+                    <Navbarhome />
+                    <NavbarPerfilAdmon />
+                    <NavbarEspecialista />
+
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<LoginAdministrator/>} path="/admonlog" />
-                        <Route element={<LoginSpecialist/>} path="/logSpecialist" />
+                        <Route element={<LoginAdministrator />} path="/admonlog" />
+                        <Route element={<LoginSpecialist />} path="/logSpecialist" />
                         <Route element={<Administrator />} path="/admon" />
                         <Route element={<Administrator />} path="/admon/:adminId" />
-                        <Route element={<ProfileAdmon/>} path="/profileadmon" />
+                        <Route element={<ProfileAdmon />} path="/profileadmon" />
                         <Route element={<DatosAdmon />} path="/admons" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+<<<<<<< HEAD
+                        <Route element={<Register />} path="/registerespicialist" />
+                        <Route element={<Register />} path="/registerespicialist/:id" />
+                        <Route element={<DatosEspecialista />} path="/datosEspecialista" />
+=======
                         <Route element={<Register />} path="/registerespicialist" /> 
                         <Route element={<Register />} path="/registerespicialist/:id" />
 
                         <Route element={<PerfilEspecialista />} path="/perfilEspecialista" /> 
+>>>>>>> Develop
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CrearProyecto />} path="/nuevoproyecto" />
                         <Route element={<Proyecto />} path="/Proyecto" />
@@ -74,7 +94,7 @@ const Layout = () => {
                         <Route element={< DatasCapture />} path="/datacapture" />
                         <Route element={<DataCaptureRegister />} path="/captdatareg/:id" />
                     </Routes>
-                    
+
                 </ScrollToTop>
             </BrowserRouter>
         </div>
