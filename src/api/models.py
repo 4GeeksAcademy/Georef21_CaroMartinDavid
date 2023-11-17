@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import JSON
 
 db = SQLAlchemy()
 
@@ -57,6 +58,9 @@ class Specialist(db.Model):
     area_de_desempeno = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     administrator_id =  db.Column(db.Integer, db.ForeignKey('administrator.id'),nullable=False)
+    visits = db.relationship('Visit', backref='specialist', lazy=True)
+    datacaptures = db.relationship('DataCapture', backref='specialist', lazy=True)
+
     def __repr__(self):
         return f'<Specialist {self.nombre}>'
     
@@ -67,7 +71,8 @@ class Specialist(db.Model):
             "apellido": self.apellido,
             "email": self.email,
             "profesion": self.profesion,
-            "area_de_desempeno": self.area_de_desempeno
+            "area_de_desempeno": self.area_de_desempeno,
+            "visits": [visit.serialize() for visit in self.visits]
             
         }
     
@@ -78,7 +83,7 @@ class Project(db.Model):
     theme = db.Column(db.String(120), unique=False, nullable=False)
     location = db.Column(db.String(120), unique=False, nullable=False)
     admon_id =  db.Column(db.Integer, db.ForeignKey('administrator.id'),nullable=False)
-#acá irían las relaciones
+    visits = db.relationship('Visit', backref='project', lazy=True)
 
     def __repr__(self):
         return f'<Project {self.id}>'
@@ -88,8 +93,52 @@ class Project(db.Model):
             "id": self.id,
             "nameProject": self.nameProject,
             "theme": self.theme,
-            "location": self.location
-            
+            "location": self.location,
+            "visits": [visit.serialize() for visit in self.visits]
         }
 
+class Visit(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    scope = db.Column(db.String(120), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=False)
+    datacaptures = db.relationship('DataCapture', backref='visit', lazy=True)
+    
 
+    def __repr__(self):
+        return f'<Visit {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "scope": self.scope,
+            "date": self.date,
+            "project_id": self.project_id,
+            "specialist_id": self.specialist_id, 
+            "datacaptures": [dataCapture.serialize() for dataCapture in self.datacaptures]
+        }
+
+class DataCapture(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(255), nullable=False)  # Puedes ajustar el tipo de campo según tus necesidades
+    georeferencing = db.Column(JSON, nullable=False)
+    visit_id = db.Column(db.Integer, db.ForeignKey('visit.id'), nullable=False)
+    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=False)
+
+   
+    def __repr__(self):
+        return f'<DataCapture {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "image": self.image,
+            "georeferencing": self.georeferencing,
+            "visit_id": self.visit_id,
+            "specialist_id": self.specialist_id
+        }

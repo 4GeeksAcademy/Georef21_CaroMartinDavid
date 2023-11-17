@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Specialist, Administrator, Project
+from api.models import db, User, Specialist, Administrator, Project, Visit, DataCapture
 from api.utils import generate_sitemap, APIException
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager,  get_jwt_identity
@@ -242,6 +242,7 @@ def update_project(project_id):
     db.session.commit()
     return jsonify({"msg": "Proyecto actualizado satisfactoriamente"}), 200
 
+
 @api.route('/Project/<int:project_id>', methods=['DELETE'])
 @jwt_required()
 @admin_required
@@ -321,7 +322,7 @@ def deleteadmins(id):
     db.session.delete(deleteadmin)
     db.session.commit()
     return jsonify({"msg":"Usuario eliminado"}), 201 
- 
+
 @api.route('/especialistalog', methods=['GET'])
 @jwt_required()
 def especialista_logeado():
@@ -350,6 +351,227 @@ def loginSpecilist():
 
     access_token = create_access_token(identity=specialist.email)
     return jsonify(access_token=access_token), 200
+
+@api.route('/visits', methods=['GET'])
+@jwt_required()
+@admin_required
+def get_visits():
+    id_admin = get_jwt_identity()
+    visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
+
+    if not visits:
+        return jsonify({"msg": "No tienes visitas registradas"}), 404
+
+    visits_serializados = [visit.serialize() for visit in visits]  # Cambio aquí
+    print(visits_serializados)
+    return jsonify(visits_serializados), 200
+
+@api.route('/visitsEsp', methods=['GET'])
+@jwt_required()
+def get_visitsesp():
+    emailspecialist = get_jwt_identity()
+    visits = Visit.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
+    if not visits:
+        return jsonify({"msg": "No tienes visitas registradas"}), 404
+
+    visits_serializados = [visit.serialize() for visit in visits]
+    projects = []
+    for visitasig in visits_serializados:
+        id =visitasig["project_id"]
+        projects.append(Project.query.get(id))
+    
+    projects_serializados = [proj.serialize() for proj in projects]
+
+    return jsonify({"visitAsig":visits_serializados,"projectAsig":projects_serializados}), 200
+
+@api.route('/admonvisits', methods=['POST'])
+@jwt_required()
+@admin_required
+def create_visit():
+    id_admin = get_jwt_identity()
+    data = request.get_json()
+    # Data Validation
+    if not data:
+        return jsonify({"error": "Datos no proporcionados"}), 400
+    
+    if data['scope'] == "" or data['date'] == "" or data['project_id'] == "" or data['specialist_id'] == "":
+        return jsonify({"error": "Datos incompletos"}), 401
+    
+    existing_visit = Visit.query.filter_by(date=data['date'], specialist_id=data['specialist_id']).first()
+    if existing_visit:
+        error_message = f"Ya existe una visita para este día ({data['date']}) con el mismo especialista ({data['specialist_id']})"
+        return jsonify({"error": error_message}), 402
+        
+    new_visit = Visit(
+        scope=data['scope'],
+        date=data['date'],
+        project_id=data['project_id'],
+        specialist_id=data['specialist_id']
+    )
+
+    db.session.add(new_visit)
+    db.session.commit()
+    return jsonify({"msg": "visita creado satisfactoriamente"}), 200
+            
+@api.route('/visits/<int:visit_id>', methods=['PUT'])
+@jwt_required()
+@admin_required
+def update_visit(visit_id):
+    id_admin = get_jwt_identity()
+    visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
+    if any(visit.id == visit_id for visit in visits):
+        try:
+            # Obtener la visita existente por ID
+            visit = Visit.query.get(visit_id)
+            
+            # Obtener los datos JSON de la solicitud
+            data = request.get_json()
+
+            # Actualizar los campos relevantes
+            
+            visit.scope = data['scope']
+            visit.date = data['date']
+            visit.project_id = data['project_id']
+            visit.specialist_id = data['specialist_id']
+
+            # Guardar los cambios en la base de datos
+            db.session.commit()
+
+            # Devolver la visita actualizada
+            return jsonify({"msg": "visita actualizada"}), 200
+        except Exception as e:
+        # Manejar errores de la base de datos u otras excepciones
+            db.session.rollback()
+            return jsonify({"error": str(e)}), 500
+    else:
+        # El visit_id no está en la lista de visits, devolver un error
+        return jsonify({"error": f"No se encontró la visita con ID {visit_id}"}), 404
+   
+
+@api.route('/visits/<int:visit_id>', methods=['DELETE'])
+@jwt_required()
+@admin_required
+def delete_visit(visit_id):
+    id_admin = get_jwt_identity()
+    visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
+    if any(visit.id == visit_id for visit in visits):
+        try:
+            visit = Visit.query.get(visit_id)
+            db.session.delete(visit)
+            db.session.commit()
+
+            # Devolver una respuesta exitosa
+            return jsonify({"msg": "visita eliminada"}), 200
+
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"error": str(e)}), 500
+    else:
+        # El visit_id no está en la lista de visits, devolver un error
+        return jsonify({"error": f"No se encontró la visita con ID {visit_id}"}), 404
+
+
+@api.route('/datacapture', methods=['GET'])
+@jwt_required()
+def get_data_captures():
+    emailspecialist = get_jwt_identity()
+    data_captures = DataCapture.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
+    if not data_captures:
+        return jsonify({"msg": "No tienes datos registradas"}), 404
+
+    serialized_data_captures = [data_capture.serialize() for data_capture in data_captures]
+    return jsonify(serialized_data_captures), 200
+
+
+
+@api.route('/datacapture', methods=['POST'])
+@jwt_required()
+def create_data_capture():
+    # Obtén los datos del DataCapture desde la solicitud
+    data = request.json
+
+    if not data:
+        return jsonify({"message": "Datos no proporcionados"}), 400
+
+    # Crea una nueva instancia de DataCapture
+    nuevo_data_capture = DataCapture(
+        title=data.get("title"),
+        description=data.get("description"),
+        image=data.get("image"),
+        georeferencing=data.get("georeferencing"),
+        visit_id=data.get("visit_id"),
+        specialist_id=data.get("specialist_id")
+    )
+
+    # Agrega la nueva instancia a la base de datos
+    db.session.add(nuevo_data_capture)
+    
+    try:
+        # Intenta realizar la operación de commit
+        db.session.commit()
+
+        # Devuelve una respuesta con el nuevo DataCapture creado
+        return jsonify({"msg": "DataCapture creado con éxito", "id": nuevo_data_capture.id}), 201
+    except Exception as e:
+        # Maneja los errores de la base de datos y realiza un rollback
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@api.route('/datacapture/<int:data_capture_id>', methods=['PUT'])
+@jwt_required()
+def update_data_capture(data_capture_id):
+    emailspecialist = get_jwt_identity()
+    data_captures = DataCapture.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
+   
+    matching_data_capture = next((dc for dc in data_captures if dc.id == data_capture_id), None)
+    if matching_data_capture:
+   
+        data_capture = DataCapture.query.get(data_capture_id)
+
+    # Comprueba si la instancia existe
+        if data_capture is None:
+            return jsonify({"message": "DataCapture no encontrado"}), 404
+
+    # Obtén los datos actualizados desde la solicitud
+        data = request.json
+
+        if not data:
+            return jsonify({"message": "Datos no proporcionados"}), 400
+
+    # Actualiza los campos del DataCapture con los nuevos datos
+        data_capture.title = data.get("title", data_capture.title)
+        data_capture.description = data.get("description", data_capture.description)
+        data_capture.visit_id = data.get("visit_id", data_capture.visit_id)
+        if data_capture.image :
+               data_capture.image = data.get("image", data_capture.image)
+
+    # Guarda los cambios en la base de datos
+        db.session.commit()
+        return jsonify({"msg": "DataCapture actualizado con éxito"}), 200
+    
+    else:
+        return jsonify({"message": "Data capture not found or does not belong to the specialist"}), 404
+   
+
+@api.route('/datacapture/<int:data_capture_id>', methods=['DELETE'])
+@jwt_required()
+def delete_data_capture(data_capture_id):
+    emailspecialist = get_jwt_identity()
+    data_captures = DataCapture.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
+   
+    matching_data_capture = next((dc for dc in data_captures if dc.id == data_capture_id), None)
+
+    if matching_data_capture:
+        # Si el data_capture_id es válido, procede con la eliminación
+        db.session.delete(matching_data_capture)
+        db.session.commit()
+        return jsonify({"message": "Data capture deleted successfully"}), 200
+    else:
+        return jsonify({"message": "Data capture not found or does not belong to the specialist"}), 404
+   
+
+
+
 
     
 
