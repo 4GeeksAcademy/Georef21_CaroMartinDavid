@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect} from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import credentials from './credentials';
 import MapComponent from './map';
@@ -13,7 +13,8 @@ export const DataCaptureRegister = () => {
     const [error, seterror]= useState("");
     const [urlimg, seturlimg]= useState("");
     const [datos, setdatos]=useState({});
-    
+    const { id } = useParams();
+    const navigate = useNavigate();
 
     const [dataCaptureData, setDataCaptureData] = useState({
         title: "",
@@ -21,6 +22,18 @@ export const DataCaptureRegister = () => {
         visit_id: "",
         specialist_id: ""
     });
+
+    useEffect(() => {
+        // console.log("id:", id);
+        if (id) {
+
+            // Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
+            const datatoEdit = store.dataesp.find(dataEdit => dataEdit.id === parseInt(id));
+            if (datatoEdit) {
+                setDataCaptureData(datatoEdit);
+            }
+        }
+    }, [id, store.dataesp]);
 
     const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}&libraries=places`;
 
@@ -47,17 +60,25 @@ export const DataCaptureRegister = () => {
     }
 
     function sendinfo(data, ruta){
-        
+        if (id){
+            if(ruta != ""){
+            data.image = ruta;
+            console.log (data);
+            }else{
+                console.log(data);
+            }
+        }else{
         data.image = ruta;
         data.georeferencing=store.location;
         console.log (data);
         actions.postcapturedata(data);
+        }
     }
 
 
 return (
     <div className="container" >
-        <h1>Capturar Datos</h1>
+         <h1>{id ? "Capturar Datos": "Editar Datos"}</h1>
         <div className="col-md-6">
             <form onSubmit={handlesubmit}>
                 <div className="mb-3">
@@ -105,16 +126,17 @@ return (
                 <h6>Georreferenciación</h6>
                 <p>Latitud : {store.location.latitude} Longitud: {store.location.longitude } </p>
             </div>
-            <div className = "conteinerMap">
-				<MapComponent
-					googleMapURL={mapURL}
-					containerElement={<div style={{ height: '600px', width:'600px' }} />}
-					mapElement={<div style={{ height: '100%' }} />}
-					loadingElement={<p>Cargando</p>}
-				/>
-			</div>
-            
-            <button onClick={()=>sendinfo(datos, urlimg)}>Cargar Información</button>
+            { id ? <span> </span>:
+                <div className = "conteinerMap">
+                    <MapComponent
+                        googleMapURL={mapURL}
+                        containerElement={<div style={{ height: '600px', width:'600px' }} />}
+                        mapElement={<div style={{ height: '100%' }} />}
+                        loadingElement={<p>Cargando</p>}
+                    />
+                </div>
+            }
+            <button onClick={()=>sendinfo(datos, urlimg)}>{id ? "Cargar Información":"Editar Información"}</button>
             <div>
                 <Link to="/vistaDatos" className="btn btn-secondary">
                     Volver

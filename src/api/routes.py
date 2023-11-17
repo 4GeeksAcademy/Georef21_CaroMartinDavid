@@ -520,42 +520,45 @@ def create_data_capture():
 @api.route('/datacapture/<int:data_capture_id>', methods=['PUT'])
 @jwt_required()
 def update_data_capture(data_capture_id):
-    # Obtén la instancia existente de DataCapture por su ID
-    data_capture = DataCapture.query.get(data_capture_id)
+    emailspecialist = get_jwt_identity()
+    data_captures = DataCapture.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
+   
+    matching_data_capture = next((dc for dc in data_captures if dc.id == data_capture_id), None)
+    if matching_data_capture:
+   
+        data_capture = DataCapture.query.get(data_capture_id)
 
     # Comprueba si la instancia existe
-    if data_capture is None:
-        return jsonify({"message": "DataCapture no encontrado"}), 404
+        if data_capture is None:
+            return jsonify({"message": "DataCapture no encontrado"}), 404
 
     # Obtén los datos actualizados desde la solicitud
-    data = request.json
+        data = request.json
 
-    if not data:
-        return jsonify({"message": "Datos no proporcionados"}), 400
+        if not data:
+            return jsonify({"message": "Datos no proporcionados"}), 400
 
     # Actualiza los campos del DataCapture con los nuevos datos
-    data_capture.title = data.get("title", data_capture.title)
-    data_capture.description = data.get("description", data_capture.description)
-    data_capture.image = data.get("image", data_capture.image)
-    data_capture.georeferencing = data.get("georeferencing", data_capture.georeferencing)
-    data_capture.visit_id = data.get("visit_id", data_capture.visit_id)
-    data_capture.specialist_id = data.get("specialist_id", data_capture.specialist_id)
+        data_capture.title = data.get("title", data_capture.title)
+        data_capture.description = data.get("description", data_capture.description)
+        data_capture.image = data.get("image", data_capture.image)
+        data_capture.visit_id = data.get("visit_id", data_capture.visit_id)
+        
 
     # Guarda los cambios en la base de datos
-    try:
         db.session.commit()
-        return jsonify({"message": "DataCapture actualizado con éxito"}), 200
-    except Exception as e:
-        # Maneja los errores de la base de datos y realiza un rollback
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"msg": "DataCapture actualizado con éxito"}), 200
+    
+    else:
+        return jsonify({"message": "Data capture not found or does not belong to the specialist"}), 404
+   
 
 @api.route('/datacapture/<int:data_capture_id>', methods=['DELETE'])
 @jwt_required()
 def delete_data_capture(data_capture_id):
     emailspecialist = get_jwt_identity()
     data_captures = DataCapture.query.join(Specialist).filter(Specialist.email ==emailspecialist).all()
-    # Obtén la instancia de DataCapture por su ID
+   
     matching_data_capture = next((dc for dc in data_captures if dc.id == data_capture_id), None)
 
     if matching_data_capture:

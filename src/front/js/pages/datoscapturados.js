@@ -15,10 +15,12 @@ export const DatasCapture = () => {
                         <div key={index} className="card" style={{width: "18rem"}}>
                             <img src={dato.image} className="card-img-top" alt="..."/>
                             <div className="card-body">
-                             <h5 className="card-title">{dato.title}</h5>
+                             <h5 className="card-title">{dato.title}{dato.id}</h5>
                                 <p className="card-text">{dato.description}</p>
                                 <p>Visita id: {dato.visit_id} Captura id:{dato.id}</p>
-                                <a href="#" className="btn btn-primary px-2">Editar</a>
+                                <Link to={`/captdatareg/${dato.id}`}>
+                                    <button className="btn btn-primary px-2">Editar</button>
+                                </Link>
                                 <a href="#" className="btn btn-primary px-2" onClick={()=>actions.deletecapturedata(dato.id)}>Eliminar</a>
                              </div>
                             </div>

@@ -680,7 +680,7 @@ getcapturedata: async() =>{
 deletecapturedata: async(id) =>{
 	const token = localStorage.getItem("tokenspecialist");
 	try {
-		const response = await fetch('https://upgraded-space-adventure-44jj954jp4h5xxw-3001.app.github.dev/api/datacapture'+"id", {
+		const response = await fetch('https://upgraded-space-adventure-44jj954jp4h5xxw-3001.app.github.dev/api/datacapture'+"/"+id, {
 		    method: 'DELETE',
 		    headers: {
 		            'Content-Type': 'application/json',
