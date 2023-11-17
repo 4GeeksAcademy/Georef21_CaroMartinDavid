@@ -11,30 +11,49 @@ export const Home = () => {
 		<div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
 			<section className="pt-4 pt-md-11">
 
-				<div className="container">
+				<div className="container-fluid contenedor">
 					<div className="row align-items-center">
 						<div className="col-12 col-md-5 col-lg-6 order-md-2">
-							<img src="https://www.globalmediterranea.es/wp-content/uploads/2020/11/plano-georreferenciado-1536x768.jpg" className="img-fluid" alt="Imagen pequeña" />
+							<img src="https://www.globalmediterranea.es/wp-content/uploads/2020/11/plano-georreferenciado-1536x768.jpg" className="img-fluid" alt="Imagen pequeña" style={{ height: "550px", width: "100%" }} />
 						</div>
 						<div className="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate">
-							<h1 className="display-3 text-center text-md-start">
-								Bienvenido a
-								<span className="text-primary mb-4"> Georef21</span>
+							<div className="text-center">
+								<h1 className="display-3 mb-4">
+									Bienvenido a <span className="text-primary">Georef21</span>
+								</h1>
+								<h2 className="h4 mb-5">Gestiona tus proyectos en campo.</h2>
+								<p className="lead display-6 mb-6 text-body-secondary">
+									Ingresar como:
+								</p>
+							</div>
+							<div style={{ display: "flex", justifyContent: "space-around" }}>
+								<div className="card" style={{ width: "17rem", borderRadius: "8px", border: "1px solid #e0e0e0", backgroundColor: "#f8f9fa", margin: "10px", textAlign: "left", padding: "20px" }}>
+									<div className="text-center">
+										<Link to="/admonlog">
+											<button type="button" className="btn btn-primary btn-lg m-3">
+												Administrador
+											</button>
+										</Link>
+									</div>
+									<p style={{ padding: "20px", paddingTop: "5px" }}>
+										Los administradores tienen la capacidad de crear, gestionar y eliminar proyectos, así como controlar la información relacionada con especialistas y visitas.
+									</p>
+								</div>
 
-								<h2>Gestiona tus proyectos en campo.</h2>
-							</h1>
-							<p className="lead display-6 text-center text-md-start text-body-secondary mb-6 mb-lg-8">
-								Ingresar como:
-							</p>
-							<Link to="/admonlog">
-								<button type="button" className="btn btn-primary btn-lg m-3">Administrador</button>
-							</Link>
-
-							<Link to="/logSpecialist">
-								<button type="button" className="btn btn-primary btn-lg m-3">Especialista</button>
-							</Link>
+								<div className="card" style={{ width: "17rem", borderRadius: "8px", border: "1px solid #e0e0e0", backgroundColor: "#f8f9fa", margin: "10px", textAlign: "left", padding: "20px" }}>
+									<div className="text-center">
+										<Link to="/logSpecialist">
+											<button type="button" className="btn btn-primary btn-lg m-3">
+												Especialista
+											</button>
+										</Link>
+									</div>
+									<p style={{ padding: "20px", paddingTop: "5px" }}>
+										Los especialistas cuentan con la habilidad de visualizar las visitas y proyectos asignados, así como crear, gestionar y eliminar los registros de datos
+									</p>
+								</div>
+							</div>
 						</div>
-
 					</div>
 
 

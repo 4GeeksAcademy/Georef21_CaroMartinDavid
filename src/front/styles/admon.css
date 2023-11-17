@@ -12,6 +12,12 @@
     align-items: center;
 
 }
+.contenedor{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .admon {
     display: flex;
