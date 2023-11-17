@@ -29,11 +29,18 @@ export const DataCaptureRegister = () => {
 
             // Si adminId está presente en la URL, llena el estado adminData con los datos del administrador a editar
             const datatoEdit = store.dataesp.find(dataEdit => dataEdit.id === parseInt(id));
+            console.log(store.dataesp)
             if (datatoEdit) {
                 setDataCaptureData(datatoEdit);
+                
+                console.log(dataCaptureData);
+               
             }
         }
     }, [id, store.dataesp]);
+    useEffect(() => {
+        console.log("dataCaptureData actualizado:", dataCaptureData);
+    }, [dataCaptureData]);
 
     const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}&libraries=places`;
 
@@ -64,14 +71,19 @@ export const DataCaptureRegister = () => {
             if(ruta != ""){
             data.image = ruta;
             console.log (data);
+            actions.putcapturedata(data, id);
+            navigate("/vistaDatos");
             }else{
                 console.log(data);
+                actions.putcapturedata(data, id);
+                navigate("/vistaDatos");
             }
         }else{
         data.image = ruta;
         data.georeferencing=store.location;
         console.log (data);
         actions.postcapturedata(data);
+        navigate("/vistaDatos");
         }
     }
 
@@ -122,10 +134,12 @@ return (
                 <button className="btn btn-primary">Guardar imagen</button>           
             </form>
             <Modal error={error}/>
+            {id ? <span></span> :
             <div className="mb-3">
                 <h6>Georreferenciación</h6>
-                <p>Latitud : {store.location.latitude} Longitud: {store.location.longitude } </p>
-            </div>
+                
+                <p>Latitud : { store.location.latitude} Longitud: { store.location.longitude}</p>
+            </div>}
             { id ? <span> </span>:
                 <div className = "conteinerMap">
                     <MapComponent

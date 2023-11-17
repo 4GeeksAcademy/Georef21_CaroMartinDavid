@@ -14,6 +14,7 @@ function regdata(){
 
 function datacapt(){
     actions.getcapturedata();
+    actions.gevisitaesp();
     navigate("/datacapture");
 }
 

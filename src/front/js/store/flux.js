@@ -420,6 +420,7 @@ loginSpecialist: async (data) => {
 			getspecialist(token);
 			setStore({ sessionSpecialist: true });
 			return "autorizado";
+			
 		}
 	} else {
 		const resperror = await resp.json();
@@ -699,9 +700,36 @@ deletecapturedata: async(id) =>{
 		} catch (error) {
 		    console.error("Error al obtener datos de la API:", error);
 		}
-	}
+	},
 
 // aqui termina el delete captura de datos 
+//aqui comienza el put de captura de datos
+putcapturedata: async(data, id) =>{
+	const token = localStorage.getItem("tokenspecialist");
+	try {
+		const response = await fetch('https://upgraded-space-adventure-44jj954jp4h5xxw-3001.app.github.dev/api/datacapture'+"/"+id, {
+		    method: 'PUT',
+		    headers: {
+		            'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`
+		        }, 
+			body: JSON.stringify(data),
+		        });
+	
+		    if (response.ok) {
+		        console.log("actualizado Dato visita");
+				const { getcapturedata} = getActions();
+				getcapturedata();
+	
+		    } else {
+		        console.error("Error al obtener datos de la API. Respuesta completa:", response);
+		    }
+		} catch (error) {
+		    console.error("Error al obtener datos de la API:", error);
+		}
+	}
+
+// aqui termina el put de captura de datos
 		}
 	};
 };

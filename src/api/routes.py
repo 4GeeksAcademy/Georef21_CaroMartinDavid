@@ -541,9 +541,9 @@ def update_data_capture(data_capture_id):
     # Actualiza los campos del DataCapture con los nuevos datos
         data_capture.title = data.get("title", data_capture.title)
         data_capture.description = data.get("description", data_capture.description)
-        data_capture.image = data.get("image", data_capture.image)
         data_capture.visit_id = data.get("visit_id", data_capture.visit_id)
-        
+        if data_capture.image :
+               data_capture.image = data.get("image", data_capture.image)
 
     # Guarda los cambios en la base de datos
         db.session.commit()
