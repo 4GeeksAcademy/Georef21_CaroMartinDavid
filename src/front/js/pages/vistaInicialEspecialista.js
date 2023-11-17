@@ -10,58 +10,46 @@ export const VistaIncialEspecialista = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
 
-    // function getproyects(){
-    //     actions.GetProjects();
-    //     navigate("/listaproyectos");
-    // }
+    function visitasig(){
+        actions.gevisitaesp();
+        navigate ("/perfilvisitasEsp");
+    }
 
-    // function getspacialist(){
-    //     actions.getEspecialista();
-    //     navigate("/perfilEspecialista");
-    // }
-
+    function projecasig(){
+        actions.gevisitaesp();
+        navigate ("/perfilprojEsp");
+    }
+   
     return (
         <div className="container">
             <h1>Bienvenido {store.specialist.nombre}</h1>
             <div>
                 <h1>Proyectos</h1>
                 <div className="d-flex justify-content-evenly">
-                    {/* <Link to="/nuevoproyecto"> */}
-                    <button type="button" className="btn btn-success m-3">
+                
+                    <button type="button" className="btn btn-success m-3"  onClick={()=>projecasig()}>
                         Proyectos Asignados
                     </button>
-                    {/* </Link> */}
-                    {/* <button type="button" className="btn btn-success m-3" onClick={()=>getproyects()}>
-                        
-                    </button> */}
+                  
+
                 </div>
 
             </div>
             <div>
                 <h1>Visitas</h1>
                 <div className="d-flex justify-content-evenly">
-                    {/* <Link to="/registerespicialist"> */}
-                        <button type="button" className="btn btn-warning m-3">
+                    
+                        <button type="button" className="btn btn-warning m-3" onClick={()=>visitasig()}>
                             Visitas Asignadas
                         </button>
-                    {/* </Link> */}
-
-                    <button type="button" className="btn btn-warning m-3">
-                        Toma de Datos
-                    </button>
+                    
+                    <Link to="/vistaDatos">
+                        <button type="button" className="btn btn-warning m-3">
+                            Toma de Datos
+                        </button>
+                    </Link>
                 </div>
             </div>
-            {/* <div>
-                <h1>Visitas</h1>
-                <div className="d-flex justify-content-evenly">
-                    <button type="button" className="btn btn-info m-3">
-                        Crear Visitas
-                    </button>
-                    <button type="button" className="btn btn-info m-3">
-                        Visitas
-                    </button>
-                </div>
-            </div> */}
 
         </div>
     );
