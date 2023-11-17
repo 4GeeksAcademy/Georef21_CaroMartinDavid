@@ -14,7 +14,7 @@ export const Home = () => {
 				<div className="container-fluid contenedor">
 					<div className="row align-items-center">
 						<div className="col-12 col-md-5 col-lg-6 order-md-2">
-							<img src="https://www.globalmediterranea.es/wp-content/uploads/2020/11/plano-georreferenciado-1536x768.jpg" className="img-fluid" alt="Imagen pequeña" style={{ height: "550px", width: "100%" }} />
+							<img src="https://www.globalmediterranea.es/wp-content/uploads/2020/11/plano-georreferenciado-1536x768.jpg" className="img-fluid" alt="Imagen pequeña" style={{ height: "550px", width: "100%", boxShadow: "0 4px 8px rgba(30, 0, 0, 100)" }} />
 						</div>
 						<div className="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate">
 							<div className="text-center">
@@ -27,7 +27,7 @@ export const Home = () => {
 								</p>
 							</div>
 							<div style={{ display: "flex", justifyContent: "space-around" }}>
-								<div className="card" style={{ width: "17rem", borderRadius: "8px", border: "1px solid #e0e0e0", backgroundColor: "#f8f9fa", margin: "10px", textAlign: "left", padding: "20px" }}>
+								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #e0e0e0", backgroundColor: "#f8f9fa", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
 									<div className="text-center">
 										<Link to="/admonlog">
 											<button type="button" className="btn btn-primary btn-lg m-3">
@@ -40,7 +40,7 @@ export const Home = () => {
 									</p>
 								</div>
 
-								<div className="card" style={{ width: "17rem", borderRadius: "8px", border: "1px solid #e0e0e0", backgroundColor: "#f8f9fa", margin: "10px", textAlign: "left", padding: "20px" }}>
+								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #e0e0e0", backgroundColor: "#f8f9fa", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
 									<div className="text-center">
 										<Link to="/logSpecialist">
 											<button type="button" className="btn btn-primary btn-lg m-3">
