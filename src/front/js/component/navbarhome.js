@@ -2,55 +2,31 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { BsPersonCircle } from "react-icons/bs";
-
+import LogoGeoref21 from '../../img/LogoGeoref21.png';
 
 export const Navbarhome = () => {
   const { store, actions } = useContext(Context);
 
-
   return (
-		<div className="Navbarhome">
-		<nav className="" aria-label="Dark offcanvas navbar">
-    <div className="container-fluid">
-      <a className="navbar-brand" href="#" style={{color: "white"}}>Georef_21</a>
-      <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      {/* <div className="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbarDark" aria-labelledby="offcanvasNavbarDarkLabel">
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasNavbarDarkLabel">Offcanvas</h5>
-          <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div className="offcanvas-body">
-          <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary Navbarhome" >
+      <div className="container-fluid" >
+        <a className="navbar-brand" href="/">
+          <img src={LogoGeoref21} width="140" height="55" alt="Logo"/>
+        </a>
+        <div className="collapse navbar-collapse" id="navbarNav" >
+          <ul className="navbar-nav" style={{ marginRight: "20px" }}>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Home</a>
+              <a className="nav-link active navInicio" aria-current="page" href="/">Inicio</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
+              <a className="nav-link" href="admonLog">Administrador</a>
             </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="#">Action</a></li>
-                <li><a className="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <hr className="dropdown-divider"/>
-                </li>
-                <li><a className="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+            <li className="nav-item">
+              <a className="nav-link" href="logSpecialist">Especialista</a>
             </li>
           </ul>
-          <form className="d-flex mt-3" role="search">
-             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-             <button className="btn btn-outline-success" type="submit">Search</button>
-           </form>
-         </div>
-       </div> */}
-     </div>
-   </nav>
- 		</div>
+        </div>
+      </div>
+    </nav>
   );
 };

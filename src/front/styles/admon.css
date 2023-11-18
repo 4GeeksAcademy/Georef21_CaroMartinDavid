@@ -13,6 +13,13 @@
 
 }
 
+.contenedor{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .admon {
     display: flex;
 }
@@ -77,11 +84,16 @@
 
 } */
 
-.btn-primary {
+.buttonHome {
     background-color: #727cf5;
     color: #fff;
 
 
+}
+
+.buttonHome:hover {
+    background-color: rgb(149, 114, 245);
+    color: #fff;
 }
 
 .card-header:first-child {
@@ -143,6 +155,15 @@
 
 }
 
+.nav-link{
+    color:rgba(245, 245, 245, 0.849);
+    margin-right: 20px
+}
+
+.navInicio{
+    margin-left: 30px;
+}
+
 .flex-shrink-0 {
     box-shadow: 5px 5px 5px 5px lightblue;
     
@@ -156,9 +177,3 @@
     transform-origin: 0.5em 50%;
 }
 
-.contenedor{
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
