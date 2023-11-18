@@ -160,6 +160,10 @@
     margin-right: 20px
 }
 
+.nav-link:hover{
+    color: rgb(78, 39, 185);
+}
+
 .navInicio{
     margin-left: 30px;
 }
