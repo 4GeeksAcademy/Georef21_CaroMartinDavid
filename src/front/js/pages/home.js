@@ -10,222 +10,50 @@ export const Home = () => {
 	return (
 		<div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
 			<section className="pt-4 pt-md-11">
-
-				<div className="container">
+				<div className="container-fluid contenedor">
 					<div className="row align-items-center">
 						<div className="col-12 col-md-5 col-lg-6 order-md-2">
-							<img src="https://www.globalmediterranea.es/wp-content/uploads/2020/11/plano-georreferenciado-1536x768.jpg" className="img-fluid" alt="Imagen pequeña" />
+							<img src="https://www.globalmediterranea.es/wp-content/uploads/2020/11/plano-georreferenciado-1536x768.jpg" className="img-fluid" alt="Imagen pequeña" style={{ height: "550px", width: "100%", boxShadow: "0 4px 8px rgba(30, 0, 0, 100)" }} />
 						</div>
 						<div className="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate">
-							<h1 className="display-3 text-center text-md-start">
-								Bienvenido a
-								<span className="text-primary mb-4"> Georef21</span>
-
-								<h2>Gestiona tus proyectos en campo.</h2>
-							</h1>
-							<p className="lead display-6 text-center text-md-start text-body-secondary mb-6 mb-lg-8">
-								Ingresar como:
-							</p>
-							<Link to="/admonlog">
-								<button type="button" className="btn btn-primary btn-lg m-3">Administrador</button>
-							</Link>
-
-							<Link to="/logSpecialist">
-								<button type="button" className="btn btn-primary btn-lg m-3">Especialista</button>
-							</Link>
-						</div>
-
-					</div>
-
-
-
-					{/* <footer className="py-8 py-md-11 bg-gray-200 mt-25">
-					<div className="container.">
-						<div className="row">
-							<div className="col-12 col-md-4 col-lg-3">
-
-
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-compass-fill" viewBox="0 0 16 16">
-									<path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24zm-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z" />
-								</svg>
-
-
-								<p className="text-gray-700 mb-2">
-									Georef21.
+							<div className="text-center">
+								<h1 className="display-3 mb-4">
+									Bienvenido a <span className="text-primary">Georef21</span>
+								</h1>
+								<h2 className="h4 mb-5">Gestiona tus proyectos en campo.</h2>
+								<p className="lead display-6 mb-6 text-body-secondary">
+									Ingresar como:
 								</p>
-
-
-								<ul className="list-unstyled list-inline list-social mb-6 mb-md-0">
-									<li className="list-inline-item list-social-item me-3">
-										<a href="#!" className="text-decoration-none">
-											<img src="./assets/img/icons/social/instagram.svg" className="list-social-icon" alt="..." />
-										</a>
-									</li>
-									<li className="list-inline-item list-social-item me-3">
-										<a href="#!" className="text-decoration-none">
-											<img src="./assets/img/icons/social/facebook.svg" className="list-social-icon" alt="..." />
-										</a>
-									</li>
-									<li className="list-inline-item list-social-item me-3">
-										<a href="#!" className="text-decoration-none">
-											<img src="./assets/img/icons/social/twitter.svg" className="list-social-icon" alt="..." />
-										</a>
-									</li>
-									<li className="list-inline-item list-social-item">
-										<a href="#!" className="text-decoration-none">
-											<img src="./assets/img/icons/social/pinterest.svg" className="list-social-icon" alt="..." />
-										</a>
-									</li>
-								</ul>
-
 							</div>
-							<div className="col-6 col-md-4 col-lg-2">
-
-
-								<h6 className="fw-bold text-uppercase text-gray-700">
-									Products
-								</h6>
-
-
-								<ul className="list-unstyled text-body-secondary mb-6 mb-md-8 mb-lg-0">
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Page Builder
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											UI Kit
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Styleguide
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Documentation
-										</a>
-									</li>
-									<li>
-										<a href="#!" className="text-reset">
-											Changelog
-										</a>
-									</li>
-								</ul>
-
+							<div style={{ display: "flex", justifyContent: "space-around" }}>
+								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #E0E0E0", backgroundColor: "#F8F9FA", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
+									<div className="text-center">
+										<Link to="/admonlog">
+											<button type="button" className="btn btn-primary btn-lg m-3">
+												Administrador
+											</button>
+										</Link>
+									</div>
+									<p style={{ padding: "20px", paddingTop: "5px" }}>
+										Los administradores tienen la capacidad de crear, gestionar y eliminar proyectos, así como controlar la información relacionada con especialistas y visitas.
+									</p>
+								</div>
+								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #E0E0E0", backgroundColor: "#F8F9FA", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
+									<div className="text-center">
+										<Link to="/logSpecialist">
+											<button type="button" className="btn btn-primary btn-lg m-3">
+												Especialista
+											</button>
+										</Link>
+									</div>
+									<p style={{ padding: "20px", paddingTop: "5px" }}>
+										Los especialistas cuentan con la habilidad de visualizar las visitas y proyectos asignados, así como crear, gestionar y eliminar los registros de datos
+									</p>
+								</div>
 							</div>
-							<div className="col-6 col-md-4 col-lg-2">
-
-
-								<h6 className="fw-bold text-uppercase text-gray-700">
-									Services
-								</h6>
-
-
-								<ul className="list-unstyled text-body-secondary mb-6 mb-md-8 mb-lg-0">
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Documentation
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Changelog
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Pagebuilder
-										</a>
-									</li>
-									<li>
-										<a href="#!" className="text-reset">
-											UI Kit
-										</a>
-									</li>
-								</ul>
-
-							</div>
-							<div className="col-6 col-md-4 offset-md-4 col-lg-2 offset-lg-0">
-
-
-								<h6 className="fw-bold text-uppercase text-gray-700">
-									Connect
-								</h6>
-
-
-								<ul className="list-unstyled text-body-secondary mb-0">
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Page Builder
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											UI Kit
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Styleguide
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Documentation
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Changelog
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Documentation
-										</a>
-									</li>
-									<li>
-										<a href="#!" className="text-reset">
-											Changelog
-										</a>
-									</li>
-								</ul>
-
-							</div>
-							<div className="col-6 col-md-4 col-lg-2">
-
-
-								<h6 className="fw-bold text-uppercase text-gray-700">
-									Legal
-								</h6>
-
-
-								<ul className="list-unstyled text-body-secondary mb-0">
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Documentation
-										</a>
-									</li>
-									<li className="mb-3">
-										<a href="#!" className="text-reset">
-											Changelog
-										</a>
-									</li>
-									<li>
-										<a href="#!" className="text-reset">
-											Pagebuilder
-										</a>
-									</li>
-								</ul>
-
-							</div>
-
 						</div>
+
 					</div>
-				</footer> */}
 				</div>
 			</section >
 			<footer className="footer footer-alt min-vh-10 ">
