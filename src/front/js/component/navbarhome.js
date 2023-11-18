@@ -8,10 +8,10 @@ export const Navbarhome = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary Navbarhome" >
+    <nav className="navbar navbar-expand-lg Navbarhome" >
       <div className="container-fluid" >
         <a className="navbar-brand" href="/">
-          <img src={LogoGeoref21} width="140" height="55" alt="Logo"/>
+          <img src={LogoGeoref21} width="135" height="40" alt="Logo"/>
         </a>
         <div className="collapse navbar-collapse" id="navbarNav" >
           <ul className="navbar-nav" style={{ marginRight: "20px" }}>
