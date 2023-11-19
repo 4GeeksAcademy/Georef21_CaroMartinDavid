@@ -20,13 +20,13 @@
 .containerAdmon {
     border: 3px solid white;
     background-color: white;
-    width: 404px;
+    width: 800px;
     height: 550px;
     padding: auto;
     flex-direction: column;
     align-items: center;
-    border-radius: 22px;
-    box-shadow: 8px 5px 5px 12px lightblue
+    border-radius: 5px;
+    /* box-shadow: 3px 3px 3px 3px lightblue */
 }
 
 
@@ -38,9 +38,8 @@
 }
 
 .account-pages {
-    background-color: rgb(237, 248, 249);
-    border-radius: 50%;
-
+    /* background-color: rgb(237, 248, 249);
+    border-radius: 50%; */
     margin-top: 00px;
     margin-bottom: 0px;
     margin-right: 400px;
@@ -52,16 +51,16 @@
 }
 
 .Administrador {
-    width: 400px;
+    width: 795px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
 
-.account-pages1 {
+/* .account-pages1 {
     background-color: rgb(210, 246, 248);
     border-radius: 150px;
 
-}
+} */
 
 .datos {
     width: 100%;
@@ -96,23 +95,25 @@
 }
 
 .RegistroAdministrador {
-    width: 500px;
+    width: 796px;
 }
 
 .containerRegistro {
 
-    margin: 50px;
-    display: flex;
+    border: 3px solid white;
+    background-color: white;
+    width: 800px;
+    height: 780px;
+    padding: auto;
     flex-direction: column;
     align-items: center;
-    width: 500px;
-
-    background-color: white;
+    border-radius: 22px;
+    box-shadow: 3px 3px 3px 3px lightblue
 
 }
 
 /* .col-md-6{
-    
+    margin: auto!important;
 } */
 
 .form-label {
@@ -127,7 +128,7 @@
 }
 
 .RegistroProyecto {
-    width: 400px;
+    width: 795px;
     height: 130px;
 
 }
@@ -161,4 +162,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* .m-auto {
+    margin: auto!important;
+} */
+
+.NombreRegAdmor {
+    width: 98%;
 }
