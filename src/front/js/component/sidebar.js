@@ -38,7 +38,7 @@ export const Sidebar = () => {
 
     return (
 
-        <div className="flex-shrink-0 p-3 bg-white" style={{ width: "280px", display: store.sidebar }}>
+        <div className="flex-shrink-0 p-3 bg-white" style={{ width: "280px", display: store.sidebar, height: "100vh" }}>
 
             <div>
                 <div className="d-flex align-items-center pb-1 mb-1 link-dark text-decoration-none border-bottom">
