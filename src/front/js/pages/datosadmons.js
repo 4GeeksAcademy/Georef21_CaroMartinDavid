@@ -26,7 +26,6 @@ export const DatosAdmon = () => {
 								<p className="card-text">Fecha de Nacimiento : {new Date(store.administrator.birthday).toLocaleDateString('es-ES')}</p>
 								<p className="card-text">Email : {store.administrator.email}</p>
 								<p className="card-text">Cargo : {store.administrator.position}</p>
-								<p className="card-text"><small className="text-body-secondary">Info adicional: {store.administrator.aditional_info}</small></p>
 							</div>
 							</div>
 						</div>
