@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect} from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import credentials from './credentials';
-import MapComponent from './map';
+import {Map} from './map';
 import { uploadFile } from "../../../firebase/config";
 import { Modal } from "../component/modal";
 
@@ -42,7 +41,6 @@ export const DataCaptureRegister = () => {
         console.log("dataCaptureData actualizado:", dataCaptureData);
     }, [dataCaptureData]);
 
-    const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}&libraries=places`;
 
     function handlesubmit(e){
         e.preventDefault()
@@ -51,8 +49,26 @@ export const DataCaptureRegister = () => {
         for (const entrada of formdata.entries()){
             datos[entrada[0]]=entrada[1];
         } 
-        setdatos(datos);
+        if (id){
+            if(ruta != ""){
+            data.image = ruta;
+            console.log (data);
+            actions.putcapturedata(data, id);
+            navigate("/vistaDatos");
+            }else{
+                console.log(data);
+                actions.putcapturedata(data, id);
+                navigate("/vistaDatos");
+            }
+        }else{
+        data.image = ruta;
+        // data.georeferencing=store.location;
+        console.log (data);
+        actions.postcapturedata(data);
+        navigate("/vistaDatos");
+        }
     }
+    
     async function saveImage(e){
         e.preventDefault();
         try {
@@ -80,7 +96,7 @@ export const DataCaptureRegister = () => {
             }
         }else{
         data.image = ruta;
-        data.georeferencing=store.location;
+        // data.georeferencing=store.location;
         console.log (data);
         actions.postcapturedata(data);
         navigate("/vistaDatos");
@@ -90,7 +106,7 @@ export const DataCaptureRegister = () => {
 
 return (
     <div className="container" >
-         <h1>{id ? "Capturar Datos": "Editar Datos"}</h1>
+         <h1>{id ? "Editar Datos": "Capturar Datos"}</h1>
         <div className="col-md-6">
             <form onSubmit={handlesubmit}>
                 <div className="mb-3">
@@ -123,40 +139,26 @@ return (
                     <label htmlFor="description" className="form-label">Descripción</label>
                     <textarea className="form-control" id="description" name="description" defaultValue={dataCaptureData.description} rows="2"></textarea>
                 </div>
-                <button className="btn btn-primary">Guardar</button>
-            </form>
-            
-            <form onSubmit={saveImage}>
                 <div className="mb-3">
                     <label htmlFor="image" className="form-label">Imagen</label>
-                    <input type="file" className="form-control" id="image" name="image"  onChange={(e)=>setimagen(e.target.files[0])} />
+                    <input type="file" className="form-control" id="image" name="image"  />
                 </div>
-                <button className="btn btn-primary">Guardar imagen</button>           
+                { id ? <span> </span>:
+                    <div className = "conteinerMap">
+                        <p>Arrastra el marcador ó da click sobre el mapa para ajustar tu ubicación</p>
+                        <Map/>
+                    </div>
+                }
+                <div>
+                    <button className="btn btn-primary">Guardar</button>
+                </div>
             </form>
-            <Modal error={error}/>
-            {id ? <span></span> :
-            <div className="mb-3">
-                <h6>Georreferenciación</h6>
-                
-                <p>Latitud : { store.location.latitude} Longitud: { store.location.longitude}</p>
-            </div>}
-            { id ? <span> </span>:
-                <div className = "conteinerMap">
-                    <MapComponent
-                        googleMapURL={mapURL}
-                        containerElement={<div style={{ height: '600px', width:'600px' }} />}
-                        mapElement={<div style={{ height: '100%' }} />}
-                        loadingElement={<p>Cargando</p>}
-                    />
-                </div>
-            }
-            <button onClick={()=>sendinfo(datos, urlimg)}>{id ? "Cargar Información":"Editar Información"}</button>
-            <div>
+                <Modal error={error}/>
                 <Link to="/vistaDatos" className="btn btn-secondary">
-                    Volver
+                        Volver
                 </Link>
             </div>
-        </div>
     </div>
+    
 );
 };
