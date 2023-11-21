@@ -46,6 +46,8 @@ const Layout = () => {
                     {/* <Navbarhome /> */}
                     <NavbarPerfilAdmon />
                     {/* <NavbarEspecialista /> */}
+                    <div className="container-fluid d-flex justify-content-start"> {/* Agregando una clase de Bootstrap al contenedor */}
+                        <Sidebar />
 
                         <div className="row"> {/* Creando una fila de Bootstrap para envolver las rutas */}
                             <Routes>
@@ -80,6 +82,8 @@ const Layout = () => {
                                 <Route element={<DataCaptureRegister />} path="/captdatareg/:id" />
                             </Routes>
                         </div>
+                    </div>
+                    {/* </div> */}
                 </ScrollToTop>
             </BrowserRouter>
         </div>
