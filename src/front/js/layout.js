@@ -16,7 +16,6 @@ import { DatosEspecialista } from "./pages/datosEspecialista.js";
 import { Register } from "./pages/registerespecialist.js";
 import { Navbarhome } from "./component/navbarhome.js"
 import { NavbarPerfilAdmon } from "./component/navbarperfiladmon.js"
-import { NavbarEspecialista } from "./component/navbarEspecialista.js";
 import injectContext from "./store/appContext";
 import { VistaIncialEspecialista } from "./pages/vistaInicialEspecialista.js";
 import { PerfilEspecialista } from "./pages/perfilEspecialista.js"
@@ -81,7 +80,6 @@ const Layout = () => {
                                 <Route element={<DataCaptureRegister />} path="/captdatareg/:id" />
                             </Routes>
                         </div>
-                    </div>
                 </ScrollToTop>
             </BrowserRouter>
         </div>
