@@ -49,24 +49,26 @@ export const DataCaptureRegister = () => {
         for (const entrada of formdata.entries()){
             datos[entrada[0]]=entrada[1];
         } 
-        if (id){
-            if(ruta != ""){
-            data.image = ruta;
-            console.log (data);
-            actions.putcapturedata(data, id);
-            navigate("/vistaDatos");
-            }else{
-                console.log(data);
-                actions.putcapturedata(data, id);
-                navigate("/vistaDatos");
-            }
-        }else{
-        data.image = ruta;
-        // data.georeferencing=store.location;
-        console.log (data);
-        actions.postcapturedata(data);
-        navigate("/vistaDatos");
-        }
+        console.log (datos);
+        console.log(datos.image)
+        // if (id){
+        //     if(ruta != ""){
+        //     data.image = ruta;
+        //     console.log (data);
+        //     actions.putcapturedata(data, id);
+        //     navigate("/vistaDatos");
+        //     }else{
+        //         console.log(data);
+        //         actions.putcapturedata(data, id);
+        //         navigate("/vistaDatos");
+        //     }
+        // }else{
+        // data.image = ruta;
+        // // data.georeferencing=store.location;
+        // console.log (data);
+        // actions.postcapturedata(data);
+        // navigate("/vistaDatos");
+        // }
     }
     
     async function saveImage(e){
