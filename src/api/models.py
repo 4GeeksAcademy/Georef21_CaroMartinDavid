@@ -30,7 +30,6 @@ class Administrator(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     position = db.Column(db.String(120), unique=False, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
-    aditional_info = db.Column(db.String(250), unique=False, nullable=False)
     specialists = db.relationship('Specialist', backref='administrator', lazy=True)
     projects = db.relationship('Project', backref='administrator', lazy=True)
     
@@ -44,7 +43,6 @@ class Administrator(db.Model):
         "name":self.name,
         "lastname": self.lastname,
         "position":self.position,
-        "aditional_info":self.aditional_info,
         "birthday": self.birthday
             # do not serialize the password, its a security breach
         }
@@ -57,6 +55,7 @@ class Specialist(db.Model):
     profesion = db.Column(db.String(120), nullable=False)
     area_de_desempeno = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
+    imageprofile =db.Column(db.String(120), nullable=False)
     administrator_id =  db.Column(db.Integer, db.ForeignKey('administrator.id'),nullable=False)
     visits = db.relationship('Visit', backref='specialist', lazy=True)
     datacaptures = db.relationship('DataCapture', backref='specialist', lazy=True)
@@ -72,6 +71,7 @@ class Specialist(db.Model):
             "email": self.email,
             "profesion": self.profesion,
             "area_de_desempeno": self.area_de_desempeno,
+            "imageprofile":self.imageprofile,
             "visits": [visit.serialize() for visit in self.visits]
             
         }
@@ -79,7 +79,7 @@ class Specialist(db.Model):
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nameProject = db.Column(db.String(120), unique=True, nullable=False)
+    nameProject = db.Column(db.String(120), unique=False, nullable=False)
     theme = db.Column(db.String(120), unique=False, nullable=False)
     location = db.Column(db.String(120), unique=False, nullable=False)
     admon_id =  db.Column(db.Integer, db.ForeignKey('administrator.id'),nullable=False)
