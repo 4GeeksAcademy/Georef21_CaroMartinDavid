@@ -10,7 +10,7 @@ export const NavbarPerfilAdmon = () => {
 
 
 	return (
-		<div className="d-flex justify-content-center">
+		<div className="d-flex justify-content-end">
 		<nav className="navbar navbar-light bg-light col-md-10 d-flex justify-content-end">
 			<div >
 				

@@ -14,7 +14,7 @@ export const Navbarhome = () => {
     <div className="container-fluid">
       <a className="navbar-brand" href="#" style={{color: "white"}}>Georef_21</a>
       <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
+        {/* <span className="navbar-toggler-icon"></span> */}
       </button>
       {/* <div className="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbarDark" aria-labelledby="offcanvasNavbarDarkLabel">
         <div className="offcanvas-header">

@@ -30,7 +30,30 @@
     /* box-shadow: 1px 1px 1px 1px lightblue */
 }
 
+.containerAdmonProyectos {
+    border: 0px solid rgba(255, 250, 250, 0.366);
+    background-color: rgba(185, 185, 187, 0.366);
+    width: 797px;
+    height: 600px;
+    padding: auto;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0px;
+}
 
+.containerSpecialist {
+    border: 100px solid rgba(255, 250, 250, 0.366);
+    background-color: rgba(185, 185, 187, 0.366);
+    width: 703px;
+    height: 721px;
+    padding: auto;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0px;
+    /* box-shadow: 1px 1px 1px 1px lightblue; */
+
+
+}
 .bg-primary {
     --ct-bg-opacity: 1;
     background-color: rgba(114, 124, 245, var(--ct-bg-opacity)) !important;
@@ -165,7 +188,8 @@ form-label {
 }
 
 .flex-shrink-0 {
-    box-shadow: 5px 5px 5px 5px lightblue;
+    box-shadow: 1px 1px 1px 1px lightblue;
+    border-radius: 0%;
 
 }
 
