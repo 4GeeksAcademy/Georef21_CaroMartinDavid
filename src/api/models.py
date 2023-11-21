@@ -30,6 +30,7 @@ class Administrator(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     position = db.Column(db.String(120), unique=False, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
+    image_admon = db.Column(db.String(255), nullable=False)
     specialists = db.relationship('Specialist', backref='administrator', lazy=True)
     projects = db.relationship('Project', backref='administrator', lazy=True)
     
@@ -43,8 +44,11 @@ class Administrator(db.Model):
         "name":self.name,
         "lastname": self.lastname,
         "position":self.position,
-        "birthday": self.birthday
-            # do not serialize the password, its a security breach
+        "birthday": self.birthday,
+        "image_admon":self.image_admon,
+        "specialists":[specialist.serialize() for specialist in self.specialists],
+        "projects":[project.serialize() for project in self.projects]
+          
         }
     
 class Specialist(db.Model):
@@ -55,7 +59,7 @@ class Specialist(db.Model):
     profesion = db.Column(db.String(120), nullable=False)
     area_de_desempeno = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    imageprofile =db.Column(db.String(120), nullable=False)
+    imageprofile =db.Column(db.String(255), nullable=False)
     administrator_id =  db.Column(db.Integer, db.ForeignKey('administrator.id'),nullable=False)
     visits = db.relationship('Visit', backref='specialist', lazy=True)
     datacaptures = db.relationship('DataCapture', backref='specialist', lazy=True)

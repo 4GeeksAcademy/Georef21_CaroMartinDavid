@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage"
 import {v4} from 'uuid'
@@ -16,9 +15,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const storage =getStorage(app)
 
-export async function uploadFile(file){
+export async function uploadFile(file,user){
+  if(user ==="admon"){
+    const storageRef = ref(storage,'fotoperfiladmon/'+ v4())
+    await uploadBytes(storageRef, file)
+    const url = await getDownloadURL(storageRef)
+    return url
+  }
+  if(user==="specialist"){
+    const storageRef = ref(storage,'fotoperfilesp/'+ v4())
+    await uploadBytes(storageRef, file)
+    const url = await getDownloadURL(storageRef)
+    return url
+  }
+  if(user==="visitas"){
     const storageRef = ref(storage,'imgvisitas/'+ v4())
     await uploadBytes(storageRef, file)
     const url = await getDownloadURL(storageRef)
     return url
+  }
 }

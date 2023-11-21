@@ -27,9 +27,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allvisitsspc: [],
 			allprojectspc: [],
 			location: {},
-			dataesp: [],
-			sidebar: "none"
-			
+			dataesp: [], 
+			ajustedlocation:{}
 		},
 
 		actions: {
@@ -76,7 +75,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							const { GetProjects } = getActions();
 							GetProjects();
 							setStore({ session: true });
-							setStore({ sidebar: "flex" });
 							return "autorizado";
 						}
 					} else {
@@ -343,7 +341,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				localStorage.removeItem("token");
 				setStore({ session: false });
-				setStore({ sidebar: "none" });
 
 			},
 			logoutSpecialist: () => {
@@ -615,23 +612,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// postgeolocalizacion
 			location: async () => {
 				try {
-					if ("geolocation" in navigator) {
-						navigator.geolocation.getCurrentPosition(async (position) => {
-							const { latitude, longitude } = position.coords;
-							const location = { latitude, longitude };
-							setStore({ location: location });
-							console.log(location);
-							console.log("Ubicación:", latitude, longitude);
-
-							// Aquí puedes realizar alguna acción con la ubicación obtenida
-						});
+				  if ("geolocation" in navigator) {
+					const position = await new Promise((resolve, reject) => {
+					  navigator.geolocation.getCurrentPosition(resolve, reject);
+					});
+			  
+					console.log("Coordenadas completas:", position.coords);
+			  
+					const lat = position.coords.latitude;
+					const lng = position.coords.longitude;
+			  
+			  
+					if (typeof lat === "number" && typeof lng === "number" && !isNaN(lat) && !isNaN(lng)) {
+					  const location = { lat, lng };
+					  setStore({ location });
+					  console.log("Ubicación:", location);
+			  
+					  // Resto del código
 					} else {
-						console.error("Geolocalización no está disponible");
+					  console.error("Las coordenadas no son números válidos.");
 					}
+				  } else {
+					console.error("Geolocalización no está disponible");
+				  }
 				} catch (error) {
-					console.error("Error al obtener la ubicación:", error);
+				  console.error("Error al obtener la ubicación:", error);
 				}
-			},
+			  },
+			  
+			  
 
 			// aqui termina el post geolocalizacion
 
@@ -737,14 +746,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error al obtener datos de la API:", error);
 				}
 			},
+			//setlocation
+			ajustLocation: (data)=>{
+				const ajustedlocation = data
+				setStore({ ajustedlocation: ajustedlocation});
+			}
 
 			// aqui termina el put de captura de datos
-
-			// sidebar: () => {
-			// 	const sidebar= "flex";
-			// 	setStore({ sidebar: sidebar });
-
-			// }
 		}
 	};
 };

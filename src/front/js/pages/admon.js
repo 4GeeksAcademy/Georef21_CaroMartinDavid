@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Modal } from "../component/modal";
+import { uploadFile } from "../../../firebase/config";
 import "../../styles/admon.css";
 
 export const Administrator = () => {
@@ -47,6 +48,7 @@ export const Administrator = () => {
 
 	async function handlesubmit(e) {
 		e.preventDefault()
+		e.persist();
 		const formdata = new FormData(e.target);
 		const adminregistro = {};
 		for (const entrada of formdata.entries()) {
@@ -72,9 +74,19 @@ export const Administrator = () => {
 			}
 		}
 		else {
-			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" ) {
+			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" &&adminregistro.image_admon != "" ) {
 				const edadadmin = edad(adminregistro.birthday);
 				if (edadadmin >= 18) {
+					try {
+						const urlimage = await uploadFile(adminregistro.image_admon, "admon");
+						adminregistro.image_admon = urlimage;
+						console.log(urlimage);
+						}catch(error){
+							console.error(error);
+							seterror(error);
+							actions.openErrorlogin();
+						}
+					console.log(adminregistro);
 					const respuesta = await actions.postadmin(adminregistro);
 					if (respuesta === "realizado") {
 						navigate("/admonlog");
@@ -99,6 +111,9 @@ export const Administrator = () => {
 				actions.openErrorlogin();
 			}
 		}
+
+		console.log(adminregistro);
+		
 	}
 
 	return (
@@ -108,7 +123,7 @@ export const Administrator = () => {
 				<div className="containerRegistro">
 					<div className="RegistroAdministrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
 						<h1>{adminId ? "Editar Administrador" : "Registro Administrador"}</h1></div>
-					<div className="NombreRegAdmor col-md-6 justify-content-center">
+					<div className="col-md-6">
 						<form onSubmit={handlesubmit}>
 							<div className="mb-1">
 								<label htmlFor="name" className="form-label">Nombre</label>
@@ -131,10 +146,17 @@ export const Administrator = () => {
 								<input type="text" className="form-control" id="charge" name="position" defaultValue={adminData.position} aria-describedby="charge" />
 							</div>
 							{adminId ? <span></span> :
+							<>
 								<div className="mb-1">
 									<label htmlFor="exampleInputPassword1" className="form-label">Password</label>
 									<input type="password" className="form-control" name="password" id="exampleInputPassword1" />
-								</div>}
+								</div>
+								
+								<div className="mb-1">
+									<label htmlFor="imageadmon" className="form-label">imagen</label>
+									<input type="file" className="form-control" name="image_admon" id="imageadmon" />
+								</div>
+							</>}
 
 							<div className="d-flex justify-content-center py-1">
 								<button type="submit" className="btn btn-primary">{adminId ? "Editar" : "Crear"}</button>
@@ -153,7 +175,7 @@ export const Administrator = () => {
 						</Link> */}
 					</div>
 				</div>
-			 </div>
-		 </div>
+			</div>
+		</div>
 	);
 };

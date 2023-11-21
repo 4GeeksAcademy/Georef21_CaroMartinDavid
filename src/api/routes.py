@@ -39,14 +39,18 @@ def newadmins():
     fecha_nacimiento = request.json.get("birthday")
     cargo = request.json.get("position")
     contraseña = request.json.get("password")
+    image_admon = request.json.get("image_admon")
     secure_password=bcrypt.generate_password_hash(contraseña,10).decode("utf-8")
     print(secure_password)
 
-    newadmin= Administrator(name=nombre, lastname = apellido, 
+    newadmin= Administrator(
+    name=nombre, 
+    lastname = apellido, 
     birthday=fecha_nacimiento, 
     email = correo_electronico,
     position = cargo,
     password = secure_password,
+    image_admon = image_admon
     )
     print (newadmin)
     db.session.add(newadmin)
@@ -97,6 +101,7 @@ def create_especialista():
     profesion=data.get("profesion")
     area_de_desempeno=data.get("area_de_desempeno")
     password=data.get("password")
+    imageprofile = data.get("imageprofile")
 
     if not data:
         return jsonify({"error": "Datos no proporcionados"}), 400
@@ -110,13 +115,13 @@ def create_especialista():
     print(secure_password)
     # Crea un nuevo objeto Specialist
     nuevo_especialista = Specialist(
-
         nombre=nombre,
         apellido=apellido,
         email=email,
         profesion=profesion,
         area_de_desempeno=area_de_desempeno,
         password=secure_password,
+        imageprofile=imageprofile,
         administrator_id= id_admin
     )
     # Agrega el especialista a la base de datos
@@ -571,5 +576,3 @@ def delete_data_capture(data_capture_id):
 
 
     
-
-   
