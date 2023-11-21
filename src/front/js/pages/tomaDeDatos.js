@@ -8,12 +8,10 @@ import { Modal } from "../component/modal";
 
 export const DataCaptureRegister = () => {
     const { store, actions } = useContext(Context);
-    const [imagen, setimagen] = useState(null);
     const [error, seterror]= useState("");
-    const [urlimg, seturlimg]= useState("");
-    const [datos, setdatos]=useState({});
     const { id } = useParams();
     const navigate = useNavigate();
+    const [lastCoordinate, setLastCoordinate] = useState(null);
 
     const [dataCaptureData, setDataCaptureData] = useState({
         title: "",
@@ -41,8 +39,13 @@ export const DataCaptureRegister = () => {
         console.log("dataCaptureData actualizado:", dataCaptureData);
     }, [dataCaptureData]);
 
+    
 
-    function handlesubmit(e){
+    const handleCoordinateChange = newCoordinate => {
+        setLastCoordinate(newCoordinate);
+      };
+
+    async function  handlesubmit(e){
         e.preventDefault()
         const formdata = new FormData(e.target);
         const datos= {};
@@ -50,60 +53,51 @@ export const DataCaptureRegister = () => {
             datos[entrada[0]]=entrada[1];
         } 
         console.log (datos);
-        console.log(datos.image)
-        // if (id){
-        //     if(ruta != ""){
-        //     data.image = ruta;
-        //     console.log (data);
-        //     actions.putcapturedata(data, id);
-        //     navigate("/vistaDatos");
-        //     }else{
-        //         console.log(data);
-        //         actions.putcapturedata(data, id);
-        //         navigate("/vistaDatos");
-        //     }
-        // }else{
-        // data.image = ruta;
-        // // data.georeferencing=store.location;
-        // console.log (data);
-        // actions.postcapturedata(data);
-        // navigate("/vistaDatos");
-        // }
-    }
-    
-    async function saveImage(e){
-        e.preventDefault();
-        try {
-        const respuesta = await uploadFile(imagen);
-        seturlimg(respuesta);
-
-        }catch(error){
-            console.error(error);
-            seterror(error);
-            actions.openErrorlogin();
-        }
-    }
-
-    function sendinfo(data, ruta){
+        
+        console.log(datos.image);
         if (id){
-            if(ruta != ""){
-            data.image = ruta;
-            console.log (data);
-            actions.putcapturedata(data, id);
-            navigate("/vistaDatos");
+            if (datos.image.name!=""){
+                console.log(" hay nombre archivo")
+                try {
+                    const respuesta = await uploadFile(datos.image, "visitas");
+                    datos.image=respuesta;
+            
+                    }catch(error){
+                        console.error(error);
+                        seterror(error);
+                        actions.openErrorlogin();
+                    }
+                    actions.putcapturedata(datos, id);
+                    navigate("/vistaDatos");
             }else{
-                console.log(data);
-                actions.putcapturedata(data, id);
+                console.log(datos);
+                actions.putcapturedata(datos, id);
                 navigate("/vistaDatos");
             }
         }else{
-        data.image = ruta;
-        // data.georeferencing=store.location;
-        console.log (data);
-        actions.postcapturedata(data);
-        navigate("/vistaDatos");
+            if (lastCoordinate != null){
+                console.log ("desde el formulario toma de datos", lastCoordinate);
+            datos.georeferencing = lastCoordinate;
+            }
+            else{
+                console.log("ubicacion del store sin modificar formulario", store.location)
+                datos.georeferencing = store.location;
+            }
+            try {
+                const respuesta = await uploadFile(datos.image, "visitas");
+                datos.image=respuesta;
+        
+                }catch(error){
+                    console.error(error);
+                    seterror(error);
+                    actions.openErrorlogin();
+                }
+            console.log(datos)
+            actions.postcapturedata(datos);
+            navigate("/vistaDatos");
+            }
         }
-    }
+    
 
 
 return (
@@ -148,7 +142,7 @@ return (
                 { id ? <span> </span>:
                     <div className = "conteinerMap">
                         <p>Arrastra el marcador ó da click sobre el mapa para ajustar tu ubicación</p>
-                        <Map/>
+                        <Map onCoordinateChange={handleCoordinateChange}/>
                     </div>
                 }
                 <div>

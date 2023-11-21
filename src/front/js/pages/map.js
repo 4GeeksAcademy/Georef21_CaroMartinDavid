@@ -4,7 +4,7 @@ import { GoogleMap, Marker, useLoadScript, StandaloneSearchBox, LoadScript  } fr
 import { useMemo } from "react";
 import "../../styles/map.css";
 
-export const Map = () => {
+export const Map = ({ onCoordinateChange }) => {
   const { store, actions } = useContext(Context);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.API_KEY
@@ -27,37 +27,25 @@ export const Map = () => {
   };
 
   const onMarkerDragEnd = event => {
-    setMarkerPosition({
+    
+    setMarkerPosition(prevPosition => ({
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
-    });
-    console.log(markerPosition);
-   
+    }));
+    console.log("markerposition", markerPosition);
+    onCoordinateChange(markerPosition);
+    
   };
 
   const onMapClick = event => {
-    setMarkerPosition({
+    
+    setMarkerPosition(prevPosition => ({
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
-    });
-    console.log(markerPosition);
+    }));
+    console.log("markerposition", markerPosition);
+    onCoordinateChange(markerPosition);
    
-  };
-
-  const onPlacesChanged = () => {
-    const places = searchBox.getPlaces();
-    if (places.length > 0) {
-      const place = places[0];
-      setMarkerPosition({
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
-      });
-      if (map) {
-        map.panTo({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() });
-      }
-      console.log(markerPosition);
-    
-    }
   };
 
  
