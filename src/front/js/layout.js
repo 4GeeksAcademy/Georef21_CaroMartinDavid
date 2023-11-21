@@ -44,11 +44,9 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
 
-                    <Navbarhome />
+                    {/* <Navbarhome /> */}
                     <NavbarPerfilAdmon />
-                    <NavbarEspecialista />
-                    <div className="container-fluid d-flex justify-content-start"> {/* Agregando una clase de Bootstrap al contenedor */}
-                        <Sidebar />
+                    {/* <NavbarEspecialista /> */}
 
                         <div className="row"> {/* Creando una fila de Bootstrap para envolver las rutas */}
                             <Routes>

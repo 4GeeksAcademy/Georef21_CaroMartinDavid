@@ -13,6 +13,13 @@
 
 }
 
+.contenedor{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .admon {
     display: flex;
 }
@@ -120,14 +127,19 @@
 
 } */
 
-.btn-primary {
+.buttonHome {
     background-color: #727cf5;
     color: #fff;
 
 
 }
 
-card-header:first-child {
+.buttonHome:hover {
+    background-color: rgb(149, 114, 245);
+    color: #fff;
+}
+
+.card-header:first-child {
     border-radius: calc(1.25rem - 1px) calc(1.25rem - 1px) 0 0;
 }
 
@@ -185,6 +197,19 @@ form-label {
     background-color: #727cf5;
     color: #fff;
 
+}
+
+.nav-link{
+    color:rgba(245, 245, 245, 0.849);
+    margin-right: 20px
+}
+
+.nav-link:hover{
+    color: rgb(78, 39, 185);
+}
+
+.navInicio{
+    margin-left: 30px;
 }
 
 .flex-shrink-0 {

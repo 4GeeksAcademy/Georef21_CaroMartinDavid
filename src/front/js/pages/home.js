@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/admon.css";
 import { GiEarthAmerica } from "react-icons/gi";
+import { Navbarhome } from "../component/navbarhome";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -29,7 +30,7 @@ export const Home = () => {
 								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #E0E0E0", backgroundColor: "#F8F9FA", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
 									<div className="text-center">
 										<Link to="/admonlog">
-											<button type="button" className="btn btn-primary btn-lg m-3">
+											<button type="button" className="btn-lg m-3 buttonHome">
 												Administrador
 											</button>
 										</Link>
@@ -41,7 +42,7 @@ export const Home = () => {
 								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #E0E0E0", backgroundColor: "#F8F9FA", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
 									<div className="text-center">
 										<Link to="/logSpecialist">
-											<button type="button" className="btn btn-primary btn-lg m-3">
+											<button type="button" className="btn-lg m-3 buttonHome">
 												Especialista
 											</button>
 										</Link>
