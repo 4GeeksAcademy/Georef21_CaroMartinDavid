@@ -27,14 +27,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allvisitsspc: [],
 			allprojectspc: [],
 			location: {},
-			dataesp: []
+			dataesp: [],
+			sidebar: "none"
+			
 		},
 
 		actions: {
 			// Use getActions to call a function within a fuction
 			postadmin: async (data) => {
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/admonreg', {
+					const resp = await fetch(process.env.BACKEND_URL+'/api/admonreg', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -54,7 +56,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}, loginadmin: async (data) => {
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/admonlogin', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/admonlogin', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -74,6 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							const { GetProjects } = getActions();
 							GetProjects();
 							setStore({ session: true });
+							setStore({ sidebar: "flex" });
 							return "autorizado";
 						}
 					} else {
@@ -89,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getadmins: async (tokenadmin) => {
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/admon', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/admon', {
 						method: "GET",
 						headers: { 'Authorization': 'Bearer ' + tokenadmin }
 					});
@@ -110,7 +113,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}, putadmin: async (id, data) => {
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/admon' + "/" + id, {
+					const resp = await fetch(process.env.BACKEND_URL+'/api/admon' + "/" + id, {
 						method: "PUT",
 						body: JSON.stringify(data),
 						headers: {
@@ -136,7 +139,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("desde flux", id)
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/admon' + "/" + id, {
+					const resp = await fetch(process.env.BACKEND_URL+'/api/admon' + "/" + id, {
 						method: "DELETE",
 						headers: {
 							"Content-Type": "application/json",
@@ -178,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 				};
-				fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/Project', requestOptions)
+				fetch(process.env.BACKEND_URL+'/api/Project', requestOptions)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error(`HTTP error! Status: ${response.status}`);
@@ -208,7 +211,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(data)
 				};
-				fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/Project', requestOptions)
+				fetch(process.env.BACKEND_URL+'/api/Project', requestOptions)
 					.then(response => {
 						// if (!response.ok) {
 						// 	throw new Error(`HTTP error! Status: ${response.status}`);
@@ -246,7 +249,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				};
 
-				fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
+				fetch(process.env.BACKEND_URL + '/api/Project' + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -271,7 +274,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(data)
 				};
 
-				fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/Project' + "/" + id, requestOptions)
+				fetch(process.env.BACKEND_URL + '/api/Project' + "/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data.msg);
@@ -287,7 +290,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			postespecialist: async (data) => {
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/especialista', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/especialista', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: {
@@ -314,7 +317,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			// ACÁ TERMINA EL post especialista
 			getEspecialista: async () => {
-				const baseUrl = 'https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/especialista';
+				const baseUrl = process.env.BACKEND_URL + '/api/especialista';
 				const token = localStorage.getItem('tokenadmin');
 				try {
 					const response = await fetch(baseUrl, {
@@ -340,6 +343,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				localStorage.removeItem("token");
 				setStore({ session: false });
+				setStore({ sidebar: "none" });
 
 			},
 			logoutSpecialist: () => {
@@ -350,7 +354,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ACÁ TERMINA EL logout
 			eliminarEspecialista: async (id) => {
 				// Realizar una solicitud DELETE a la API para eliminar al especialista con el ID proporcionado.
-				let deleteUrl = `https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/especialista/${id}`;
+				let deleteUrl = process.env.BACKEND_URL+`/api/especialista/${id}`;
 				const token = localStorage.getItem('tokenadmin');
 				const store = getStore();
 				const allspecialist = store.allspecialist.filter((item) => item.id != id)
@@ -379,7 +383,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			putespecialist: async (id, data) => {
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/especialista' + "/" + id, {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/especialista' + "/" + id, {
 						method: "PUT",
 						body: JSON.stringify(data),
 						headers: {
@@ -403,7 +407,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//acá empieza loginspecialist
 			loginSpecialist: async (data) => {
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/loginSpecialist', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/loginSpecialist', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: { "Content-Type": "application/json", },
@@ -438,7 +442,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//acá empieza la función
 			getspecialist: async (tokenspecialist) => {
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/especialistalog', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/especialistalog', {
 						method: "GET",
 						headers: { 'Authorization': 'Bearer ' + tokenspecialist }
 					});
@@ -462,7 +466,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			registrovisita: async (data) => {
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/admonvisits', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/admonvisits', {
 						method: "POST",
 						body: JSON.stringify(data),
 						headers: {
@@ -491,7 +495,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			gevisitaadmon: async () => {
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/visits', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/visits', {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
@@ -521,7 +525,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			putvisitaadmon: async (data, id) => {
 				const token = localStorage.getItem('tokenadmin');
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/visits' + '/' + id, {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/visits' + '/' + id, {
 						method: "PUT",
 						body: JSON.stringify(data),
 						headers: {
@@ -550,7 +554,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			eliminarVisita: async (id) => {
 				const token = localStorage.getItem('tokenadmin');
-				let deleteUrl = `https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/visits/${id}`;
+				let deleteUrl = process.env.BACKEND_URL + `/api/visits/${id}`;
 				try {
 					let response = await fetch(deleteUrl, {
 						method: "DELETE",
@@ -579,7 +583,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			gevisitaesp: async () => {
 				const token = localStorage.getItem("tokenspecialist");
 				try {
-					const resp = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/visitsEsp', {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/visitsEsp', {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
@@ -635,7 +639,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			postcapturedata: async (data) => {
 				const token = localStorage.getItem("tokenspecialist");
 				try {
-					const response = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/datacapture', {
+					const response = await fetch(process.env.BACKEND_URL + '/api/datacapture', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -660,7 +664,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getcapturedata: async () => {
 				const token = localStorage.getItem("tokenspecialist");
 				try {
-					const response = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/datacapture', {
+					const response = await fetch(process.env.BACKEND_URL + '/api/datacapture', {
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json',
@@ -686,7 +690,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			deletecapturedata: async (id) => {
 				const token = localStorage.getItem("tokenspecialist");
 				try {
-					const response = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/datacapture' + "/" + id, {
+					const response = await fetch(process.env.BACKEND_URL + '/api/datacapture' + "/" + id, {
 						method: 'DELETE',
 						headers: {
 							'Content-Type': 'application/json',
@@ -712,7 +716,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			putcapturedata: async (data, id) => {
 				const token = localStorage.getItem("tokenspecialist");
 				try {
-					const response = await fetch('https://bookish-fishstick-6j66wpxjvv626qr-3001.app.github.dev/api/datacapture' + "/" + id, {
+					const response = await fetch(process.env.BACKEND_URL + '/api/datacapture' + "/" + id, {
 						method: 'PUT',
 						headers: {
 							'Content-Type': 'application/json',
@@ -732,9 +736,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Error al obtener datos de la API:", error);
 				}
-			}
+			},
 
 			// aqui termina el put de captura de datos
+
+			// sidebar: () => {
+			// 	const sidebar= "flex";
+			// 	setStore({ sidebar: sidebar });
+
+			// }
 		}
 	};
 };

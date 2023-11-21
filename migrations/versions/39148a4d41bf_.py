@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 0bbf627d7b46
+Revision ID: 39148a4d41bf
 Revises: 
-Create Date: 2023-11-17 23:55:52.480068
+Create Date: 2023-11-19 20:18:41.721184
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0bbf627d7b46'
+revision = '39148a4d41bf'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -47,8 +47,7 @@ def upgrade():
     sa.Column('location', sa.String(length=120), nullable=False),
     sa.Column('admon_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['admon_id'], ['administrator.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('nameProject')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('specialist',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -58,6 +57,7 @@ def upgrade():
     sa.Column('profesion', sa.String(length=120), nullable=False),
     sa.Column('area_de_desempeno', sa.String(length=120), nullable=False),
     sa.Column('password', sa.String(length=80), nullable=False),
+    sa.Column('imageprofile', sa.String(length=120), nullable=False),
     sa.Column('administrator_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['administrator_id'], ['administrator.id'], ),
     sa.PrimaryKeyConstraint('id'),

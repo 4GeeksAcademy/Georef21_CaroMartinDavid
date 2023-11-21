@@ -30,13 +30,16 @@ export const LoginAdministrator = () => {
 
 	return (
 		<div className="account-pages1" >
-			<div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
+			<div className="account-pagesloginadmon pt-2 pt-sm-5 pb-4 pb-sm-5" >
+				<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
+					<h1>Hola Administrador</h1>
+				</div>
 				<div className="containerAdmon">
-					<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
+					{/* <div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
 						<h1>Hola Administrador</h1>
-					</div>
+					</div> */}
 
-					<div class="text-center w-75 m-auto"><p class="text-muted mb-4">A continuación digite su correo electronico y password</p></div>
+					<div className="text-center w-75 m-auto"><p className="text-muted mb-4">A continuación digite su correo electronico y password</p></div>
 
 					<div className="datos col-md-6 d-flex flex-column align-items-center">
 						<form onSubmit={handlesubmit} className="text-center">
@@ -58,17 +61,11 @@ export const LoginAdministrator = () => {
 								<span>¿No tienes cuenta? Regístrate acá</span>
 							</Link>
 						</div>
-						{/* <div className="botonVolver">
-							<Link to="/">
-								<button type="button" className="btn btn-primary">
-									Volver a Inicio
-								</button>
-							</Link>
-						</div> */}
+					
 						<footer className="footer footer-alt min-vh-10">
 							<div className="botonVolver">
 								<Link to="/">
-									<button type="button" className="btn btn-primary">
+									<button type="button" className="btn btn-outline-secondary" disabled>
 										Volver a Inicio
 									</button>
 								</Link>

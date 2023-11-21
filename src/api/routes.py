@@ -39,7 +39,6 @@ def newadmins():
     fecha_nacimiento = request.json.get("birthday")
     cargo = request.json.get("position")
     contraseña = request.json.get("password")
-    informacion_adicional = request.json.get("aditional_info")
     secure_password=bcrypt.generate_password_hash(contraseña,10).decode("utf-8")
     print(secure_password)
 
@@ -48,7 +47,6 @@ def newadmins():
     email = correo_electronico,
     position = cargo,
     password = secure_password,
-    aditional_info = informacion_adicional
     )
     print (newadmin)
     db.session.add(newadmin)
@@ -292,7 +290,6 @@ def modifadmins(id):
     modifadmin.birthday = request.json.get("birthday")
     modifadmin.email= request.json.get("email")
     modifadmin.position = request.json.get("position")
-    modifadmin.aditional_info = request.json.get("aditional_info")
     print(modifadmin)
     db.session.commit()
     return jsonify({"msg":"haz  modificado tu perfil administrador"}), 201 

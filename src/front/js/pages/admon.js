@@ -18,7 +18,7 @@ export const Administrator = () => {
 		email: "",
 		position: "",
 		password: "",
-		aditional_info: ""
+		
 	});
 
 	useEffect(() => {
@@ -53,7 +53,7 @@ export const Administrator = () => {
 			adminregistro[entrada[0]] = entrada[1];
 		}
 		if (adminId) {
-			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.aditional_info != "") {
+			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" ) {
 				const edadadmin = edad(adminregistro.birthday);
 				if (edadadmin >= 18) {
 					await actions.putadmin(adminId, adminregistro);
@@ -72,7 +72,7 @@ export const Administrator = () => {
 			}
 		}
 		else {
-			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" && adminregistro.aditional_info != "") {
+			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" && adminregistro.password != "" ) {
 				const edadadmin = edad(adminregistro.birthday);
 				if (edadadmin >= 18) {
 					const respuesta = await actions.postadmin(adminregistro);
@@ -108,7 +108,7 @@ export const Administrator = () => {
 				<div className="containerRegistro">
 					<div className="RegistroAdministrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
 						<h1>{adminId ? "Editar Administrador" : "Registro Administrador"}</h1></div>
-					<div className="col-md-6">
+					<div className="NombreRegAdmor col-md-6 justify-content-center">
 						<form onSubmit={handlesubmit}>
 							<div className="mb-1">
 								<label htmlFor="name" className="form-label">Nombre</label>
@@ -136,10 +136,6 @@ export const Administrator = () => {
 									<input type="password" className="form-control" name="password" id="exampleInputPassword1" />
 								</div>}
 
-							<div className="form-floating">
-						<textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="aditional_info" defaultValue={adminData.aditional_info} style={{height: '100px'}}></textarea>
-						<label htmlFor="floatingTextarea2">Información adicional si quiere</label>
-					</div>
 							<div className="d-flex justify-content-center py-1">
 								<button type="submit" className="btn btn-primary">{adminId ? "Editar" : "Crear"}</button>
 								<Modal error={error} />
@@ -147,7 +143,7 @@ export const Administrator = () => {
 
 							<div className="d-flex justify-content-center py-1">
 								<Link to="/admonlog">
-									<button type="button" className="btn btn-primary">Volver</button>
+									<button type="button" className="btn btn-outline-secondary" disabled>Volver</button>
 								</Link>
 							</div>
 
@@ -157,7 +153,7 @@ export const Administrator = () => {
 						</Link> */}
 					</div>
 				</div>
-			</div>
-		</div>
+			 </div>
+		 </div>
 	);
 };

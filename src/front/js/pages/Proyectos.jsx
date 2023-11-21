@@ -7,9 +7,9 @@ export const Proyectos = () => {
     const { store, actions } = useContext(Context);
 
     return (
-        <div className="account-pages1">
+        // <div className="account-pages1">
             <div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
-                <div className="containerAdmon">
+                <div className="containerAdmonProyectos" style={{ display: store.sidebar }}>
 
                     <div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
                         {store.AllProjects.length == 0 ? <h1>No tienes proyectos creados</h1> :
@@ -39,8 +39,8 @@ export const Proyectos = () => {
                         </Link>
                     </div>
                 </div>
-            </div>
-        </div >
+             </div>
+        //  </div >
     );
 };
 
