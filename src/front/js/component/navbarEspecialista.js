@@ -2,46 +2,94 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { BsPersonCircle } from "react-icons/bs";
-
+import LogoGeoref21 from '../../img/LogoGeoref21.png';
 
 export const NavbarEspecialista = () => {
     const { store, actions } = useContext(Context);
 
 
 
-    return (
-        <div className="d-flex justify-content-center">
-            <nav className="navbar navbar-light bg-light col-md-10 d-flex justify-content-end">
-                <div >
+//     return (
+//         <div className="d-flex justify-content-center">
+//             <nav className="navbar navbar-light bg-light col-md-10 d-flex justify-content-end">
+//                 <div >
 
-                    <div className="d-flex justify-content-center ">
-                        {store.sessionSpecialist === true ?
-                            <>
+//                     <div className="d-flex justify-content-center ">
+//                         {store.sessionSpecialist === true ?
+//                             <>
 
-                                <div className="dropdown">
-                                    <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <BsPersonCircle /> {store.specialist.nombre} {store.specialist.apellido}
-                                    </a>
+//                                 <div className="dropdown">
+//                                     <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                                         <BsPersonCircle /> {store.specialist.nombre} {store.specialist.apellido}
+//                                     </a>
 
-                                    <ul className="dropdown-menu">
-                                        <li><Link to="/datosEspecialista">
-                                            <span>Mi Perfil</span>
-                                        </Link></li>
-                                        <li><Link to="/">
-                                            <span onClick={() => { actions.logoutSpecialist() }}> Cerrar sesión</span>
-                                        </Link></li>
-                                    </ul>
-                                </div>
-                                <Link to="/">
-                                    <button className="btn btn-danger mx-3 px-1" onClick={() => { actions.logoutSpecialist() }}>Log Out </button>
-                                </Link>
+//                                     <ul className="dropdown-menu">
+//                                         <li><Link to="/datosEspecialista">
+//                                             <span>Mi Perfil</span>
+//                                         </Link></li>
+//                                         <li><Link to="/">
+//                                             <span onClick={() => { actions.logoutSpecialist() }}> Cerrar sesión</span>
+//                                         </Link></li>
+//                                     </ul>
+//                                 </div>
+//                                 <Link to="/">
+//                                     <button className="btn btn-danger mx-3 px-1" onClick={() => { actions.logoutSpecialist() }}>Log Out </button>
+//                                 </Link>
 
-                            </>
-                            : <span></span>
-                        }
-                    </div>
-                </div>
-            </nav>
-        </div>
-    );
+//                             </>
+//                             : <span></span>
+//                         }
+//                     </div>
+//                 </div>
+//             </nav>
+//         </div>
+//     );
+// };
+
+// return (
+//     <nav className="navbar navbar-expand-lg Navbarhome" >
+//         <div className="container-fluid"  >
+//             <a className="navbar-brand" href="/">
+//                 <img src={LogoGeoref21} width="135" height="40" alt="Logo" />
+//             </a>
+//             <div className="collapse navbar-collapse" id="navbarNav" >
+//                 <ul className="navbar-nav" style={{ marginRight: "20px" }}>
+//                     <li className="nav-item">
+//                         <a className="nav-link active navInicio" aria-current="page" href="/">Inicio</a>
+//                     </li>
+//                     <li className="nav-item">
+//                         <a className="nav-link" href="admonLog">Administrador</a>
+//                     </li>
+//                     <li className="nav-item">
+//                         <a className="nav-link" href="logSpecialist">Especialista</a>
+//                     </li>
+//                     {store.sessionSpecialist === true ?
+//                              <>
+
+//                                  <div className="dropdown">
+//                                      <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                                          <BsPersonCircle /> {store.specialist.nombre} {store.specialist.apellido}
+//                                      </a>
+
+//                                      <ul className="dropdown-menu">
+//                                          <li><Link to="/datosEspecialista">
+//                                              <span>Mi Perfil</span>
+//                                          </Link></li>
+//                                          <li><Link to="/">
+//                                              <span onClick={() => { actions.logoutSpecialist() }}> Cerrar sesión</span>
+//                                          </Link></li>
+//                                      </ul>
+//                                  </div>
+//                                  <Link to="/">
+//                                      <button className="btn btn-danger mx-3 px-1" onClick={() => { actions.logoutSpecialist() }}>Log Out </button>
+//                                  </Link>
+
+//                              </>
+//                              : <span></span>
+//                          }
+//                 </ul>
+//             </div>
+//         </div>
+//     </nav>
+// );
 };

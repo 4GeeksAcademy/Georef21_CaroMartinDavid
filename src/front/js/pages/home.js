@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/admon.css";
 import { GiEarthAmerica } from "react-icons/gi";
+import { Navbarhome } from "../component/navbarhome";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);

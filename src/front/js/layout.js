@@ -43,9 +43,9 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
 
-                    <Navbarhome />
+                    {/* <Navbarhome /> */}
                     <NavbarPerfilAdmon />
-                    <NavbarEspecialista />
+                    {/* <NavbarEspecialista /> */}
 
                     <Routes>
                         <Route element={<Home />} path="/" />
