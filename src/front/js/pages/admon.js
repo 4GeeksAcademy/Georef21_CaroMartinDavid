@@ -108,7 +108,7 @@ export const Administrator = () => {
 				<div className="containerRegistro">
 					<div className="RegistroAdministrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
 						<h1>{adminId ? "Editar Administrador" : "Registro Administrador"}</h1></div>
-					<div className="col-md-6">
+					<div className="NombreRegAdmor col-md-6 justify-content-center">
 						<form onSubmit={handlesubmit}>
 							<div className="mb-1">
 								<label htmlFor="name" className="form-label">Nombre</label>
@@ -153,7 +153,7 @@ export const Administrator = () => {
 						</Link> */}
 					</div>
 				</div>
-			</div>
-		</div>
+			 </div>
+		 </div>
 	);
 };

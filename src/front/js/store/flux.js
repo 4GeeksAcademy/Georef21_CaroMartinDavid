@@ -27,7 +27,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allvisitsspc: [],
 			allprojectspc: [],
 			location: {},
-			dataesp: []
+			dataesp: [],
+			sidebar: "none"
+			
 		},
 
 		actions: {
@@ -74,6 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							const { GetProjects } = getActions();
 							GetProjects();
 							setStore({ session: true });
+							setStore({ sidebar: "flex" });
 							return "autorizado";
 						}
 					} else {
@@ -340,6 +343,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				localStorage.removeItem("token");
 				setStore({ session: false });
+				setStore({ sidebar: "none" });
 
 			},
 			logoutSpecialist: () => {
@@ -732,9 +736,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Error al obtener datos de la API:", error);
 				}
-			}
+			},
 
 			// aqui termina el put de captura de datos
+
+			// sidebar: () => {
+			// 	const sidebar= "flex";
+			// 	setStore({ sidebar: sidebar });
+
+			// }
 		}
 	};
 };
