@@ -289,3 +289,22 @@ NombreRegAdmor {
     -moz-appearance: none;
     appearance: none; */
 }
+
+.buttonsidebar{
+    background-color: #727cf5;
+}
+
+.buttonsidebar1{
+    background-color: #9078a786;
+    border-color: #4f5491c3;
+    color:#212529c1
+}
+
+.buttonsidebar1:hover{
+ background-color:#6c75dfd4;
+}
+
+.buttonsidebar1:active{
+    background-color:#515bc8f0;
+    box-shadow: 1px, 1px, 2px #b8bcf1;
+   }
