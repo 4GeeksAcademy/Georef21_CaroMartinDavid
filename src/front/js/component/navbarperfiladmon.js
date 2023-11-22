@@ -15,7 +15,7 @@ export const NavbarPerfilAdmon = () => {
 				<a className="navbar-brand" href="/">
 					<img src={LogoGeoref21} width="135" height="40" alt="Logo" />
 				</a>
-				<div className="collapse navbar-collapse d-flex justify-content-end" id="navbarNav" >
+				<div className="collapse navbar-collapse d-flex" id="navbarNav" style={{marginLeft:"20px"}} >
 					<ul className="navbar-nav" style={{ marginRight: "20px" }}>
 						{store.session === true || store.sessionSpecialist === true ? <span></span> :
 						<>
@@ -31,7 +31,7 @@ export const NavbarPerfilAdmon = () => {
 						</>}
 						{store.session === true ?
 							<>
-								<div className="dropdown">
+								<div className="dropdown" style={{marginLeft:"1400px"}}>
 									<a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 										<BsPersonCircle /> {store.administrator.name} {store.administrator.lastname}
 									</a>
@@ -55,7 +55,7 @@ export const NavbarPerfilAdmon = () => {
 						{store.sessionSpecialist === true ?
 							<>
 
-								<div className="dropdown">
+								<div className="dropdown" style={{marginLeft:"1400px"}}>
 									<a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 										<BsPersonCircle /> {store.specialist.nombre} {store.specialist.apellido}
 									</a>
