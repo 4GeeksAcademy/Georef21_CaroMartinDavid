@@ -15,7 +15,7 @@ export const NavbarPerfilAdmon = () => {
 				<a className="navbar-brand" href="/">
 					<img src={LogoGeoref21} width="135" height="40" alt="Logo" />
 				</a>
-				<div className="collapse navbar-collapse" id="navbarNav" >
+				<div className="collapse navbar-collapse d-flex justify-content-end" id="navbarNav" >
 					<ul className="navbar-nav" style={{ marginRight: "20px" }}>
 						{store.session === true || store.sessionSpecialist === true ? <span></span> :
 						<>

@@ -62,7 +62,7 @@ export const LoginAdministrator = () => {
 							</Link>
 						</div>
 					
-						<footer className="footer footer-alt min-vh-10">
+						<footer className="footer footer-alt min-vh-8 p-2">
 							<div className="botonVolver">
 								<Link to="/">
 									<button type="button" className="btn btn-outline-secondary" disabled>
