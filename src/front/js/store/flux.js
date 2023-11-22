@@ -28,7 +28,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allprojectspc: [],
 			location: {},
 			dataesp: [], 
-			ajustedlocation:{}
+			ajustedlocation:{},
+			markers:[]
 		},
 
 		actions: {
@@ -187,10 +188,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return response.json();
 					})
 					.then(responseData => {
-						console.log(responseData)
+						
 						const AllProjects = responseData
 						const store = getStore();
 						setStore({ AllProjects: AllProjects });
+						const {setmarkersadmon} = getActions();
+						setmarkersadmon(store.AllProjects);
 					})
 					.catch(error => {
 						console.error("Error al realizar la petición:", error.message);
@@ -750,9 +753,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 			ajustLocation: (data)=>{
 				const ajustedlocation = data
 				setStore({ ajustedlocation: ajustedlocation});
-			}
+			},
 
 			// aqui termina el put de captura de datos
+			setmarkersadmon:(data)=>{
+				console.log("desde setmarkeradmon:", data);
+				const markers = [];
+				for (let i=0; i<data.length; i++){
+					if(data[i].visits.length!=0){
+						const visitaproyec = data[i].visits;
+						for (let j=0; j<visitaproyec.length; j++){
+							if (visitaproyec[j].datacaptures.length > 0){
+								console.log (visitaproyec[j]);
+								const datoscoord = visitaproyec[j].datacaptures;
+								for(let k=0; k<datoscoord.length; k++){
+									const coord = datoscoord[k].georeferencing;
+									console.log(coord.lat);
+									console.log(coord.lng)
+									const datosproyecto = {};
+									datosproyecto["Proyecto"] = data[i].nameProject;
+									datosproyecto["fecha"]=visitaproyec[j].date;
+									datosproyecto["lat"]=coord.lat;
+									datosproyecto["lng"]= coord.lng;
+									console.log("datosmarker", datosproyecto);
+									markers.push(datosproyecto)
+								}
+
+							}}}}
+					console.log("datomarcadores",markers);
+					setStore({ markers: markers });
+			},//termina infor marker
+			
 		}
 	};
 };
