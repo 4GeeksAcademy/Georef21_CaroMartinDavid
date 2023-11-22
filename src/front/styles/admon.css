@@ -5,6 +5,20 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+.containerVisit{
+    margin-left: 100px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 1400px;
+}
+
+.containerEspecialista{
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: auto;
+}
+
 .container {
     margin: auto;
     display: flex;
@@ -36,7 +50,7 @@
     /* box-shadow: 1px 1px 1px 1px lightblue */
 }
 
-.containerAdmonProyectos {
+/* .containerAdmonProyectos {
     border: 0px solid rgba(255, 250, 250, 0.366);
     background-color: rgba(185, 185, 187, 0.366);
     width: 797px;
@@ -44,8 +58,9 @@
     padding: auto;
     flex-direction: column;
     align-items: center;
-    border-radius: 0px;
-}
+    border-radius: 0px; 
+    NO AGREGAR ESTE ESTILO
+} */
 
 .containerSpecialist {
     border: 100px solid rgba(255, 250, 250, 0.366);
