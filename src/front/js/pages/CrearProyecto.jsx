@@ -39,52 +39,96 @@ export const CrearProyecto = () => {
         })
     }
     return (
-        <div className="account-pages1" >
-            <div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
-                <div className="RegistroProyecto pt-2 text-center bg-primary card-header col-md-6" style={{ color: 'white' }} width-400px>
-                    <h1>{id ? "Editar Proyecto" : "Registrar Nuevo Proyecto"}</h1>
-                </div>
-                <div className="containerAdmon">
-                    {/* <div className="RegistroProyecto pt-2 text-center bg-primary card-header col-md-6" style={{ color: 'white' }} width-400px>
-                        <h1>{id ? "Editar Proyecto" : "Registrar Nuevo Proyecto"}</h1>
-                    </div> */}
-                    {/* <div className="col-md-6 m-auto"> */}
-
-                    <div className="datos col-md-6 d-flex flex-column align-items-center">
-                        <p>Administrador</p>
-                        <select className="form-select" aria-label="Default select example">
-                            <option value="">{store.administrator.name} {store.administrator.lastname}</option>
-                        </select>
-                        <div className="mb-3" >
-                            <label htmlFor="formGroupExampleInput" className="form-label">Nombre Proyecto</label>
-                            <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Nombre" onChange={infoSetData} name="nameProject" required value={data.nameProject} />
+        <div className="Contanier-fluid" style={{height: "100vh", marginLeft: "10px" }}>
+            <div className="row">
+                <div className="col">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <nav aria-label="breadcrumb">
+                                {/* <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/">Hyper</a></li>
+                        <li class="breadcrumb-item"><a href="/ui/forms/wizard">Forms</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Wizard</li>
+                    </ol> */}
+                            </nav>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="formGroupExampleInput2" className="form-label">Temática</label>
-                            <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Temática" onChange={infoSetData} name="theme" required value={data.theme} />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="formGroupExampleInput2" className="form-label">Ubicación</label>
-                            <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Ubicación" onChange={infoSetData} name="location" required value={data.location} />
-                        </div>
-                        <div className="d-flex justify-content-center">
-                            <button type="button" className="btn btn-primary" onClick={() => Send()}>{id ? "Editar Proyecto" : "Crear Proyecto"}</button>
-                        </div>
-                        {/* <Link to="/profileadmon">
-                        <button type="button" className="btn btn-primary">Volver</button>
-                    </Link> */}
-                        <footer className="footer footer-alt min-vh-10">
-                            <div className="botonVolver">
-                                <Link to="/profileadmon">
-                                    <button type="button" className="btn btn-primary">Volver</button>
-                                </Link>
-                            </div>
-                        </footer>
+                        <h4 class="page-title" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "100px"}} >PROYECTOS</h4>
                     </div>
                 </div>
             </div>
+
+
+            <div className="row-card">
+                <div className="col-xl-6">
+                    <div className="card" style={{width: "1200px"}}>
+                        <div className="card-body">
+                            <h4 className="header-title mb-3" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }} >NUEVO PROYECTO</h4>
+                            <form className>
+                                <div className="mb-3 row">
+                                    
+                                    <label for="exampleEmail" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Administrador</label>
+                                    
+                                    <div className="col-md-9">
+
+                                        <input name="exampleEmail" placeholder="Enter email" type="email" id="exampleEmail" className="form-control" style={{width: "700px"}}/>
+                                    </div>
+                                </div>
+                                <div className="mb-3 row">
+                                    <label for="examplePassword" class="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Nombre Proyecto</label>
+                                    <div class="col-md-9">
+                                        <input name="examplePassword" placeholder="password placeholder" type="password" id="examplePassword" class="form-control" value="12345" style={{width: "700px", fontFamily: "Nunito,sans-serif"}}/>
+                                    </div>
+                                </div>
+                                <div className="mb-3 row">
+                                    <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Temática</label>
+                                    <div className="col-md-9">
+                                        <input name="examplePassword" placeholder="password placeholder" type="password" id="examplePassword" className="form-control" value="12345" style={{width: "700px", fontFamily: "Nunito,sans-serif"}}/>
+                                    </div>
+                                </div>
+
+                                <div className="mb-3 row">
+                                    <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Ubicación</label>
+                                    <div className="col-md-9">
+                                        <input name="examplePassword" placeholder="password placeholder" type="password" id="examplePassword" class="form-control" value="12345" style={{width: "700px"}}/>
+                                    </div>
+                                </div>
+
+                                <ul class="list-inline wizard mb-0 d-flex justify-content-center">
+                                    <li class="next list-inline-item float-end">
+                                    <button type="button" className="btn btn-primary" onClick={() => Send()}>{id ? "Editar Proyecto" : "Crear Proyecto"}</button>
+                                    </li>
+                                    
+                                    <li>
+                                    <Link to="/profileadmon">
+                                     <button type="button" className="btn btn-primary">Volver</button>
+                                 </Link>
+                                    </li>
+                                </ul>
+
+                                
+
+
+
+
+
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* <footer className="footer footer-alt min-vh-10">
+                             <div className="botonVolver">
+                                 <Link to="/profileadmon">
+                                     <button type="button" className="btn btn-primary">Volver</button>
+                                 </Link>
+                             </div>
+                         </footer> */}
+
         </div>
-        // </div>
+
     );
 };
 

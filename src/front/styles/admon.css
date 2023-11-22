@@ -213,8 +213,9 @@ form-label {
 }
 
 .flex-shrink-0 {
-    box-shadow: 1px 1px 1px 1px lightblue;
+    box-shadow: 1px 1px 1px 1px #313a46;
     border-radius: 0%;
+    
 
 }
 
@@ -289,3 +290,20 @@ NombreRegAdmor {
     -moz-appearance: none;
     appearance: none; */
 }
+
+.Contanier-fluid{
+    background-color: #f1f3fa;
+    border-radius: 0%;
+    }
+
+    .row-card{
+        width: 1500px;
+        
+        
+    }
+    
+    .card{
+        background-color: #ffffff;
+        border: 1px;
+    }
+    

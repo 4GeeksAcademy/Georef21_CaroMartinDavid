@@ -39,7 +39,7 @@ export const Sidebar = () => {
     return (
         <>
         {store.session === true ?
-        (<div className="flex-shrink-0 p-3 bg-white" style={{ width: "280px", height: "100vh" }}>
+        (<div className="flex-shrink-0 p-3 bg-white" style={{ width: "280px", height: "100vh"}}>
             <div>
                 <div className="d-flex align-items-center pb-1 mb-1 link-dark text-decoration-none border-bottom">
                     <a href="#!" className="text-decoration-none">
