@@ -39,87 +39,95 @@ export const CrearProyecto = () => {
         })
     }
     return (
-        <div className="Contanier-fluid" style={{height: "100vh", marginLeft: "10px" }}>
-            <div className="row">
-                <div className="col">
-                    <div class="page-title-box">
-                        <div class="page-title-right">
-                            <nav aria-label="breadcrumb">
-                                {/* <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="/">Hyper</a></li>
-                        <li class="breadcrumb-item"><a href="/ui/forms/wizard">Forms</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form Wizard</li>
+        <div className="center-content">
+            <div className="Contanier-fluid" style={{ height: "100vh", marginLeft: "10px" }}>
+                <div className="row">
+                    <div className="col">
+                        <div className="page-title-box">
+                            <div className="page-title-right">
+                                <nav aria-label="breadcrumb">
+                                    {/* <ol className="breadcrumb m-0">
+                        <li className="breadcrumb-item"><a href="/">Hyper</a></li>
+                        <li className="breadcrumb-item"><a href="/ui/forms/wizard">Forms</a></li>
+                        <li className="breadcrumb-item active" aria-current="page">Form Wizard</li>
                     </ol> */}
-                            </nav>
-                        </div>
-                        <h4 class="page-title" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "100px"}} >PROYECTOS</h4>
-                    </div>
-                </div>
-            </div>
+                                </nav>
+                            </div>
+                            <h3 className="page-title mb-5" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "100px", fontWeight: "bold", marginLeft: "10px" }} >Proyectos</h3>
 
-
-            <div className="row-card">
-                <div className="col-xl-6">
-                    <div className="card" style={{width: "1200px"}}>
-                        <div className="card-body">
-                            <h4 className="header-title mb-3" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }} >NUEVO PROYECTO</h4>
-                            <form className>
-                                <div className="mb-3 row">
-                                    
-                                    <label for="exampleEmail" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Administrador</label>
-                                    
-                                    <div className="col-md-9">
-
-                                        <input name="exampleEmail" placeholder="Enter email" type="email" id="exampleEmail" className="form-control" style={{width: "700px"}}/>
-                                    </div>
-                                </div>
-                                <div className="mb-3 row">
-                                    <label for="examplePassword" class="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Nombre Proyecto</label>
-                                    <div class="col-md-9">
-                                        <input name="examplePassword" placeholder="password placeholder" type="password" id="examplePassword" class="form-control" value="12345" style={{width: "700px", fontFamily: "Nunito,sans-serif"}}/>
-                                    </div>
-                                </div>
-                                <div className="mb-3 row">
-                                    <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Temática</label>
-                                    <div className="col-md-9">
-                                        <input name="examplePassword" placeholder="password placeholder" type="password" id="examplePassword" className="form-control" value="12345" style={{width: "700px", fontFamily: "Nunito,sans-serif"}}/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif" }}>Ubicación</label>
-                                    <div className="col-md-9">
-                                        <input name="examplePassword" placeholder="password placeholder" type="password" id="examplePassword" class="form-control" value="12345" style={{width: "700px"}}/>
-                                    </div>
-                                </div>
-
-                                <ul class="list-inline wizard mb-0 d-flex justify-content-center">
-                                    <li class="next list-inline-item float-end">
-                                    <button type="button" className="btn btn-primary" onClick={() => Send()}>{id ? "Editar Proyecto" : "Crear Proyecto"}</button>
-                                    </li>
-                                    
-                                    <li>
-                                    <Link to="/profileadmon">
-                                     <button type="button" className="btn btn-primary">Volver</button>
-                                 </Link>
-                                    </li>
-                                </ul>
-
-                                
-
-
-
-
-
-
-                            </form>
                         </div>
                     </div>
-
                 </div>
-            </div>
 
-            {/* <footer className="footer footer-alt min-vh-10">
+
+                <div className="row-card">
+                    <div className="col-xl-6">
+                        <div className="card justify-content" style={{ width: "1175px", marginLeft: "10px", borderBlockColor: "black", border: "10px" }}>
+                            <div className="card-body">
+                                <h4 className="header-title mb-3" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} >Nuevo Proyecto</h4>
+                                <p>Para crear un proyecto deberás diligenciar el siguiente formulario estableciendo el nombre del proyecto, su temática (es decir, si es de infraestructura, o de energía, o ambiental o mineroenergético) y su ubicación (es decir, zona de influencia donde se llevarán a cabo las actividades por parte del profesional vinculado al proyecto) </p>
+
+
+                                <form className>
+                                    <div className="mb-3 mt-4 row">
+
+                                        <label for="exampleName" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Administrador</label>
+
+                                        <div className="col-md-9">
+
+                                            <div className="form-select" style={{ width: "900px" }}>
+                                                <option>{store.administrator.name} {store.administrator.lastname}</option>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 row">
+                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Nombre Proyecto</label>
+                                        <div className="col-md-9">
+                                            <input name="examplePassword" placeholder="" type="password" id="examplePassword" className="form-control" value="" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 row">
+                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Temática</label>
+                                        <div className="col-md-9">
+                                            <input name="examplePassword" placeholder="" type="text" id="examplePassword" className="form-control" value="" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-3 row">
+                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Ubicación</label>
+                                        <div className="col-md-9">
+                                            <input name="examplePassword" placeholder="" type="password" id="examplePassword" className="form-control" value="" style={{ width: "900px" }} />
+                                        </div>
+                                    </div>
+
+                                    <ul className="list-inline wizard mb-0 d-flex justify-content-center">
+                                        <li className="next list-inline-item float-end">
+                                            <button type="button" className="btn-lg m-3 buttonHomeCP" onClick={() => Send()}>{id ? "Editar Proyecto" : "Crear Proyecto"}</button>
+                                        </li>
+
+                                        <li>
+                                            <Link to="/profileadmon">
+                                                <button type="button" className="btn-lg m-3 buttonHomeCP">Volver</button>
+                                            </Link>
+                                        </li>
+                                    </ul>
+
+
+
+
+
+
+
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* <footer className="footer footer-alt min-vh-10">
                              <div className="botonVolver">
                                  <Link to="/profileadmon">
                                      <button type="button" className="btn btn-primary">Volver</button>
@@ -127,6 +135,7 @@ export const CrearProyecto = () => {
                              </div>
                          </footer> */}
 
+            </div>
         </div>
 
     );

@@ -39,7 +39,7 @@ export const Sidebar = () => {
     return (
         <>
         {store.session === true ?
-        (<div className="flex-shrink-0 p-3 bg-white" style={{ width: "280px", height: "100vh"}}>
+        (<div className="flex-shrink-0 p-3 bg-white" style={{ width: "295px", height: "100vh"}}>
             <div>
                 <div className="d-flex align-items-center pb-1 mb-1 link-dark text-decoration-none border-bottom">
                     <a href="#!" className="text-decoration-none">
@@ -50,20 +50,20 @@ export const Sidebar = () => {
                 </div>
                 <ul className="list-unstyled ps-0">
                     <li className="mb-1">
-                        <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                        <button className="btn-lg m-3 buttonHome align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                             Proyectos
                         </button>
                         <div className="collapse" id="home-collapse">
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li>
                                     <Link to="/nuevoproyecto">
-                                        <button type="button" className="btn btn-primary m-3">
+                                        <button type="button" className="btn btn-outline-brand btn-block mb-4 ml-0" >
                                             Crear Proyectos
                                         </button>
                                     </Link>
                                 </li>
                                 <li className="mb-1">
-                                    <button type="button" className="btn btn-primary m-3" onClick={() => getproyects()}>
+                                    <button type="button" className="btn btn-outline-brand btn-block mb-4 ml-0" onClick={() => getproyects()}>
                                         Proyectos
                                     </button>
                                 </li>
@@ -72,20 +72,20 @@ export const Sidebar = () => {
                     </li>
 
                     <li className="mb-1">
-                        <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                        <button className="btn-lg m-3 buttonHome align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                             Especialistas
                         </button>
                         <div className="collapse" id="home-collapse">
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li>
                                     <Link to="/registerespicialist">
-                                        <button type="button" className="btn btn-primary m-3">
+                                        <button type="button" className="btn btn-outline-brand btn-block mb-4 ml-0">
                                             Crear Especialista
                                         </button>
                                     </Link>
                                 </li>
                                 <li className="mb-1">
-                                    <button type="button" className="btn btn-primary m-3" onClick={() => getspacialist()}>
+                                    <button type="button" className="btn btn-outline-brand btn-block mb-4 ml-0" onClick={() => getspacialist()}>
                                         Especialistas
                                     </button>
                                 </li>
@@ -94,21 +94,21 @@ export const Sidebar = () => {
                     </li>
 
                     <li className="mb-1">
-                        <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                        <button className="btn-lg m-3 buttonHome align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                             Visitas
                         </button>
                         <div className="collapse" id="home-collapse">
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li>
 
-                                    <button type="button" className="btn btn-primary m-3" onClick={() => createvisit()}>
+                                    <button type="button" className="btn btn-outline-brand btn-block mb-4 ml-0" onClick={() => createvisit()}>
                                         Crear Visitas
                                     </button>
                                 </li>
                                 <li className="mb-1">
 
 
-                                    <button type="button" className="btn btn-primary m-3" onClick={() => getvisits()}>
+                                    <button type="button" className="btn btn-outline-brand btn-block mb-4 ml-0" onClick={() => getvisits()}>
                                         Visitas
                                     </button>
                                 </li>
