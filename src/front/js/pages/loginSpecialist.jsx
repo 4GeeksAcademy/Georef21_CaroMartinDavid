@@ -64,7 +64,7 @@ export const LoginSpecialist = () => {
                                 <input type="password" className="form-control" name="password" id="exampleInputPassword1" />
                             </div>
                             <div className="d-flex justify-content-center py-3">
-                                <button type="submit" className="btn btn-primary">Ingresar</button>
+                                <button type="submit" className="btn btn-outline-secondary buttonHome">Ingresar</button>
                                 <Modal error={error} />
                             </div>
                         </form>
@@ -75,7 +75,7 @@ export const LoginSpecialist = () => {
                         </div> */}
                         <div className="botonVolver">
                             <Link to="/">
-                                <button type="button" className="btn btn-primary">
+                                <button type="button" className="btn btn-outline-secondary" disabled>
                                     Volver a Inicio
                                 </button>
                             </Link>

@@ -52,7 +52,7 @@ export const LoginAdministrator = () => {
 								<input type="password" className="form-control" name="password" id="exampleInputPassword1" />
 							</div>
 							<div className="d-flex justify-content-center py-3">
-								<button type="submit" className="btn btn-primary">Ingresar</button>
+								<button type="submit" className="btn btn-outline-secondary buttonHome">Ingresar</button>
 								<Modal error={error} />
 							</div>
 						</form>
