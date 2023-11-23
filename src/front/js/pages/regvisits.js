@@ -13,23 +13,23 @@ export const RegVisits = () => {
         project_id: "",
         specialist_id: ""
     });
-    
-    const [error, seterror]= useState("");
+
+    const [error, seterror] = useState("");
     const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
-        
+
         if (id) {
             const visitToEdit = store.allvisits.find(visit => visit.id === parseInt(id));
             if (visitToEdit) {
                 visitToEdit.date = new Date(visitToEdit.date).toISOString().slice(0, 10);
-                visitToEdit.specialist_id ="";
-                visitToEdit.project_id ="";
-               
+                visitToEdit.specialist_id = "";
+                visitToEdit.project_id = "";
+
                 setVisitsData(visitToEdit);
             }
-            
+
         }
     }, [id, store.allvisits]);
 
@@ -42,12 +42,12 @@ export const RegVisits = () => {
 
     const handleSave = async (data, id) => {
         console.log(data)
-        if(id){
+        if (id) {
             try {
                 const respuesta = await actions.putvisitaadmon(data, id);
                 actions.getEspecialista();
                 actions.GetProjects();
-                if (respuesta === "realizado"){
+                if (respuesta === "realizado") {
                     setVisitsData({
                         scope: "",
                         date: "",
@@ -55,104 +55,148 @@ export const RegVisits = () => {
                         specialist_id: ""
                     }
                     );
-                navigate("/profileadmon");
-                }else {
-                seterror(respuesta);
-                actions.openErrorlogin();
+                    navigate("/profileadmon");
+                } else {
+                    seterror(respuesta);
+                    actions.openErrorlogin();
                 }
             } catch (error) {
-        
-            seterror(error.message || "Error desconocido");
-            actions.openErrorlogin();
-            console.error(error);
+
+                seterror(error.message || "Error desconocido");
+                actions.openErrorlogin();
+                console.error(error);
             }
-            
-        }else{
-            try{
+
+        } else {
+            try {
                 const respuesta = await actions.registrovisita(data);
-                    if (respuesta === "realizado"){
-                            setVisitsData({
-                                scope: "",
-                                date: "",
-                                project_id: "",
-                                specialist_id: ""
-                            }
-                            );
-                        navigate("/profileadmon");
-                    }else {
-                        seterror(respuesta);
-                        actions.openErrorlogin();
+                if (respuesta === "realizado") {
+                    setVisitsData({
+                        scope: "",
+                        date: "",
+                        project_id: "",
+                        specialist_id: ""
                     }
-                } catch (error) {
-                
-                    seterror(error.message || "Error desconocido");
+                    );
+                    navigate("/profileadmon");
+                } else {
+                    seterror(respuesta);
                     actions.openErrorlogin();
-                    console.error(error);
                 }
+            } catch (error) {
+
+                seterror(error.message || "Error desconocido");
+                actions.openErrorlogin();
+                console.error(error);
             }
-           
+        }
+
     };
-    
+
     return (
         <div className="center-content">
-            <div className="content-container">
-                <div className="mb-3">
-                    <label htmlFor="scope" className="form-label">Alcance</label>
-                    <input type="text" className="form-control" id="scope" name="scope" value={visitsData.scope} onChange={handleInputChange} />
+            <div className="Contanier-fluid" style={{ height: "100vh", marginLeft: "10px" }}>
+                <div className="row">
+                    <div className="col">
+                        <div className="page-title-box">
+                            <div className="page-title-right">
+                                <nav aria-label="breadcrumb">
+
+                                </nav>
+                            </div>
+                            <h3 className="page-title mb-5" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "50px", fontWeight: "bold", marginLeft: "10px" }} >Visitas</h3>
+
+                        </div>
+                    </div>
                 </div>
 
-                <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Fecha</label>
-                    <input type="date" className="form-control" id="date" name="date" value={visitsData.date} onChange={handleInputChange} />
-                </div>
+                <div className="row-card">
+                    <div className="col-xl-6">
+                        <div className="card justify-content" style={{ width: "1175px", marginLeft: "10px", borderBlockColor: "black", border: "10px" }}>
+                            <div className="card-body">
+                                <h4 className="header-title mb-3" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} >Nueva Visita</h4>
+                                <p>Para crear una visita deberás diligenciar el siguiente formulario estableciendo el alcance, la fecha en la que se realizará la visita por parte del especialista vinculado al proyecto, el nombre del proyecto y el especialista al que se le asignará la visita</p>
 
-                <div className="mb-3">
-                    <label htmlFor="project_id" className="form-label">Proyecto</label>
-                    <select
-                        className="form-select"
-                        id="project_id"
-                        name="project_id"
-                        value={visitsData.project_id}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Selecciona un proyecto</option>
-                        {store.AllProjects.map((project, index) => (
-                            <option key={index} value={project.id}>
-                                Id: {project.id} | Nombre: {project.nameProject}| ubicación: {project.location}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                                <form className>
 
-                <div className="mb-3">
-                    <label htmlFor="specialist_id" className="form-label">Especialista</label>
-                    <select
-                        className="form-select"
-                        id="specialist_id"
-                        name="specialist_id"
-                        value={visitsData.specialist_id}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Selecciona un especialista</option>
-                        {store.allspecialist.map((specialist, index) => (
-                            <option key={index} value={specialist.id}>
-                                Id: {specialist.id} | Nombre: {specialist.nombre} {specialist.apellido}| Email: {specialist.email}
-                            </option>
-                        ))}
-                    </select>
+                                    <div className="mb-3 mt-4 row">
+                                        <label htmlFor="scope" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Alcance</label>
+                                        <input type="text" className="form-control" id="scope" name="scope" value={visitsData.scope} onChange={handleInputChange} style={{ width: "900px" }} />
+                                    </div>
 
+
+                                    <div className="mb-3 mt-4 row">
+                                        <label htmlFor="date" className="form-label col-form-label col-md-2" >Fecha</label>
+                                        <input type="date" className="form-control" id="date" name="date" value={visitsData.date} onChange={handleInputChange} style={{ width: "900px" }} />
+                                    </div>
+
+
+
+                                    <div className="mb-3 mt-4 row">
+                                        <label htmlFor="project_id" className="form-label col-form-label col-md-2">Proyecto</label>
+                                        <select
+                                            className="form-select"
+                                            id="project_id"
+                                            name="project_id"
+                                            value={visitsData.project_id}
+                                            onChange={handleInputChange} style={{ width: "900px" }}
+                                        >
+                                            <option value="">Selecciona un proyecto</option>
+                                            {store.AllProjects.map((project, index) => (
+                                                <option key={index} value={project.id}>
+                                                    Id: {project.id} | Nombre: {project.nameProject}| ubicación: {project.location}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    <div className="mb-3 mt-4 row">
+                                        <label htmlFor="specialist_id" className="form-label col-form-label col-md-2">Especialista</label>
+                                        <select
+                                            className="form-select"
+                                            id="specialist_id"
+                                            name="specialist_id"
+                                            value={visitsData.specialist_id}
+                                            onChange={handleInputChange} style={{ width: "900px" }}
+                                        >
+                                            <option value="">Selecciona un especialista</option>
+                                            {store.allspecialist.map((specialist, index) => (
+                                                <option key={index} value={specialist.id}>
+                                                    Id: {specialist.id} | Nombre: {specialist.nombre} {specialist.apellido}| Email: {specialist.email}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                    </div>
+
+                                    <ul className="list-inline wizard mb-0 d-flex justify-content-between align-items-center">
+
+                                        <li className="list-inline-item">
+                                            <Link style={{ textDecoration: 'none' }} to="/profileadmon" className="btn-lg buttonHomeCP-Volver">
+                                                Volver
+                                            </Link>
+                                        </li>
+
+                                        <li className="list-inline-item">
+                                            <button className="btn-lg buttonHomeCP" onClick={() => { handleSave(visitsData, id) }}>
+                                                Crear Visita
+                                            </button>
+                                            <Modal error={error} />
+                                        </li>
+
+
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button className="btn btn-primary" onClick={() =>{handleSave(visitsData, id)}}>
-                    Save
-                </button>
-                    <Modal error={error}/>
-                
-                
-                <Link to="/profileadmon" className="btn btn-secondary">
-                   volver
-                </Link>
             </div>
         </div>
+
+
+
+
     );
 };
 

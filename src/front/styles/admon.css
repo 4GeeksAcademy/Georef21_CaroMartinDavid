@@ -318,6 +318,13 @@ NombreRegAdmor {
     border-color: #0acf97;
 }
 
+.buttonHomeCP-Volver {
+    box-shadow: 0 2px 6px 0 rgba(1, 14, 10, 0.5);
+    color: #fff;
+    background-color: #515252;
+    border-color: #3c3d3d;
+}
+
 
 .btn.btn-outline-brand {
     background: transparent;

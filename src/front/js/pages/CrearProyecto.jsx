@@ -53,7 +53,7 @@ export const CrearProyecto = () => {
                     </ol> */}
                                 </nav>
                             </div>
-                            <h3 className="page-title mb-5" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "100px", fontWeight: "bold", marginLeft: "10px" }} >Proyectos</h3>
+                            <h3 className="page-title mb-5" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "50px", fontWeight: "bold", marginLeft: "10px" }} >Proyectos</h3>
 
                         </div>
                     </div>
@@ -65,7 +65,7 @@ export const CrearProyecto = () => {
                         <div className="card justify-content" style={{ width: "1175px", marginLeft: "10px", borderBlockColor: "black", border: "10px" }}>
                             <div className="card-body">
                                 <h4 className="header-title mb-3" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} >Nuevo Proyecto</h4>
-                                <p>Para crear un proyecto deberás diligenciar el siguiente formulario estableciendo el nombre del proyecto, su temática (es decir, si es de infraestructura, o de energía, o ambiental o mineroenergético) y su ubicación (es decir, zona de influencia donde se llevarán a cabo las actividades por parte del profesional vinculado al proyecto) </p>
+                                <p>Para crear un proyecto deberás diligenciar el siguiente formulario estableciendo el nombre del proyecto, su temática (es decir, si es de infraestructura, o de energía, o ambiental o mineroenergético) y su ubicación (es decir, zona de influencia donde se llevarán a cabo las actividades por parte del especialista vinculado al proyecto) </p>
 
 
                                 <form className>
@@ -101,23 +101,21 @@ export const CrearProyecto = () => {
                                         </div>
                                     </div>
 
-                                    <ul className="list-inline wizard mb-0 d-flex justify-content-center">
-                                        <li className="next list-inline-item float-end">
-                                            <button type="button" className="btn-lg m-3 buttonHomeCP" onClick={() => Send()}>{id ? "Editar Proyecto" : "Crear Proyecto"}</button>
-                                        </li>
-
-                                        <li>
+                                    <ul className="list-inline wizard mb-0 d-flex justify-content-between align-items-center">
+                                        <li className="list-inline-item">
                                             <Link to="/profileadmon">
-                                                <button type="button" className="btn-lg m-3 buttonHomeCP">Volver</button>
+                                                <button type="button" className="btn-lg buttonHomeCP-Volver">
+                                                    Volver
+                                                </button>
                                             </Link>
                                         </li>
+
+                                        <li className="list-inline-item">
+                                            <button type="button" className="btn-lg m-3 buttonHomeCP" onClick={() => Send()}>
+                                                {id ? "Editar Proyecto" : "Crear Proyecto"}
+                                            </button>
+                                        </li>
                                     </ul>
-
-
-
-
-
-
 
 
                                 </form>

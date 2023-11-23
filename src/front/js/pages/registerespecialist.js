@@ -90,7 +90,7 @@ export const Register = props => {
                                 <nav aria-label="breadcrumb">
                                 </nav>
                                 <div>
-                                    <h3 className="page-title mb-4" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "65px", fontWeight: "bold", marginLeft: "10px" }} >{id ? "Editar Especialista" : "Especialista"} </h3>
+                                    <h3 className="page-title mb-5" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "50px", fontWeight: "bold", marginLeft: "10px" }} >{id ? "Editar Especialista" : "Especialista"} </h3>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ export const Register = props => {
 
 
                                                 <div className="mb-3 mt-4 row">
-                                                    <label htmlFor="email" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Email address</label>
+                                                    <label htmlFor="email" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Email</label>
                                                     <input type="email" className="form-control" id="email" name="email" defaultValue={especialistaData.email} style={{ width: "900px" }} />
                                                 </div>
 
@@ -144,20 +144,23 @@ export const Register = props => {
                                                 }
                                             </div>
 
-                                            <ul className="list-inline wizard mb-0 d-flex justify-content-center">
-                                                <li className="next list-inline-item float-end">
+                                            <ul className="list-inline wizard mb-0 d-flex justify-content-between align-items-center">
+
+                                            <li className="list-inline-item">
+                                                    <Link to="/profileadmon">
+                                                        <button type="button" className="btn-lg m-3 buttonHomeCP-Volver">Volver</button>
+                                                    </Link>
+                                                </li>
+
+                                                <li className="list-inline-item">
                                                     <button type="submit" className="btn-lg m-3 buttonHomeCP">
-                                                        {id ? "Editar" : "Crear"}
+                                                        {id ? "Editar" : "Crear Especialista"}
                                                     </button>
 
                                                     <Modal error={error} />
                                                 </li>
 
-                                                <li>
-                                                    <Link to="/profileadmon">
-                                                        <button type="button" className="btn-lg m-3 buttonHomeCP">Volver</button>
-                                                    </Link>
-                                                </li>
+                                                
 
 
                                             </ul>
