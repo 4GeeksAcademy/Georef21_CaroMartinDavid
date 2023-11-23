@@ -1,74 +1,79 @@
-import React, { useState, useEffect, useContext, useRef } from "react"; 
+import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
-import { GoogleMap, Marker, useLoadScript  } from "@react-google-maps/api";
-import { useMemo } from "react";
+import { GoogleMap, Marker, InfoWindow, useLoadScript } from "@react-google-maps/api";
 import "../../styles/map.css";
 
 export const MapAdmon = () => {
-  const { store, actions } = useContext(Context);
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.API_KEY
+    googleMapsApiKey: process.env.API_KEY,
+    libraries: ["places"],
   });
-  const center = useMemo(() => (store.location), [store.location]);
+  const { store } = useContext(Context);
   const [map, setMap] = useState(null);
-  const [markerPosition, setMarkerPosition] = useState(store.location);
-  
+  const [infoWindow, setInfoWindow] = useState(null);
+
+  const markers = store.markers;
 
   useEffect(() => {
-    setMarkerPosition(store.location);
-  }, [store.location]);
+    if (map) {
+      if (markers.length > 0) {
+        const bounds = new window.google.maps.LatLngBounds();
+        markers.forEach(({ lat, lng }) => bounds.extend(new window.google.maps.LatLng(lat, lng)));
+        map.fitBounds(bounds);
+      } else {
+        // Si no hay marcadores, establece la extensión mundial
+        const worldBounds = new window.google.maps.LatLngBounds(
+          new window.google.maps.LatLng(-90, -180),
+          new window.google.maps.LatLng(90, 180)
+        );
+        map.fitBounds(worldBounds);
+      }
+    }
+  }, [map, markers]);
 
-  useEffect(() => {
-    actions.ajustLocation(markerPosition);
-  }, [markerPosition]);
-
-  const onLoad = mapInstance => {
-    setMap(mapInstance);
+  const handleMapLoad = (map) => {
+    setMap(map);
   };
 
-  const onMarkerDragEnd = event => {
-    
-    setMarkerPosition(prevPosition => ({
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    }));
-    console.log("markerposition", markerPosition);
-    onCoordinateChange(markerPosition);
-    
+  const handleMarkerClick = (marker) => {
+    if (infoWindow) {
+      setInfoWindow(null);
+    } else {
+      setInfoWindow(marker);
+    }
   };
 
-  const onMapClick = event => {
-    
-    setMarkerPosition(prevPosition => ({
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    }));
-    console.log("markerposition", markerPosition);
-    onCoordinateChange(markerPosition);
-   
-  };
-
- 
   return (
-    
-      <div className="App">
+    <div className="App">
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
         <GoogleMap
           mapContainerClassName="map-container"
-          onLoad={onLoad}
-          center={center}
-          zoom={10}
-          onClick={onMapClick}
-          >
-          <Marker position={markerPosition} icon={"https://maps.google.com/mapfiles/ms/icons/green-dot.png"} draggable={true}
-            onDragEnd={onMarkerDragEnd} />
+          zoom={2} // Ajusta el nivel de zoom inicial según tu preferencia
+          onLoad={handleMapLoad}
+        >
+          {markers.map((marker, index) => (
+            <Marker
+              key={index}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onClick={() => handleMarkerClick(marker)}
+            />
+          ))}
 
-        
+          {infoWindow && (
+            <InfoWindow
+              position={{ lat: infoWindow.lat, lng: infoWindow.lng }}
+              onCloseClick={() => setInfoWindow(null)}
+            >
+              <div>
+                <h4>{infoWindow.Proyecto}</h4>
+                <h4>{infoWindow.fecha}</h4>
+              </div>
+            </InfoWindow>
+          )}
         </GoogleMap>
       )}
     </div>
-   
   );
 };

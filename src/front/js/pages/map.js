@@ -18,9 +18,7 @@ export const Map = ({ onCoordinateChange }) => {
     setMarkerPosition(store.location);
   }, [store.location]);
 
-  useEffect(() => {
-    actions.ajustLocation(markerPosition);
-  }, [markerPosition]);
+
 
   const onLoad = mapInstance => {
     setMap(mapInstance);

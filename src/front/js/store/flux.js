@@ -749,13 +749,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error al obtener datos de la API:", error);
 				}
 			},
-			//setlocation
-			ajustLocation: (data)=>{
-				const ajustedlocation = data
-				setStore({ ajustedlocation: ajustedlocation});
-			},
-
-			// aqui termina el put de captura de datos
+			
 			setmarkersadmon:(data)=>{
 				console.log("desde setmarkeradmon:", data);
 				const markers = [];

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
 import "../../styles/admon.css";
-
+import {MapAdmon} from "./mapadmon"
 import { Context } from "../store/appContext";
 import { FaLocationDot, FaPhoneFlip, FaEnvelope, FaTrashCan,FaPencil } from "react-icons/fa6";
 
@@ -24,17 +24,7 @@ export const ProfileAdmon = () => {
 		<div className="container">
 			<h1>Bienvenido {store.administrator.name}</h1>
 			<div>
-                <h1>Proyectos</h1>
-                <div className ="d-flex justify-content-evenly">
-                    <Link to="/nuevoproyecto">
-                        <button type="button" className="btn btn-success m-3">
-                            Crear Proyectos
-                        </button>
-                    </Link>
-                    <button type="button" className="btn btn-success m-3" onClick={()=>getproyects()}>
-                        Proyectos
-                    </button>
-                </div>
+               <MapAdmon/>
 
             </div>
             <div>
