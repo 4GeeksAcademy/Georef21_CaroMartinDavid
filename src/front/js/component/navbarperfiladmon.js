@@ -55,7 +55,7 @@ export const NavbarPerfilAdmon = () => {
 						{store.sessionSpecialist === true ?
 							<>
 
-								<div className="dropdown" style={{marginLeft:"1400px"}}>
+								<div className="dropdown" style={{marginLeft:"1370px"}}>
 									<a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 										<BsPersonCircle /> {store.specialist.nombre} {store.specialist.apellido}
 									</a>
