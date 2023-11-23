@@ -24,8 +24,8 @@ export const PerfilEspecialista = () => {
                                         <div className="card-body d-flex align-items-start border" style={{ marginBottom: "20px" }}>
                                             <span className="me-4">
                                                 <img
-                                                    src="https://as1.ftcdn.net/v2/jpg/04/56/58/14/1000_F_456581427_5XpGqNqCwLAGwaFFvxVGvnW2teOfJ0ZL.jpg"
-                                                    style={{ height: '140px' }}
+                                                    src={item.imageprofile}
+                                                    style={{ width: '140px', height: '140px', objectFit: 'cover' }}
                                                     alt="avatar-2"
                                                     className="rounded-circle img-thumbnail"
                                                 />
