@@ -44,13 +44,10 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
 
-                    {/* <Navbarhome /> */}
-                    <NavbarPerfilAdmon />
-                    {/* <NavbarEspecialista /> */}
-                    <div className="container-fluid d-flex justify-content-start"> {/* Agregando una clase de Bootstrap al contenedor */}
-                        <Sidebar />
+                    <NavbarPerfilAdmon />                    
 
-                        <div className="row"> {/* Creando una fila de Bootstrap para envolver las rutas */}
+                        <span className="container-fluid d-flex justify-content-start">
+                        <Sidebar  />
                             <Routes>
                                 <Route element={<Home />} path="/" />
                                 <Route element={<LoginAdministrator />} path="/admonlog" />
@@ -82,9 +79,7 @@ const Layout = () => {
                                 <Route element={< DatasCapture />} path="/datacapture" />
                                 <Route element={<DataCaptureRegister />} path="/captdatareg/:id" />
                             </Routes>
-                        </div>
-                    </div>
-                    {/* </div> */}
+                        </span>
                 </ScrollToTop>
             </BrowserRouter>
         </div>

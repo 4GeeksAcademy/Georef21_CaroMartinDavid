@@ -197,9 +197,10 @@ form-label {
 }
 
 .flex-shrink-0 {
-    box-shadow: 1px 1px 1px 1px lightblue;
+    box-shadow: 1px 0px 0px 0px rgb(78, 39, 185);
     border-radius: 0%;
-
+    background-color: rgba(165, 165, 165, 0.082);
+    border-color: black;
 }
 
 .btn-toggle::before {
