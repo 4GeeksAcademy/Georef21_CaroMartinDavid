@@ -85,7 +85,7 @@ export const Register = props => {
             <div className="Contanier-fluid" style={{ height: "100vh", marginLeft: "10px" }}>
                 <div className="row">
                     <div className="col">
-                        <div className="page-title-box">
+                        <div className="">
                             <div className="page-title-right">
                                 <nav aria-label="breadcrumb">
                                 </nav>
