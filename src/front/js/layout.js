@@ -40,13 +40,29 @@ const Layout = () => {
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL === "") return <BackendURL />;
     const { store, actions } = useContext(Context);
+
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+
+	useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+
     return (
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <NavbarPerfilAdmon />
                     <div className="controutes d-flex justify-content-center">
-                    {store.session === true || store.sessionSpecialist === true  ?
+                    {store.session === true || (store.sessionSpecialist === true && isSmallScreen === false)  ?
 
                         <div className ="col-md-3"> 
                             <Sidebar />

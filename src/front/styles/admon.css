@@ -331,3 +331,40 @@ NombreRegAdmor {
         font-size: 60px;
     }
   }
+
+  .illustration-text{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color:#1b1e3fce
+  }
+
+  .positionesp{
+  
+    font-family: 'Roboto', sans-serif;
+    color:#3f4265ce
+  }
+
+  .illustration{
+    background-color: #d7d7de;
+    border: 1px solid rgba(16, 12, 33, 0.811);
+    box-shadow: 0px 0px 0.875rem 0px rgba(105,96,117,1);
+
+  }
+
+  .illustration2{
+    background-color: #8ec1c0;
+    border: 1px solid rgba(55, 76, 75, 0.811);
+    box-shadow: 0px 0px 0.875rem 0px rgb(122, 184, 151);
+  }
+
+  .illustration-text2{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color:black
+  }
+
+  .positionesp2{
+  
+    font-family: 'Roboto', sans-serif;
+    color:#87878ba8
+  }

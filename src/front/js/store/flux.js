@@ -29,7 +29,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			location: {},
 			dataesp: [], 
 			ajustedlocation:{},
-			markers:[]
+			markers:[],
+			numproyesp: null
+
 		},
 
 		actions: {
@@ -423,6 +425,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 							const { getspecialist } = getActions();
 							getspecialist(token);
 							setStore({ sessionSpecialist: true });
+							const { gevisitaesp } = getActions();
+							gevisitaesp();
+							const { getcapturedata } = getActions();
+							getcapturedata();
+							
 							return "autorizado";
 
 						}
@@ -599,6 +606,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const allprojectspc = respuesta.projectAsig
 						setStore({ allprojectspc: allprojectspc });
 						console.log(allprojectspc);
+						const { numproyesp } = getActions();
+						numproyesp(allprojectspc);
 					} else {
 						const errordata = JSON.parse(await resp.text())
 						console.log(errordata);
@@ -776,7 +785,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 							}}}}
 					console.log("datomarcadores",markers);
 					setStore({ markers: markers });
-			},//termina infor marker
+			},
+			//termina infor marker
+			numproyesp:(data)=>{
+				let idsUnicos = new Set(data.map(objeto => objeto.id));
+				const numproyesp = idsUnicos.size;
+				setStore({ numproyesp: numproyesp });
+			}
 			
 		}
 	};
