@@ -54,7 +54,7 @@ export const DatasCapture = () => {
         }
         </div>
         <div className ="row">
-        <div className ="d-flex justify-content-center">
+        <div className ="d-flex justify-content-center mt-2">
             <Link to="/vInicial">
 					<button type="button" className="btn btn-outline-dark">Volver</button>
 			</Link>
