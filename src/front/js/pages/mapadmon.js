@@ -44,7 +44,7 @@ export const MapAdmon = () => {
   };
 
   return (
-    <div className="App">
+    <div className="App row">
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
@@ -67,8 +67,8 @@ export const MapAdmon = () => {
               onCloseClick={() => setInfoWindow(null)}
             >
               <div>
-                <h4>{infoWindow.Proyecto}</h4>
-                <h4>{infoWindow.fecha}</h4>
+                <p>{infoWindow.Proyecto}</p>
+                <p>{infoWindow.fecha}</p>
               </div>
             </InfoWindow>
           )}

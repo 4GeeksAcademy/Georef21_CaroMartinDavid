@@ -608,6 +608,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(allprojectspc);
 						const { numproyesp } = getActions();
 						numproyesp(allprojectspc);
+						const {setmarkersesp} = getActions();
+						setmarkersesp(allvisitsspc, allprojectspc);
 					} else {
 						const errordata = JSON.parse(await resp.text())
 						console.log(errordata);
@@ -791,8 +793,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let idsUnicos = new Set(data.map(objeto => objeto.id));
 				const numproyesp = idsUnicos.size;
 				setStore({ numproyesp: numproyesp });
-			}
-			
+			},
+			//termina numero de proy
+			setmarkersesp:(data, proyectos)=>{
+				console.log("desde setmarkerespecialista:", data);
+				const markers = [];
+				for (let i=0; i<data.length; i++){
+					console.log("desde setmarkerespecialista captures:", data[i].datacaptures);
+					if(data[i].datacaptures.length!=0){
+						const capturas = data[i].datacaptures;
+						for (let j=0; j<capturas.length; j++){
+									const coord = capturas[j].georeferencing;
+									console.log(coord.lat);
+									console.log(coord.lng)
+									const datosproyecto = {};
+									datosproyecto["Proyecto"] = proyectos.filter(project => project.id ===data[i].project_id)[0]?.nameProject
+									datosproyecto["fecha"]=new Date(data[i].date).toISOString().slice(0, 10)
+									datosproyecto["lat"]=coord.lat;
+									datosproyecto["lng"]= coord.lng;
+									console.log("datosmarker", datosproyecto);
+									markers.push(datosproyecto)
+								}}}
+					console.log("datomarcadores",markers);
+					setStore({ markers: markers });
+			},
+			//termina infor marker
+
 		}
 	};
 };
