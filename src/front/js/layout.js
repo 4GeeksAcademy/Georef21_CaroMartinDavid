@@ -45,14 +45,14 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <NavbarPerfilAdmon />
-                    <div className="controutes d-flex">
+                    <div className="controutes d-flex justify-content-center">
                     {store.session === true || store.sessionSpecialist === true  ?
 
-                        <div className ="col-3"> 
+                        <div className ="col-md-3"> 
                             <Sidebar />
                         </div> :<></>
                     }
-                        <div className="flex-fill col-9">
+                        <div className="col-9">
                                 <Routes>
                                     <Route element={<Home />} path="/" />
                                     <Route element={<LoginAdministrator />} path="/admonlog" />

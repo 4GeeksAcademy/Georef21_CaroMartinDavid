@@ -30,18 +30,14 @@ export const LoginAdministrator = () => {
 
 	return (
 		<div className="d-flex justify-content-center row" >
-			<div className="col-md-5 col-sm-8 my-4" >
-				<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-5" style={{ color: 'white' }}>
+			<div className="col-md-6 col-sm-12 my-5" >
+				<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-12" style={{ color: 'white' }}>
 					<h1>Hola Administrador</h1>
 				</div>
 				<div className="containerAdmon">
-					{/* <div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
-						<h1>Hola Administrador</h1>
-					</div> */}
-
 					<div className="text-center w-75 m-auto"><p className="text-muted mb-4">A continuación digite su correo electronico y password</p></div>
 
-					<div className="datos col-md-6 d-flex flex-column align-items-center">
+					<div className="datos col-md-10 d-flex flex-column align-items-center">
 						<form onSubmit={handlesubmit} className="text-center">
 							<div className="mb-3">
 								<label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>

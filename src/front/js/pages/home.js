@@ -43,6 +43,24 @@ export const Home = () => {
 								</p>
 							</div>
 							<div style={{ display: "flex", justifyContent: "space-around" }}>
+							{isSmallScreen? <>
+								<div className="text-center">
+										<Link to="/admonlog">
+											<button type="button" className="btn-lg m-3 buttonHome">
+												Administrador
+											</button>
+										</Link>
+									</div>
+									<div className="text-center">
+										<Link to="/logSpecialist">
+											<button type="button" className="btn-lg m-3 buttonHome">
+												Especialista
+											</button>
+										</Link>
+									</div>
+							
+							</> :(
+								<>
 								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #E0E0E0", backgroundColor: "#F8F9FA", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
 									<div className="text-center">
 										<Link to="/admonlog">
@@ -51,11 +69,11 @@ export const Home = () => {
 											</button>
 										</Link>
 									</div>
-									{isSmallScreen? <></> :(
+									
 									<p style={{ padding: "20px", paddingTop: "5px" }}>
 										Los administradores tienen la capacidad de crear, gestionar y eliminar proyectos, así como controlar la información relacionada con especialistas y visitas.
 									</p>
-									)}
+									
 								</div>
 								<div className="card" style={{ width: "17rem", borderRadius: "15px", border: "1px solid #E0E0E0", backgroundColor: "#F8F9FA", margin: "10px", textAlign: "left", padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
 									<div className="text-center">
@@ -65,12 +83,13 @@ export const Home = () => {
 											</button>
 										</Link>
 									</div>
-									{isSmallScreen ? <></>:(
+								
 									<p style={{ padding: "20px", paddingTop: "5px" }}>
 										Los especialistas cuentan con la habilidad de visualizar las visitas y proyectos asignados, así como crear, gestionar y eliminar los registros de datos
 									</p>
-									)}
+								
 								</div>
+								</>)}
 							</div>
 						</div>
 
