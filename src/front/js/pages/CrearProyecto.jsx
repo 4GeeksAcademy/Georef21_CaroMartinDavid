@@ -39,52 +39,103 @@ export const CrearProyecto = () => {
         })
     }
     return (
-        <div className="account-pages1" >
-            <div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
-                <div className="RegistroProyecto pt-2 text-center bg-primary card-header col-md-6" style={{ color: 'white' }} width-400px>
-                    <h1>{id ? "Editar Proyecto" : "Registrar Nuevo Proyecto"}</h1>
-                </div>
-                <div className="containerAdmon">
-                    {/* <div className="RegistroProyecto pt-2 text-center bg-primary card-header col-md-6" style={{ color: 'white' }} width-400px>
-                        <h1>{id ? "Editar Proyecto" : "Registrar Nuevo Proyecto"}</h1>
-                    </div> */}
-                    {/* <div className="col-md-6 m-auto"> */}
-
-                    <div className="datos col-md-6 d-flex flex-column align-items-center">
-                        <p>Administrador</p>
-                        <select className="form-select" aria-label="Default select example">
-                            <option value="">{store.administrator.name} {store.administrator.lastname}</option>
-                        </select>
-                        <div className="mb-3" >
-                            <label htmlFor="formGroupExampleInput" className="form-label">Nombre Proyecto</label>
-                            <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Nombre" onChange={infoSetData} name="nameProject" required value={data.nameProject} />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="formGroupExampleInput2" className="form-label">Temática</label>
-                            <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Temática" onChange={infoSetData} name="theme" required value={data.theme} />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="formGroupExampleInput2" className="form-label">Ubicación</label>
-                            <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Ubicación" onChange={infoSetData} name="location" required value={data.location} />
-                        </div>
-                        <div className="d-flex justify-content-center">
-                            <button type="button" className="btn btn-primary" onClick={() => Send()}>{id ? "Editar Proyecto" : "Crear Proyecto"}</button>
-                        </div>
-                        {/* <Link to="/profileadmon">
-                        <button type="button" className="btn btn-primary">Volver</button>
-                    </Link> */}
-                        <footer className="footer footer-alt min-vh-10">
-                            <div className="botonVolver">
-                                <Link to="/profileadmon">
-                                    <button type="button" className="btn btn-primary">Volver</button>
-                                </Link>
+        <div className="center-content">
+            <div className="Contanier-fluid" style={{ height: "100vh", marginLeft: "10px" }}>
+                <div className="row">
+                    <div className="col">
+                        <div className="page-title-box">
+                            <div className="page-title-right">
+                                <nav aria-label="breadcrumb">
+                                    {/* <ol className="breadcrumb m-0">
+                        <li className="breadcrumb-item"><a href="/">Hyper</a></li>
+                        <li className="breadcrumb-item"><a href="/ui/forms/wizard">Forms</a></li>
+                        <li className="breadcrumb-item active" aria-current="page">Form Wizard</li>
+                    </ol> */}
+                                </nav>
                             </div>
-                        </footer>
+                            <h3 className="page-title mb-5" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "50px", fontWeight: "bold", marginLeft: "10px" }} >Proyectos</h3>
+
+                        </div>
                     </div>
                 </div>
+
+
+                <div className="row-card">
+                    <div className="col-xl-6">
+                        <div className="card justify-content" style={{ width: "1175px", marginLeft: "10px", borderBlockColor: "black", border: "10px" }}>
+                            <div className="card-body">
+                                <h4 className="header-title mb-3" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} >Nuevo Proyecto</h4>
+                                <p>Para crear un proyecto deberás diligenciar el siguiente formulario estableciendo el nombre del proyecto, su temática (es decir, si es de infraestructura, o de energía, o ambiental o mineroenergético) y su ubicación (es decir, zona de influencia donde se llevarán a cabo las actividades por parte del especialista vinculado al proyecto) </p>
+
+
+                                <form className>
+                                    <div className="mb-3 mt-4 row">
+
+                                        <label for="exampleName" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Administrador</label>
+
+                                        <div className="col-md-9">
+
+                                            <div className="form-select" style={{ width: "900px" }}>
+                                                <option>{store.administrator.name} {store.administrator.lastname}</option>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 row">
+                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Nombre Proyecto</label>
+                                        <div className="col-md-9">
+                                            <input name="examplePassword" placeholder="" type="password" id="examplePassword" className="form-control" value="" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 row">
+                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Temática</label>
+                                        <div className="col-md-9">
+                                            <input name="examplePassword" placeholder="" type="text" id="examplePassword" className="form-control" value="" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-3 row">
+                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Ubicación</label>
+                                        <div className="col-md-9">
+                                            <input name="examplePassword" placeholder="" type="password" id="examplePassword" className="form-control" value="" style={{ width: "900px" }} />
+                                        </div>
+                                    </div>
+
+                                    <ul className="list-inline wizard mb-0 d-flex justify-content-between align-items-center">
+                                        <li className="list-inline-item">
+                                            <Link to="/profileadmon">
+                                                <button type="button" className="btn-lg buttonHomeCP-Volver">
+                                                    Volver
+                                                </button>
+                                            </Link>
+                                        </li>
+
+                                        <li className="list-inline-item">
+                                            <button type="button" className="btn-lg m-3 buttonHomeCP" onClick={() => Send()}>
+                                                {id ? "Editar Proyecto" : "Crear Proyecto"}
+                                            </button>
+                                        </li>
+                                    </ul>
+
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* <footer className="footer footer-alt min-vh-10">
+                             <div className="botonVolver">
+                                 <Link to="/profileadmon">
+                                     <button type="button" className="btn btn-primary">Volver</button>
+                                 </Link>
+                             </div>
+                         </footer> */}
+
             </div>
         </div>
-        // </div>
+
     );
 };
 
