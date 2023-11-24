@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
@@ -31,6 +31,7 @@ import { LoginSpecialist } from "./pages/loginSpecialist.jsx";
 import { PerfilProjectEsp } from "./pages/projectEsp.js";
 import { DataCapture } from "./pages/vistadatos.js";
 import { DatasCapture } from "./pages/datoscapturados.js";
+import { Context } from "./store/appContext.js";
 
 
 
@@ -38,56 +39,58 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL === "") return <BackendURL />;
-
+    const { store, actions } = useContext(Context);
     return (
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-
-                    {/* <Navbarhome /> */}
                     <NavbarPerfilAdmon />
-                    {/* <NavbarEspecialista /> */}
-                    <div className="container-fluid d-flex justify-content-start"> {/* Agregando una clase de Bootstrap al contenedor */}
-                        <Sidebar />
+                    <div className="controutes d-flex">
+                    {store.session === true || store.sessionSpecialist === true  ?
 
-                        <div className="row"> {/* Creando una fila de Bootstrap para envolver las rutas */}
-                            <Routes>
-                                <Route element={<Home />} path="/" />
-                                <Route element={<LoginAdministrator />} path="/admonlog" />
-                                <Route element={<LoginSpecialist />} path="/logSpecialist" />
-                                <Route element={<Administrator />} path="/admon" />
-                                <Route element={<Administrator />} path="/admon/:adminId" />
-                                <Route element={<ProfileAdmon />} path="/profileadmon" />
-                                <Route element={<DatosAdmon />} path="/admons" />
-                                <Route element={<Demo />} path="/demo" />
-                                <Route element={<Single />} path="/single/:theid" />
-                                <Route element={<Register />} path="/registerespicialist" />
-                                <Route element={<Register />} path="/registerespicialist/:id" />
+                        <div className ="col-3"> 
+                            <Sidebar />
+                        </div> :<></>
+                    }
+                        <div className="flex-fill col-9">
+                                <Routes>
+                                    <Route element={<Home />} path="/" />
+                                    <Route element={<LoginAdministrator />} path="/admonlog" />
+                                    <Route element={<LoginSpecialist />} path="/logSpecialist" />
+                                    <Route element={<Administrator />} path="/admon" />
+                                    <Route element={<Administrator />} path="/admon/:adminId" />
+                                    <Route element={<ProfileAdmon />} path="/profileadmon" />
+                                    <Route element={<DatosAdmon />} path="/admons" />
+                                    <Route element={<Demo />} path="/demo" />
+                                    <Route element={<Single />} path="/single/:theid" />
+                                    <Route element={<Register />} path="/registerespicialist" />
+                                    <Route element={<Register />} path="/registerespicialist/:id" />
 
-                                <Route element={<PerfilEspecialista />} path="/perfilEspecialista" />
-                                <Route element={<h1>Not found!</h1>} />
-                                <Route element={<CrearProyecto />} path="/nuevoproyecto" />
-                                <Route element={<Proyecto />} path="/Proyecto" />
-                                <Route element={<RegVisits />} path="/regvisit" />
-                                <Route element={<PerfilVisitas />} path="/perfilVisitas" />
-                                <Route element={<PerfilVisitasEsp />} path="/perfilvisitasEsp" />
-                                <Route element={<PerfilProjectEsp />} path="/perfilprojEsp" />
-                                <Route element={<RegVisits />} path="/regvisit/:id" />
-                                <Route element={<DataCaptureRegister />} path="/captdatareg" />
-                                <Route element={<Proyectos />} path="/listaproyectos" />
-                                <Route element={<CrearProyecto />} path="/nuevoproyecto/:id" />
-                                <Route element={<VistaIncialEspecialista />} path="/vInicial" />
-                                <Route element={<PerfilEspecialista />} path="/perfilEspecialista" />
-                                <Route element={< DataCapture />} path="/vistaDatos" />
-                                <Route element={< DatasCapture />} path="/datacapture" />
-                                <Route element={<DataCaptureRegister />} path="/captdatareg/:id" />
-                            </Routes>
+                                    <Route element={<PerfilEspecialista />} path="/perfilEspecialista" />
+                                    <Route element={<h1>Not found!</h1>} />
+                                    <Route element={<CrearProyecto />} path="/nuevoproyecto" />
+                                    <Route element={<Proyecto />} path="/Proyecto" />
+                                    <Route element={<RegVisits />} path="/regvisit" />
+                                    <Route element={<PerfilVisitas />} path="/perfilVisitas" />
+                                    <Route element={<PerfilVisitasEsp />} path="/perfilvisitasEsp" />
+                                    <Route element={<PerfilProjectEsp />} path="/perfilprojEsp" />
+                                    <Route element={<RegVisits />} path="/regvisit/:id" />
+                                    <Route element={<DataCaptureRegister />} path="/captdatareg" />
+                                    <Route element={<Proyectos />} path="/listaproyectos" />
+                                    <Route element={<CrearProyecto />} path="/nuevoproyecto/:id" />
+                                    <Route element={<VistaIncialEspecialista />} path="/vInicial" />
+                                    <Route element={<PerfilEspecialista />} path="/perfilEspecialista" />
+                                    <Route element={< DataCapture />} path="/vistaDatos" />
+                                    <Route element={< DatasCapture />} path="/datacapture" />
+                                    <Route element={<DataCaptureRegister />} path="/captdatareg/:id" />
+                                </Routes>
+                        
                         </div>
                     </div>
-                    {/* </div> */}
-                </ScrollToTop>
-            </BrowserRouter>
-        </div>
+                        {/* </div> */}
+                    </ScrollToTop>
+                </BrowserRouter>
+            </div>
     );
 };
 

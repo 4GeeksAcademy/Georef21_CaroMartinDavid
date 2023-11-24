@@ -29,7 +29,7 @@ export const LoginAdministrator = () => {
 	}
 
 	return (
-		<div className="account-pages1" >
+		<div className="account-pages1 d-flex justify-content-center" >
 			<div className="account-pagesloginadmon pt-2 pt-sm-5 pb-4 pb-sm-5" >
 				<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
 					<h1>Hola Administrador</h1>

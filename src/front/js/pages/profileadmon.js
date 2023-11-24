@@ -21,7 +21,7 @@ export const ProfileAdmon = () => {
     }
 		
 	return (
-		<div className="container">
+		<div >
 			<h1>Bienvenido {store.administrator.name}</h1>
 			<div>
                <MapAdmon/>
