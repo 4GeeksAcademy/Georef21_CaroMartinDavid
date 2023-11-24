@@ -20,7 +20,7 @@ export const PerfilEspecialista = () => {
                         <>
                             {store.allspecialist.map((item, index) => {
                                 return (
-                                    <div className="col-md-4 mb-4" key={index}>
+                                    <div className="col-md-6 mb-4" key={index}>
                                         <div className="card-body d-flex align-items-start border" style={{ marginBottom: "20px" }}>
                                             <span className="me-4">
                                                 <img
