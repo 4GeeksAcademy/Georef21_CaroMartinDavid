@@ -37,20 +37,24 @@ export const LoginSpecialist = () => {
 
     return (
         
-        <div className="account-pages1 d-flex justify-content-center" >
-            <div className="account-pagesloginadmon pt-2 pt-sm-5 pb-4 pb-sm-5" >
-                    <div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
+        <div className="d-flex justify-content-center row" >
+            <div className = "col-md-4 col-sm-8 my-4" >
+                    <div className="text-center bg-primary card-header col-sm-7 col-md-12 p-4" style={{ color: 'white' }}>
                         <h1>Hola Especialista</h1>
                     </div>
-                <div className="containerAdmon">
-                    <div className="text-center w-75 m-auto"><p className="text-muted mb-4">A continuación digite su correo electronico y password</p></div>
-
-                    <div className="datos col-md-6 d-flex flex-column align-items-center">
-                        <form onSubmit={handlesubmit} className="text-center">
-                            <div className="mb-3">
-                                <label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>
-                                <input type="email" placeholder="@" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" />
-                            </div>
+                <div className="col-sm-8 col-md-12 containerAdmon d-flex justify-content-center ">
+                    <div className="row">
+                        <div className="text-center  m-auto  col-sm-12 col-md-12 py-1">
+                            <p className="text-muted my-4">A continuación digite su correo electronico y password</p>
+                        </div>
+                    </div>
+                    <div className="row col-md-12">
+                        <div className="col-md-12 col-sm-12 d-flex flex-column align-items-center">
+                            <form onSubmit={handlesubmit} className="text-center col-10">
+                                <div className=" mb-3">
+                                    <label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>
+                                    <input type="email" placeholder="@" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" />
+                                </div>
                             <div className="mb-3">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                                 <input type="password" className="form-control" name="password" id="exampleInputPassword1" />
@@ -59,8 +63,9 @@ export const LoginSpecialist = () => {
                                 <button type="submit" className="btn btn-outline-secondary buttonHome">Ingresar</button>
                                 <Modal error={error} />
                             </div>
-                        </form>
-                       
+                            </form>
+                        </div>
+                    </div>
                         <div className="botonVolver">
                             <Link to="/">
                                 <button type="button" className="btn btn-outline-secondary" disabled>
@@ -69,12 +74,12 @@ export const LoginSpecialist = () => {
                             </Link>
                         </div>
                     
-                </div>
-            </div>
+                
+            
             </div>
             <Modal error={error} />
         </div>
-     
+     </div>
 
    
                 
