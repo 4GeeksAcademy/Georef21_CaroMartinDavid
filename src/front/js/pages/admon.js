@@ -118,12 +118,13 @@ export const Administrator = () => {
 
 	return (
 		
-		<div className="account-pages1" >
-			<div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
-				<div className="containerRegistro">
-					<div className="RegistroAdministrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
+		<div className="d-flex justify-content-center col-12">
+		<div className="row pt-3">
+			<div className="col-12 pt-3">
+				<div className="containerRegistro col-12">
+					<div className="RegistroAdministrador p-4 text-center bg-primary card-header col-12" style={{ color: 'white' }}>
 						<h1>{adminId ? "Editar Administrador" : "Registro Administrador"}</h1></div>
-					<div className="col-md-6">
+					<div className="col-12 p-2" style={{backgroundColor: "rgba(185, 185, 187, 0.366)", borderRadius: "0px"}}>
 						<form onSubmit={handlesubmit}>
 							<div className="mb-1">
 								<label htmlFor="name" className="form-label">Nombre</label>
@@ -159,7 +160,7 @@ export const Administrator = () => {
 							</>}
 
 							<div className="d-flex justify-content-center py-1">
-								<button type="submit" className="btn btn-primary">{adminId ? "Editar" : "Crear"}</button>
+								<button type="submit" className="btn-lg m-3 buttonHome">{adminId ? "Editar" : "Crear"}</button>
 								<Modal error={error} />
 							</div>
 
@@ -176,6 +177,7 @@ export const Administrator = () => {
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	);
 };

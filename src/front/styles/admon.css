@@ -137,7 +137,7 @@
     color: #fff;
 }
 
-.card-header:first-child {
+card-header:first-child {
     border-radius: calc(1.25rem - 1px) calc(1.25rem - 1px) 0 0;
 }
 
@@ -225,7 +225,7 @@ form-label {
     transform-origin: 0.5em 50%;
 }
 
-contenedor {
+.contenedor {
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -380,7 +380,7 @@ NombreRegAdmor {
 
 
 .mdi-arrow-up-bold:before {
-    content: "ó°œ·";
+    content: "Noviembre";
 }
 
 .mdi-arrow-down-bold:before {

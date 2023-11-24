@@ -30,6 +30,7 @@ export const CrearProyecto = () => {
         }
         else {
             actions.CreateProject(data);
+            actions.GetProjects();
             navigate("/profileadmon");
         }
     };
@@ -46,11 +47,7 @@ export const CrearProyecto = () => {
                         <div className="page-title-box">
                             <div className="page-title-right">
                                 <nav aria-label="breadcrumb">
-                                    {/* <ol className="breadcrumb m-0">
-                        <li className="breadcrumb-item"><a href="/">Hyper</a></li>
-                        <li className="breadcrumb-item"><a href="/ui/forms/wizard">Forms</a></li>
-                        <li className="breadcrumb-item active" aria-current="page">Form Wizard</li>
-                    </ol> */}
+
                                 </nav>
                             </div>
                             <h3 className="page-title mb-5" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", marginTop: "50px", fontWeight: "bold", marginLeft: "10px" }} >Proyectos</h3>
@@ -71,7 +68,7 @@ export const CrearProyecto = () => {
                                 <form className>
                                     <div className="mb-3 mt-4 row">
 
-                                        <label for="exampleName" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Administrador</label>
+                                        <label htmlFor="exampleName" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Administrador</label>
 
                                         <div className="col-md-9">
 
@@ -82,22 +79,22 @@ export const CrearProyecto = () => {
                                         </div>
                                     </div>
                                     <div className="mb-3 row">
-                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Nombre Proyecto</label>
+                                        <label htmlFor="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Nombre Proyecto</label>
                                         <div className="col-md-9">
-                                            <input name="examplePassword" placeholder="" type="password" id="examplePassword" className="form-control" value="" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
+                                            <input name="nameProject" id="formGroupExampleInput" placeholder="Nombre" onChange={infoSetData} required value={data.nameProject} type="text" className="form-control" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
                                         </div>
                                     </div>
                                     <div className="mb-3 row">
-                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Temática</label>
+                                        <label htmlFor="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Temática</label>
                                         <div className="col-md-9">
-                                            <input name="examplePassword" placeholder="" type="text" id="examplePassword" className="form-control" value="" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
+                                            <input name="theme" placeholder="Temática" onChange={infoSetData} required value={data.theme} type="text" id="formGroupExampleInput2" className="form-control" style={{ width: "900px", fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} />
                                         </div>
                                     </div>
 
                                     <div className="mb-3 row">
-                                        <label for="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Ubicación</label>
+                                        <label htmlFor="examplePassword" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Ubicación</label>
                                         <div className="col-md-9">
-                                            <input name="examplePassword" placeholder="" type="password" id="examplePassword" className="form-control" value="" style={{ width: "900px" }} />
+                                            <input name="location" placeholder="Ubicación" onChange={infoSetData} required value={data.location} type="text" id="formGroupExampleInput2" className="form-control" style={{ width: "900px" }} />
                                         </div>
                                     </div>
 
@@ -111,7 +108,7 @@ export const CrearProyecto = () => {
                                         </li>
 
                                         <li className="list-inline-item">
-                                            <button type="button" className="btn-lg m-3 buttonHomeCP" onClick={() => Send()}>
+                                            <button type="submit" className="btn-lg m-3 buttonHomeCP" onClick={() => Send()}>
                                                 {id ? "Editar Proyecto" : "Crear Proyecto"}
                                             </button>
                                         </li>
