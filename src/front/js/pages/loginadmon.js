@@ -29,19 +29,15 @@ export const LoginAdministrator = () => {
 	}
 
 	return (
-		<div className="account-pages1" >
-			<div className="account-pagesloginadmon pt-2 pt-sm-5 pb-4 pb-sm-5" >
-				<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
+		<div className="d-flex justify-content-center row" >
+			<div className="col-md-6 col-sm-12 my-5" >
+				<div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-12" style={{ color: 'white' }}>
 					<h1>Hola Administrador</h1>
 				</div>
 				<div className="containerAdmon">
-					{/* <div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
-						<h1>Hola Administrador</h1>
-					</div> */}
-
 					<div className="text-center w-75 m-auto"><p className="text-muted mb-4">A continuación digite su correo electronico y password</p></div>
 
-					<div className="datos col-md-6 d-flex flex-column align-items-center">
+					<div className="datos col-md-10 d-flex flex-column align-items-center">
 						<form onSubmit={handlesubmit} className="text-center">
 							<div className="mb-3">
 								<label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>
@@ -52,7 +48,7 @@ export const LoginAdministrator = () => {
 								<input type="password" className="form-control" name="password" id="exampleInputPassword1" />
 							</div>
 							<div className="d-flex justify-content-center py-3">
-								<button type="submit" className="btn btn-primary">Ingresar</button>
+								<button type="submit" className="btn btn-outline-secondary buttonHome">Ingresar</button>
 								<Modal error={error} />
 							</div>
 						</form>
@@ -62,7 +58,7 @@ export const LoginAdministrator = () => {
 							</Link>
 						</div>
 					
-						<footer className="footer footer-alt min-vh-10">
+						<footer className="footer footer-alt min-vh-8 p-2">
 							<div className="botonVolver">
 								<Link to="/">
 									<button type="button" className="btn btn-outline-secondary" disabled>

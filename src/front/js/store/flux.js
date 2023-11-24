@@ -28,7 +28,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allprojectspc: [],
 			location: {},
 			dataesp: [], 
-			ajustedlocation:{}
+			ajustedlocation:{},
+			markers:[],
+			numproyesp: null
+
 		},
 
 		actions: {
@@ -187,10 +190,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return response.json();
 					})
 					.then(responseData => {
-						console.log(responseData)
+						
 						const AllProjects = responseData
 						const store = getStore();
 						setStore({ AllProjects: AllProjects });
+						const {setmarkersadmon} = getActions();
+						setmarkersadmon(store.AllProjects);
 					})
 					.catch(error => {
 						console.error("Error al realizar la petición:", error.message);
@@ -420,6 +425,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 							const { getspecialist } = getActions();
 							getspecialist(token);
 							setStore({ sessionSpecialist: true });
+							const { gevisitaesp } = getActions();
+							gevisitaesp();
+							const { getcapturedata } = getActions();
+							getcapturedata();
+							
 							return "autorizado";
 
 						}
@@ -596,6 +606,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const allprojectspc = respuesta.projectAsig
 						setStore({ allprojectspc: allprojectspc });
 						console.log(allprojectspc);
+						const { numproyesp } = getActions();
+						numproyesp(allprojectspc);
+						const {setmarkersesp} = getActions();
+						setmarkersesp(allvisitsspc, allprojectspc);
 					} else {
 						const errordata = JSON.parse(await resp.text())
 						console.log(errordata);
@@ -746,13 +760,65 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error al obtener datos de la API:", error);
 				}
 			},
-			//setlocation
-			ajustLocation: (data)=>{
-				const ajustedlocation = data
-				setStore({ ajustedlocation: ajustedlocation});
-			}
+			
+			setmarkersadmon:(data)=>{
+				console.log("desde setmarkeradmon:", data);
+				const markers = [];
+				for (let i=0; i<data.length; i++){
+					if(data[i].visits.length!=0){
+						const visitaproyec = data[i].visits;
+						for (let j=0; j<visitaproyec.length; j++){
+							if (visitaproyec[j].datacaptures.length > 0){
+								console.log (visitaproyec[j]);
+								const datoscoord = visitaproyec[j].datacaptures;
+								for(let k=0; k<datoscoord.length; k++){
+									const coord = datoscoord[k].georeferencing;
+									console.log(coord.lat);
+									console.log(coord.lng)
+									const datosproyecto = {};
+									datosproyecto["Proyecto"] = data[i].nameProject;
+									datosproyecto["fecha"]=visitaproyec[j].date;
+									datosproyecto["lat"]=coord.lat;
+									datosproyecto["lng"]= coord.lng;
+									console.log("datosmarker", datosproyecto);
+									markers.push(datosproyecto)
+								}
 
-			// aqui termina el put de captura de datos
+							}}}}
+					console.log("datomarcadores",markers);
+					setStore({ markers: markers });
+			},
+			//termina infor marker
+			numproyesp:(data)=>{
+				let idsUnicos = new Set(data.map(objeto => objeto.id));
+				const numproyesp = idsUnicos.size;
+				setStore({ numproyesp: numproyesp });
+			},
+			//termina numero de proy
+			setmarkersesp:(data, proyectos)=>{
+				console.log("desde setmarkerespecialista:", data);
+				const markers = [];
+				for (let i=0; i<data.length; i++){
+					console.log("desde setmarkerespecialista captures:", data[i].datacaptures);
+					if(data[i].datacaptures.length!=0){
+						const capturas = data[i].datacaptures;
+						for (let j=0; j<capturas.length; j++){
+									const coord = capturas[j].georeferencing;
+									console.log(coord.lat);
+									console.log(coord.lng)
+									const datosproyecto = {};
+									datosproyecto["Proyecto"] = proyectos.filter(project => project.id ===data[i].project_id)[0]?.nameProject
+									datosproyecto["fecha"]=new Date(data[i].date).toISOString().slice(0, 10)
+									datosproyecto["lat"]=coord.lat;
+									datosproyecto["lng"]= coord.lng;
+									console.log("datosmarker", datosproyecto);
+									markers.push(datosproyecto)
+								}}}
+					console.log("datomarcadores",markers);
+					setStore({ markers: markers });
+			},
+			//termina infor marker
+
 		}
 	};
 };

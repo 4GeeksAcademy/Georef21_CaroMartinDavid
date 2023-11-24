@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
 import "../../styles/admon.css";
-
+import {MapAdmon} from "./mapadmon"
 import { Context } from "../store/appContext";
 import { FaLocationDot, FaPhoneFlip, FaEnvelope, FaTrashCan, FaPencil } from "react-icons/fa6";
 
@@ -19,10 +19,14 @@ export const ProfileAdmon = () => {
         actions.getEspecialista();
         navigate("/perfilEspecialista");
     }
+		
+	
+		
+               
 
     return (
-        <div className="center-content">
-            <div className="Contanier-fluid" style={{ height: "100vh", marginLeft: "10px" }}>
+        <div className="row">
+            <div className="Contanier-fluid col-md-6" style={{ height: "100vh", marginLeft: "10px" }}>
                 <div className="row">
                     <div className="col">
                         <div className="page-title-box">
@@ -88,10 +92,14 @@ export const ProfileAdmon = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="col-md-6">
+                <MapAdmon/>
+                        </div>
+
         </div>
 
-        
-
+            
 
 
 

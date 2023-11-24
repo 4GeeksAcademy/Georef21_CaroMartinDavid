@@ -18,9 +18,7 @@ export const Map = ({ onCoordinateChange }) => {
     setMarkerPosition(store.location);
   }, [store.location]);
 
-  useEffect(() => {
-    actions.ajustLocation(markerPosition);
-  }, [markerPosition]);
+
 
   const onLoad = mapInstance => {
     setMap(mapInstance);
@@ -51,7 +49,7 @@ export const Map = ({ onCoordinateChange }) => {
  
   return (
     
-      <div className="App">
+      <div className="App row">
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
