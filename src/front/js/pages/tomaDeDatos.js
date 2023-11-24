@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import {Map} from './map';
 import { uploadFile } from "../../../firebase/config";
 import { Modal } from "../component/modal";
-
+import "../../styles/admon.css";
 
 export const DataCaptureRegister = () => {
     const { store, actions } = useContext(Context);
@@ -101,58 +101,67 @@ export const DataCaptureRegister = () => {
 
 
 return (
-    <div className="container" >
-         <h1>{id ? "Editar Datos": "Capturar Datos"}</h1>
-        <div className="col-md-6">
-            <form onSubmit={handlesubmit}>
-                <div className="mb-3">
+    <div className="d-flex justify-content-center row mt-5" >
+        <div className="col-sm-12, col-md-6">
+            <h1>{id ? "Editar Datos": "Capturar Datos"}</h1>
+         </div>
+
+        <div className ="row">
+            <div className="col-sm-12 col-md-7">
+                <form onSubmit={handlesubmit}>
+                    <div className="mb-2 row">
                         <label htmlFor="specialist_id" className="form-label">Especialista</label>
                         <select className="form-select" id="specialist_id" name="specialist_id" defaultValue={dataCaptureData.specialist_id}>                          
-                            <option value={store.specialist.id}>
+                                <option value={store.specialist.id}>
                                     Id: {store.specialist.id} | Nombre: {store.specialist.nombre} {store.specialist.apellido}| Email: {store.specialist.email}
-                            </option>
+                                </option>
                         </select>
-                </div>
-
-                <div className="mb-3">
+                    </div>
+                    <div className="mb-2 row">
                         <label htmlFor="visit_id" className="form-label">ID de la Visita</label>
                         <select className="form-select" id="visit_id" name="visit_id" defaultValue={dataCaptureData.visit_id}>                           
                             <option value="">Selecciona visita</option>
-                            {store.allvisitsspc.map((visit, index) => (
+                                {store.allvisitsspc.map((visit, index) => (
                                 <option key={index} value={visit.id}>
                                     Id: {visit.id} | Proyecto: {store.allprojectspc.filter(project => project.id ===visit.project_id)[0]?.nameProject}
-                                </option>
-                            ))}
+                            </option>
+                                ))}
                         </select>
-                </div>
-
-                <div className="mb-3">
-                    <label htmlFor="title" className="form-label">Título</label>
-                    <input type="text" className="form-control" id="title" name="title" defaultValue={dataCaptureData.title} />
-                </div>
-
-                <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Descripción</label>
-                    <textarea className="form-control" id="description" name="description" defaultValue={dataCaptureData.description} rows="2"></textarea>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="image" className="form-label">Imagen</label>
-                    <input type="file" className="form-control" id="image" name="image"  />
-                </div>
-                { id ? <span> </span>:
-                    <div className = "conteinerMap">
-                        <p>Arrastra el marcador ó da click sobre el mapa para ajustar tu ubicación</p>
-                        <Map onCoordinateChange={handleCoordinateChange}/>
                     </div>
-                }
-                <div>
-                    <button className="btn btn-primary">Guardar</button>
-                </div>
-            </form>
+
+                    <div className="mb-2 row">
+                        <label htmlFor="title" className="form-label">Título</label>
+                        <input type="text" className="form-control" id="title" name="title" defaultValue={dataCaptureData.title} />
+                    </div>
+
+                    <div className="mb-2 row">
+                        <label htmlFor="description" className="form-label">Descripción</label>
+                        <textarea className="form-control" id="description" name="description" defaultValue={dataCaptureData.description} rows="2"></textarea>
+                    </div>
+
+                    <div className="mb-2 row">
+                        <label htmlFor="image" className="form-label">Imagen</label>
+                        <input type="file" className="form-control" id="image" name="image"  />
+                    </div>
+                    { id ? <span> </span>:
+                        <div className = "conteinerMap col-sm-12 col-md-12">
+                            <p>Arrastra el marcador ó da click sobre el mapa para ajustar tu ubicación</p>
+                            <Map onCoordinateChange={handleCoordinateChange}/>
+                        </div>
+                    }
+                    <div className ="col-sm-12 col-md-12 d-flex justify-content-center">
+                        <button type="submit" className="btn btn-outline-secondary m-3 buttonsidebar1">Guardar</button>
+                    </div>
+                </form>
                 <Modal error={error}/>
-                <Link to="/vistaDatos" className="btn btn-secondary">
+            </div>   
+        </div>  
+            <div className ="row">
+                <div className ="col-md-12 col-sm-12 d-flex justify-content-center">
+                    <Link to="/vistaDatos" className="btn btn-secondary">
                         Volver
-                </Link>
+                    </Link>
+                </div>
             </div>
     </div>
     

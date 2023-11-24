@@ -11,11 +11,11 @@ export const DatasCapture = () => {
 
     return (
         <div className="container-fluid p-0">
-        <div className="row">
-            {store.dataesp.length==0 ? <h1>No haz capturado datos</h1>:
-            <>
-                {store.dataesp.map((dato, index) => {
-                    return (
+            <div className="row">
+                {store.dataesp.length==0 ? <h1>No haz capturado datos</h1>:
+                <>
+                     {store.dataesp.map((dato, index) => {
+                        return (
                     
                         <div className="col-12 col-sm-12 col-xxl-3 d-flex pt-3" key={index}>
                             <div className="card illustration flex-fill">

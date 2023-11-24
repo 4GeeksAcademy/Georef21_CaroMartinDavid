@@ -49,7 +49,7 @@ export const Map = ({ onCoordinateChange }) => {
  
   return (
     
-      <div className="App">
+      <div className="App row">
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
