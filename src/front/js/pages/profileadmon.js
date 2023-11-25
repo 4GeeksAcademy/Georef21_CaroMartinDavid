@@ -124,7 +124,7 @@ export const ProfileAdmon = () => {
                                             <h5 className="fw-normal mt-0 text-muted" title="Number of Customers">
                                                 Consolidado
                                             </h5>
-                                            <h3 className="mt-3 mb-3">0</h3>
+                                            <h3 className="mt-3 mb-3">{new Date().toISOString().slice(0, 10)}</h3>
                                             <p className="mb-0 text-muted">
                                                 <span className="text-success me-2">
                                                     <i className="mdi mdi-arrow-up-bold"></i>

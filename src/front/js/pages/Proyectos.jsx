@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
@@ -7,41 +7,46 @@ export const Proyectos = () => {
     const { store, actions } = useContext(Context);
 
     return (
-        // <div className="account-pages1">
-            <div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5" >
-                <div className="containerAdmonProyectos" style={{ display: store.sidebar }}>
-
-                    <div className="Administrador pt-4 pb-4 text-center bg-primary card-header col-md-6" style={{ color: 'white' }}>
-                        {store.AllProjects.length == 0 ? <h1>No tienes proyectos creados</h1> :
-                            <>
-                                {store.AllProjects.map((Projects, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <h1>{Projects.nameProject}</h1>
-                                            <Link to={`/NuevoProyecto/${Projects.id}`}>
-                                                <button>Editar</button></Link>
-                                            <button onClick={() => actions.DeleteProject(Projects.id)}>Borrar</button>
-                                        </div>
-
-                                    );
-
-                                })
-                                }
-                            </>
-                        }
-
-
-
-                    </div>
-                    <div className="d-flex justify-content-center mt-3">
-                        <Link to="/profileadmon">
-                            <button type="button" className="btn btn-primary">Volver</button>
-                        </Link>
-                    </div>
+        <div >
+            <h1 className="text-center mt-5">Proyectos</h1>
+            <div className="containerVisit" style={{ display: store.sidebar }}>
+                <div>
+                    {store.AllProjects.length === 0 ? (
+                        <h1>No tienes proyectos creados</h1>
+                    ) : (
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Proyecto</th>
+                                    <th>Temática</th>
+                                    <th>Ubicación</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {store.AllProjects.map((project, index) => (
+                                    <tr key={index}>
+                                        <td>{project.nameProject}</td>
+                                        <td>{project.theme}</td>
+                                        <td>{project.location}</td>
+                                        <td>
+                                            <Link to={`/NuevoProyecto/${project.id}`} className="btn buttonHome btn-sm me-2">
+                                                Editar
+                                            </Link>
+                                            <button onClick={() => actions.DeleteProject(project.id)} className="btn btn-danger btn-sm">
+                                                Borrar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
                 </div>
-             </div>
-        //  </div >
+            </div>
+        </div>
     );
 };
+
 
 export default Proyectos;

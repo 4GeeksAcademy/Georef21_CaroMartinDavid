@@ -68,11 +68,11 @@ export const DataCaptureRegister = () => {
                         actions.openErrorlogin();
                     }
                     actions.putcapturedata(datos, id);
-                    navigate("/vistaDatos");
+                    navigate("/vInicial");
             }else{
                 console.log(datos);
                 actions.putcapturedata(datos, id);
-                navigate("/vistaDatos");
+                navigate("/vInicial");
             }
         }else{
             if (lastCoordinate != null){
@@ -94,7 +94,7 @@ export const DataCaptureRegister = () => {
                 }
             console.log(datos)
             actions.postcapturedata(datos);
-            navigate("/vistaDatos");
+            navigate("/vInicial");
             }
         }
     
@@ -158,7 +158,7 @@ return (
         </div>  
             <div className ="row">
                 <div className ="col-md-12 col-sm-12 d-flex justify-content-center">
-                    <Link to="/vistaDatos" className="btn btn-secondary">
+                    <Link to="/vInicial" className="btn btn-secondary">
                         Volver
                     </Link>
                 </div>

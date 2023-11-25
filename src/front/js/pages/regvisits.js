@@ -54,7 +54,12 @@ export const RegVisits = () => {
                         project_id: "",
                         specialist_id: ""
                     }
+                    
+
                     );
+
+                    actions.gevisitaadmon();
+
                     navigate("/profileadmon");
                 } else {
                     seterror(respuesta);
@@ -78,6 +83,9 @@ export const RegVisits = () => {
                         specialist_id: ""
                     }
                     );
+                    
+                    actions.gevisitaadmon();
+
                     navigate("/profileadmon");
                 } else {
                     seterror(respuesta);

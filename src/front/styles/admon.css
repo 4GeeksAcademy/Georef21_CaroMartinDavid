@@ -37,7 +37,7 @@
 
 .containerAdmonProyectos {
     border: 0px solid rgba(255, 250, 250, 0.366);
-    
+
     width: 797px;
     height: 600px;
     padding: auto;
@@ -58,6 +58,12 @@
     /* box-shadow: 1px 1px 1px 1px lightblue; */
 
 
+
+}
+
+.containerEspecialista {
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 .bg-primary {
@@ -211,10 +217,10 @@ form-label {
 }
 
 .flex-shrink-0 {
-    box-shadow: 1px 1px 1px 1px #313a46;
+    /* box-shadow: 1px 0px 0px 0px rgb(78, 39, 185); */
     border-radius: 0%;
-
-
+    background-color: rgba(165, 165, 165, 0.123);
+    border-color: black;
 }
 
 .btn-toggle::before {
@@ -375,7 +381,7 @@ NombreRegAdmor {
 .col-sm-6 {
     flex: 0 0 auto;
     width: 50%;
-    
+
 }
 
 
@@ -391,85 +397,93 @@ NombreRegAdmor {
     --ct-gutter-x: 24px;
 }
 
-.buttonsidebar{
+.buttonsidebar {
     background-color: #727cf5;
 }
 
-.buttonsidebar1{
+.buttonsidebar1 {
     background-color: #9078a786;
     border-color: #4f5491c3;
-    color:#212529c1
+    color: #212529c1
 }
 
-.buttonsidebar1:hover{
- background-color:#6c75dfd4;
+.buttonsidebar1:hover {
+    background-color: #6c75dfd4;
 }
 
-.buttonsidebar1:active{
-    background-color:#515bc8f0;
+.buttonsidebar1:active {
+    background-color: #515bc8f0;
     box-shadow: 1px, 1px, 2px #b8bcf1;
-   }
+}
 
-   @media (max-width: 767px) {
+@media (max-width: 767px) {
     h1 {
-      font-size: 2rem;
+        font-size: 2rem;
     }
-  
+
     h2 {
-      font-size: 1.5rem;
+        font-size: 1.5rem;
     }
-  
+
     p {
-      font-size: 1rem;
+        font-size: 1rem;
     }
-  
+
     .text-center {
-      text-align: center;
+        text-align: center;
     }
-  
-   
+
+
     .buttonHome {
-      font-size: 0.8rem;
+        font-size: 0.8rem;
     }
-  
+
     GiEarthAmerica {
         font-size: 60px;
     }
-  }
+}
 
-  .illustration-text{
+.illustration-text {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    color:#1b1e3fce
-  }
+    color: #1b1e3fce
+}
 
-  .positionesp{
-  
+.positionesp {
+
     font-family: 'Roboto', sans-serif;
-    color:#3f4265ce
-  }
+    color: #3f4265ce
+}
 
-  .illustration{
+.illustration {
     background-color: #d7d7de;
     border: 1px solid rgba(16, 12, 33, 0.811);
-    box-shadow: 0px 0px 0.875rem 0px rgba(105,96,117,1);
+    box-shadow: 0px 0px 0.875rem 0px rgba(105, 96, 117, 1);
 
-  }
+}
 
-  .illustration2{
+.illustration2 {
     background-color: #8ec1c0;
     border: 1px solid rgba(55, 76, 75, 0.811);
     box-shadow: 0px 0px 0.875rem 0px rgb(122, 184, 151);
-  }
+}
 
-  .illustration-text2{
+.illustration-text2 {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    color:black
-  }
+    color: black
+}
 
-  .positionesp2{
-  
+.positionesp2 {
+
     font-family: 'Roboto', sans-serif;
-    color:#87878ba8
-  }
+    color: #87878ba8
+}
+
+.containerVisit {
+    margin-left: 100px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 1400px;
+}

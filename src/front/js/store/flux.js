@@ -77,6 +77,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							getEspecialista();
 							const { GetProjects } = getActions();
 							GetProjects();
+							const { gevisitaadmon } = getActions();
+							gevisitaadmon();
 							setStore({ session: true });
 							return "autorizado";
 						}
