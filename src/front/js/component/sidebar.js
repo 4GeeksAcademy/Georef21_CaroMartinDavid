@@ -100,7 +100,7 @@ export const Sidebar = () => {
     return (
         <>
             {store.session === true && (
-                <div className="flex-shrink-0" style={{ width: "280px", height: "100vh" }}>
+                <div className="flex-shrink-0" style={{ width: "100%", height: "100vh" }}>
                     <div>
                         <div className="d-flex align-items-center pb-1 mb-1 link-dark text-decoration-none border-bottom" style={{ paddingLeft: "10px" }}>
                             <a href="#!" className="text-decoration-none">

@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Modal } from "../component/modal";
+import { ModalSuccess } from "../component/modalsuccess";
 import { uploadFile } from "../../../firebase/config";
 import "../../styles/admon.css";
 
@@ -89,7 +90,7 @@ export const Administrator = () => {
 					console.log(adminregistro);
 					const respuesta = await actions.postadmin(adminregistro);
 					if (respuesta === "realizado") {
-						navigate("/admonlog");
+						actions.openSuccessM();
 					} else if (respuesta === "El correo electronico ya esta registrado") {
 						seterror("El correo electronico ya esta registrado");
 						actions.openErrorlogin();
@@ -162,14 +163,21 @@ export const Administrator = () => {
 							<div className="d-flex justify-content-center py-1">
 								<button type="submit" className="btn-lg m-3 buttonHome">{adminId ? "Editar" : "Crear"}</button>
 								<Modal error={error} />
+								<ModalSuccess />
 							</div>
-
+							{adminId ?
+							<div className="d-flex justify-content-center py-1">
+							<Link to="/admons">
+								<button type="button" className="btn btn-outline-secondary" disabled>Volver</button>
+							</Link>
+							</div>
+							:
 							<div className="d-flex justify-content-center py-1">
 								<Link to="/admonlog">
 									<button type="button" className="btn btn-outline-secondary" disabled>Volver</button>
 								</Link>
 							</div>
-
+							}
 						</form>
 						{/* <Link to="/admonlog">
 							<button type="button" className="btn btn-primary">Volver</button>

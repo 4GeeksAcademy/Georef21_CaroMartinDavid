@@ -14,11 +14,10 @@ export const DatosAdmon = () => {
 		<div className="container">
 			
 			<div>
-				<h1>Administrador</h1>
 					<div className="card mb-3" style={{minWidth: "500px"}}>
 						<div className="row g-0">
 							<div className="col-md-4">
-							<img src="..." className="img-fluid rounded-start" alt="..."/>
+							<img src={store.administrator.image_admon} className="img-fluid rounded-start" alt="..."/>
 							</div>
 							<div className="col-md-8">
 							<div className="card-body">
@@ -29,6 +28,7 @@ export const DatosAdmon = () => {
 							</div>
 							</div>
 						</div>
+						
 					</div>
 					<Link to="/profileadmon">
 						<button type="button" className="btn btn-outline-dark">Volver</button>

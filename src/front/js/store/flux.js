@@ -20,6 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allvisits: [],
 			administrator: {},
 			openError: "none",
+			openSuccess:"none",
 			openModalEliminar: "none",
 			session: false,
 			specialist: {},
@@ -172,6 +173,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ openModalEliminar: "flex" });
 			}, closeModaldelete: () => {
 				setStore({ openModalEliminar: "none" });
+			},openSuccessM: () => {
+				console.log("desdeflux exito login")
+				setStore({ openSuccess: "flex" });
+			},closeSuccessM: () => {
+				setStore({ openSuccess: "none" });
 			},
 			GetProjects: () => {
 
