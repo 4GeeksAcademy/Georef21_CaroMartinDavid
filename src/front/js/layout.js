@@ -64,11 +64,11 @@ const Layout = () => {
                     <div className="controutes d-flex justify-content-center">
                     {store.session === true || (store.sessionSpecialist === true && isSmallScreen === false)  ?
 
-                        <div className ="col-md-3"> 
+                        <div className ="col-md-2"> 
                             <Sidebar />
                         </div> :<></>
                     }
-                        <div className="col-9">
+                        <div className="col-10">
                                 <Routes>
                                     <Route element={<Home />} path="/" />
                                     <Route element={<LoginAdministrator />} path="/admonlog" />
