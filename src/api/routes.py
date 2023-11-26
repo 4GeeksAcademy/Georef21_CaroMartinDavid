@@ -203,10 +203,14 @@ def get_project():
 def crete_project():
     id_admin = get_jwt_identity()
     nameProject = request.json.get("nameProject")
-    if Project.query.filter_by(nameProject=nameProject).first() is not None:
-        return jsonify({"Error": "Proyecto ya existe"}), 400
     theme = request.json.get("theme")
     location = request.json.get("location")
+
+    if nameProject == "" and  theme == "" and location == "":
+        return jsonify({"Error": "Diligencie los datos"}), 400
+    
+    if Project.query.filter_by(nameProject=nameProject).first() is not None:
+        return jsonify({"Error": "Proyecto ya existe"}), 402
 
     new_project = Project(
         nameProject=nameProject,
@@ -228,10 +232,12 @@ def update_project(project_id):
     project = Project.query.get(project_id)
 
     if not project:
-        raise APIException('Proyecto no encontrado', status_code=404)
+        return jsonify({"Error": "Proyecto no encontrado"}), 404
+       
     
     if project.admon_id != id_admin:
-        raise APIException('No tienes permiso para actualizar este proyecto', status_code=403)
+        return jsonify({"Error": "No tienes permiso para actualizar este proyecto"}), 403
+    
 
     nameProject = request.json.get("nameProject")
     theme = request.json.get("theme")

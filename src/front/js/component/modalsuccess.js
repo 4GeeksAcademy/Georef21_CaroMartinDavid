@@ -15,6 +15,9 @@ export const ModalSuccess = ( prop) => {
         }else if(tema==="usuario especialista"){
             navigate("/profileadmon");
             actions.closeSuccessM();
+        }else if (tema==="proyecto"){
+            navigate("/profileadmon");
+            actions.closeSuccessM();
         }
     }
 return (

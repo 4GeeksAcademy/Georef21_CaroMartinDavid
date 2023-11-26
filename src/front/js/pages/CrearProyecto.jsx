@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { Modal } from "../component/modal";
+import { ModalSuccess } from "../component/modalsuccess";
 
 export const CrearProyecto = () => {
     const { store, actions } = useContext(Context);
@@ -23,18 +25,35 @@ export const CrearProyecto = () => {
         }
     }, [id, store.AllProjects]);
 
-    const Send = (e) => {
-        if (id) {
-            actions.EditProject(id, data)
-            actions.GetProjects()
-            navigate("/profileadmon");
-        }
-        else {
-            actions.CreateProject(data);
-            actions.GetProjects();
-            navigate("/profileadmon");
+   
+    const Send = async (e) => {
+        try {
+            if (id) {
+                const respuesta = await actions.EditProject(id, data);
+                if (respuesta === "realizado") {
+                    actions.GetProjects();
+                    navigate("/listaproyectos");
+                } else {
+                    seterror(respuesta);
+                    actions.openErrorlogin();
+                }
+            } else {
+                const respuesta = await actions.CreateProject(data);
+                if (respuesta === "realizado") {
+                    actions.GetProjects();
+                    actions.openSuccessM();
+                } else {
+                    seterror(respuesta);
+                    actions.openErrorlogin();
+                }
+            }
+        } catch (error) {
+            seterror(respuesta);
+            actions.openErrorlogin();
         }
     };
+    
+
     const infoSetData = (e) => {
         setData({
             ...data, [e.target.name]: e.target.value
@@ -66,7 +85,7 @@ export const CrearProyecto = () => {
                                 <p>Para crear un proyecto deberás diligenciar el siguiente formulario estableciendo el nombre del proyecto, su temática (es decir, si es de infraestructura, o de energía, o ambiental o mineroenergético) y su ubicación (es decir, zona de influencia donde se llevarán a cabo las actividades por parte del especialista vinculado al proyecto) </p>
 
 
-                                <form className>
+                                <form className onSubmit={(e) => { e.preventDefault(); Send(e); }}>
                                     <div className="mb-3 mt-4 row">
 
                                         <label htmlFor="exampleName" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Administrador</label>
@@ -114,9 +133,10 @@ export const CrearProyecto = () => {
                                             </button>
                                         </li>
                                     </ul>
-
-
+                                    
                                 </form>
+                                <Modal error={error} />
+                                {id? <span></span>:<ModalSuccess tema="proyecto"/>}
                             </div>
                         </div>
 

@@ -211,7 +211,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			CreateProject: (data) => {
+			CreateProject: async (data) => {
 				console.log(data)
 				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
@@ -222,29 +222,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(data)
 				};
-				fetch(process.env.BACKEND_URL+'/api/Project', requestOptions)
-					.then(response => {
-						// if (!response.ok) {
-						// 	throw new Error(`HTTP error! Status: ${response.status}`);
-						// }
-						return response.json();
-					})
-					.then(responseData => {
+				try{
+					const resp = await fetch (process.env.BACKEND_URL+'/api/Project', requestOptions);
+					if (resp.ok) {
 
-						if (responseData.msg) {
-							console.log(responseData.msg);
-						} else {
-							alert(responseData.Error)
+						console.log("realizado")
+						return "realizado"
+					} else {
+						const errordata = JSON.parse(await resp.text())
+						if (resp.status === 400 || resp.status === 402) {
+							return errordata.Error;
 
 						}
+					}
+				}catch (error) {
+					console.error({ error });
+					return "Error en el servidor";
+				}
 
-					})
-					.catch(error => {
-						console.error("Error al realizar la petición:", error.message);
-						// Puedes manejar el error de alguna manera aquí
-					});
 			},
-
 			//acá empieza el DELETE
 			DeleteProject: (id) => {
 				console.log(id)
@@ -274,7 +270,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//ACÁ TERMINA EL DELETE
 
 			//ACÁ EMPIEZA EL PUT
-			EditProject: (id, data) => {
+			EditProject: async (id, data) => {
 				const token = localStorage.getItem('tokenadmin');
 				const requestOptions = {
 					method: 'PUT',
@@ -284,18 +280,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(data)
 				};
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/Project' + "/" + id, requestOptions);
+					if (resp.ok) {
 
-				fetch(process.env.BACKEND_URL + '/api/Project' + "/" + id, requestOptions)
-					.then(response => response.json())
-					.then(data => {
-						console.log(data.msg);
-						// Puedes hacer más cosas con la respuesta del servidor si es necesario
-					})
-					.catch(error => {
-						console.error('Error al realizar la petición:', error);
-						// Puedes manejar el error de alguna manera aquí
-					});
-				console.log(id)
+						console.log("realizado")
+						return "realizado"
+					} else {
+						const errordata = JSON.parse(await resp.text())
+						if (resp.status === 404 || resp.status === 403) {
+							return errordata.error;
+
+						}
+					}
+				} catch (error) {
+					console.error({ error });
+					return "Error servidor";
+				}
+
 			},
 			// ACÁ TERMINA EL PUT
 			postespecialist: async (data) => {
