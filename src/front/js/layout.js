@@ -57,18 +57,18 @@ const Layout = () => {
 
 
     return (
-        <div>
+        <div style={{backgroundColor:"#f6f7fb"}}>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <NavbarPerfilAdmon />
                     <div className="controutes d-flex justify-content-center">
                     {store.session === true || (store.sessionSpecialist === true && isSmallScreen === false)  ?
 
-                        <div className ="col-md-2"> 
+                        <div className ="col-md-2" > 
                             <Sidebar />
                         </div> :<></>
                     }
-                        <div className="col-10">
+                        <div className="col-10" style= {{backgroundColor:"#f6f7fb"}}>
                                 <Routes>
                                     <Route element={<Home />} path="/" />
                                     <Route element={<LoginAdministrator />} path="/admonlog" />

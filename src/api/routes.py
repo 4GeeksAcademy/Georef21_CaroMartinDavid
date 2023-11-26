@@ -295,6 +295,9 @@ def modifadmins(id):
     modifadmin.birthday = request.json.get("birthday")
     modifadmin.email= request.json.get("email")
     modifadmin.position = request.json.get("position")
+    image_admon = request.json.get("image_admon")
+    if image_admon:
+        modifadmin.image_admon=image_admon
     print(modifadmin)
     db.session.commit()
     return jsonify({"msg":"haz  modificado tu perfil administrador"}), 201 

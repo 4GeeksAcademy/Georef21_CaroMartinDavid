@@ -70,6 +70,7 @@ export const DataCaptureRegister = () => {
                     actions.putcapturedata(datos, id);
                     navigate("/vInicial");
             }else{
+                delete datos.image;
                 console.log(datos);
                 actions.putcapturedata(datos, id);
                 navigate("/vInicial");

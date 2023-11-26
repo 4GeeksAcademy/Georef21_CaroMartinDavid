@@ -59,9 +59,30 @@ export const Administrator = () => {
 			if (adminregistro.name != "" && adminregistro.lastname != "" && adminregistro.birthday != "" && adminregistro.email != "" && adminregistro.position != "" ) {
 				const edadadmin = edad(adminregistro.birthday);
 				if (edadadmin >= 18) {
-					await actions.putadmin(adminId, adminregistro);
-					actions.getadmins();
-					navigate("/profileadmon");
+					
+					if(adminregistro.image_admon.name != "" ){
+						try {
+							console.log("tieneimagen", adminregistro.image_admon.name);
+							console.log(adminregistro);
+							const urlimage = await uploadFile(adminregistro.image_admon, "admon");
+							adminregistro.image_admon = urlimage;
+					
+							await actions.putadmin(adminId, adminregistro);
+							actions.getadmins();
+							navigate("/admons");
+							
+							}catch(error){
+								console.error(error);
+								seterror(error);
+								actions.openErrorlogin();
+							}
+					}else{
+						
+						delete adminregistro.image_admon;
+						await actions.putadmin(adminId, adminregistro);
+						actions.getadmins();
+						navigate("/admons");
+				}
 
 				} else {
 					console.log("es menor de edad");
@@ -154,11 +175,13 @@ export const Administrator = () => {
 									<input type="password" className="form-control" name="password" id="exampleInputPassword1" />
 								</div>
 								
-								<div className="mb-1">
+								
+							</>}
+
+							<div className="mb-1">
 									<label htmlFor="imageadmon" className="form-label">imagen</label>
 									<input type="file" className="form-control" name="image_admon" id="imageadmon" />
-								</div>
-							</>}
+								</div>  
 
 							<div className="d-flex justify-content-center py-1">
 								<button type="submit" className="btn-lg m-3 buttonHome">{adminId ? "Editar" : "Crear"}</button>
