@@ -44,7 +44,7 @@ export const MapAdmon = () => {
   };
 
   return (
-    <div className="App row">
+    <div className="App row d-flex justify-content-center">
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (

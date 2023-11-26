@@ -6,6 +6,7 @@ import "../../styles/admon.css";
 import { Context } from "../store/appContext";
 import { FaLocationDot, FaPhoneFlip, FaEnvelope, FaTrashCan, FaPencil } from "react-icons/fa6";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { SiReacthookform } from "react-icons/si";
 import {MapAdmon} from "./mapadmon"
 
 export const VistaIncialEspecialista = () => {
@@ -28,6 +29,11 @@ export const VistaIncialEspecialista = () => {
         navigate("/datacapture");
     }
     
+    function regdata(){
+        actions.gevisitaesp();
+        actions.location();
+        navigate("/captdatareg");
+}
    
     return (
         <div className="container-fluid p-0">
@@ -62,7 +68,7 @@ export const VistaIncialEspecialista = () => {
                             </div>
                     </div>
                     <div className ="row">
-                        <div className="col-sm-12 col-md-6 m-2">
+                        <div className="col-sm-12 col-md-5 m-2">
                                         <div className="card widget-flat">
                                             <div className="card-body">
                                                 <div className="float-end">
@@ -76,10 +82,8 @@ export const VistaIncialEspecialista = () => {
                                                 </p>
                                             </div> 
                                         </div> 
-                                    </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-12 col-md-6 m-2">
+                        </div>
+                        <div className="col-sm-12 col-md-5 m-2">
                                         <div className="card widget-flat">
                                             <div className="card-body">
                                                 <div className="float-end">
@@ -93,11 +97,10 @@ export const VistaIncialEspecialista = () => {
                                                 </p>
                                             </div> 
                                         </div> 
-                                    </div>
-                    </div>
-                    <div className ="row">
-                     
-                    <div className="col-sm-12 col-md-6 m-2">
+                        </div>
+                        </div>
+                    <div className="row">
+                    <div className="col-sm-12 col-md-5 m-2">
                                         <div className="card widget-flat">
                                             <div className="card-body">
                                                 <div className="float-end">
@@ -112,9 +115,29 @@ export const VistaIncialEspecialista = () => {
                                             </div> 
                                         </div> 
                                     </div>
-                                 </div>
+                     
+                        <div className="col-sm-12 col-md-5 m-2">
+
+                                        <div className="card widget-flat">
+                                            <div className="card-body">
+                                                <div className="float-end">
+                                                    <button style={{border:"0px", backgroundColor:"#F2EEF5"}} onClick={()=>regdata()}><SiReacthookform  style={{color:"#727cf5", fontSize:"30px"}} /> </button> 
+                                                </div>
+                                                <h5 className="text-muted fw-normal mt-0" title="Number of Customers">Capturar datos</h5>
+                                                <h3 className="mt-3 mb-3"> Ingresa datos</h3>
+                                                <p className="mb-0 text-muted">
+                                                    <span className="text-success me-2">{new Date().toISOString().slice(0, 10)}</span>
+                                                    <span className="text-nowrap">Noviembre</span>  
+                                                </p>
+                                            </div> 
+                                        </div> 
+                        </div>
+                   
+                
+                     
+                    </div>           
                 </div>
-                <div className ="col-md-6 col-sm-12 py-3">
+                <div className ="col-md-6 col-sm-12 p-3 m-auto">
                     <MapAdmon/>
                 </div>
           </div>
