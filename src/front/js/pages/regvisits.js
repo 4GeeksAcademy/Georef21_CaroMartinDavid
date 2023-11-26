@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal } from "../component/modal";
+import { ModalSuccess } from "../component/modalsuccess";
 
 export const RegVisits = () => {
     const { store, actions } = useContext(Context);
@@ -60,7 +61,7 @@ export const RegVisits = () => {
 
                     actions.gevisitaadmon();
 
-                    navigate("/profileadmon");
+                    navigate("/perfilVisitas");
                 } else {
                     seterror(respuesta);
                     actions.openErrorlogin();
@@ -85,8 +86,8 @@ export const RegVisits = () => {
                     );
                     
                     actions.gevisitaadmon();
-
-                    navigate("/profileadmon");
+                    actions.openSuccessM();
+                   
                 } else {
                     seterror(respuesta);
                     actions.openErrorlogin();
@@ -125,8 +126,8 @@ export const RegVisits = () => {
                                 <h4 className="header-title mb-3" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }} >Nueva Visita</h4>
                                 <p>Para crear una visita deberás diligenciar el siguiente formulario estableciendo el alcance, la fecha en la que se realizará la visita por parte del especialista vinculado al proyecto, el nombre del proyecto y el especialista al que se le asignará la visita</p>
 
-                                <form className>
-
+                            
+                                <div>
                                     <div className="mb-3 mt-4 row">
                                         <label htmlFor="scope" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Alcance</label>
                                         <input type="text" className="form-control" id="scope" name="scope" value={visitsData.scope} onChange={handleInputChange} style={{ width: "900px" }} />
@@ -189,12 +190,15 @@ export const RegVisits = () => {
                                             <button className="btn-lg buttonHomeCP" onClick={() => { handleSave(visitsData, id) }}>
                                                 Crear Visita
                                             </button>
-                                            <Modal error={error} />
+                                            
                                         </li>
 
 
                                     </ul>
-                                </form>
+                            
+                                </div>
+                                <Modal error={error} />
+                                {id? <span></span>:<ModalSuccess tema="visita"/>}
                             </div>
                         </div>
                     </div>

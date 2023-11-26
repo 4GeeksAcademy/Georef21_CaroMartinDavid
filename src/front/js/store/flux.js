@@ -689,14 +689,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					if (response.ok) {
-						alert("DataCapture creado con éxito");
+						
 						console.log("DataCapture creado con éxito");
+						const { getcapturedata } = getActions();
+						getcapturedata();
+						const { gevisitaesp} = getActions();
+						gevisitaesp();
+						return "realizado"
 
 					} else {
-						console.error("Error al obtener datos de la API. Respuesta completa:", response);
+						const errordata = JSON.parse(await response.text())
+						console.log(errordata);
+						if (resp.status === 400) {
+							return errordata.message;
+							// console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+						}
 					}
 				} catch (error) {
 					console.error("Error al obtener datos de la API:", error);
+					return "Error en el servidor"
 				}
 			},
 			// aqui termina el post de captura de datos
@@ -717,6 +728,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const respuesta = await response.json()
 						const dataesp = respuesta
 						setStore({ dataesp: dataesp });
+						const { gevisitaesp} = getActions();
+						gevisitaesp();
 
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", response);
@@ -742,6 +755,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("Eliminado Dato visita");
 						const { getcapturedata } = getActions();
 						getcapturedata();
+						const { gevisitaesp} = getActions();
+						gevisitaesp();
 
 					} else {
 						console.error("Error al obtener datos de la API. Respuesta completa:", response);
@@ -769,12 +784,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("actualizado Dato visita");
 						const { getcapturedata } = getActions();
 						getcapturedata();
+						const { gevisitaesp} = getActions();
+						gevisitaesp();
+						
+						return "realizado"
 
-					} else {
-						console.error("Error al obtener datos de la API. Respuesta completa:", response);
+					}  else {
+						const errordata = JSON.parse(await response.text())
+						console.log(errordata);
+							return errordata.message;
+						}
 					}
-				} catch (error) {
+				 catch (error) {
 					console.error("Error al obtener datos de la API:", error);
+					return "Error en el servidor"
 				}
 			},
 			

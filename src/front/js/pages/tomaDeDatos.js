@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import {Map} from './map';
 import { uploadFile } from "../../../firebase/config";
 import { Modal } from "../component/modal";
+import { ModalSuccess } from "../component/modalsuccess";
 import "../../styles/admon.css";
 
 export const DataCaptureRegister = () => {
@@ -45,59 +46,69 @@ export const DataCaptureRegister = () => {
         setLastCoordinate(newCoordinate);
       };
 
-    async function  handlesubmit(e){
-        e.preventDefault()
-        const formdata = new FormData(e.target);
-        const datos= {};
-        for (const entrada of formdata.entries()){
-            datos[entrada[0]]=entrada[1];
-        } 
-        console.log (datos);
-        
-        console.log(datos.image);
-        if (id){
-            if (datos.image.name!=""){
-                console.log(" hay nombre archivo")
-                try {
-                    const respuesta = await uploadFile(datos.image, "visitas");
-                    datos.image=respuesta;
-            
-                    }catch(error){
-                        console.error(error);
-                        seterror(error);
-                        actions.openErrorlogin();
-                    }
-                    actions.putcapturedata(datos, id);
-                    navigate("/vInicial");
-            }else{
-                delete datos.image;
-                console.log(datos);
-                actions.putcapturedata(datos, id);
-                navigate("/vInicial");
-            }
-        }else{
-            if (lastCoordinate != null){
-                console.log ("desde el formulario toma de datos", lastCoordinate);
-            datos.georeferencing = lastCoordinate;
-            }
-            else{
-                console.log("ubicacion del store sin modificar formulario", store.location)
-                datos.georeferencing = store.location;
-            }
-            try {
-                const respuesta = await uploadFile(datos.image, "visitas");
-                datos.image=respuesta;
-        
-                }catch(error){
-                    console.error(error);
-                    seterror(error);
-                    actions.openErrorlogin();
-                }
-            console.log(datos)
-            actions.postcapturedata(datos);
-            navigate("/vInicial");
-            }
+    
+  async function handlesubmit(e) {
+    e.preventDefault();
+
+    const formdata = new FormData(e.target);
+    const datos = {};
+
+    for (const entrada of formdata.entries()) {
+      datos[entrada[0]] = entrada[1];
+    }
+
+    if (id) {
+      if (datos.image.name !== "") {
+        try {
+          const respuesta = await uploadFile(datos.image, "visitas");
+          datos.image = respuesta;
+        } catch (error) {
+          console.error(error);
+          seterror(error);
+          actions.openErrorlogin();
+          return; // Agregado para evitar continuar con el proceso en caso de error
         }
+      } else {
+        delete datos.image;
+      }
+
+      const respuesta = await actions.putcapturedata(datos, id);
+
+      if (respuesta === "realizado") {
+        navigate("/datacapture");
+      } else {
+        seterror(respuesta);
+        actions.openErrorlogin();
+      }
+    } else {
+      if (lastCoordinate !== null) {
+        datos.georeferencing = lastCoordinate;
+      } else {
+        datos.georeferencing = store.location;
+      }
+
+      try {
+        const respuesta = await uploadFile(datos.image, "visitas");
+        datos.image = respuesta;
+      } catch (error) {
+        console.error(error);
+        seterror(error);
+        actions.openErrorlogin();
+        return; 
+      }
+
+      const respuesta = await actions.postcapturedata(datos);
+
+      if (respuesta === "realizado") {
+        actions.getcapturedata();
+        actions.openSuccessM();
+      } else {
+        seterror(respuesta);
+        actions.openErrorlogin();
+      }
+    }
+  }
+
     
 
 
@@ -155,6 +166,7 @@ return (
                     </div>
                 </form>
                 <Modal error={error}/>
+                {id? <span></span>:<ModalSuccess tema="captura de datos"/>}
             </div>   
         </div>  
             <div className ="row">

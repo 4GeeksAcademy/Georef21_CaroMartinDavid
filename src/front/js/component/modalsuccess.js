@@ -18,6 +18,13 @@ export const ModalSuccess = ( prop) => {
         }else if (tema==="proyecto"){
             navigate("/profileadmon");
             actions.closeSuccessM();
+        }else if (tema ==="captura de datos"){
+            navigate("/vInicial");
+            actions.closeSuccessM();
+        }else if (tema =="visita"){
+            navigate("/profileadmon");
+            actions.closeSuccessM();
+
         }
     }
 return (
