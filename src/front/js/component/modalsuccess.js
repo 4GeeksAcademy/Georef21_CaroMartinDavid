@@ -18,7 +18,7 @@ export const ModalSuccess = ( prop) => {
         }
     }
 return (
-        <div className= "modal" tabIndex={1} role="dialog" style={{display:store.openSuccess}}>
+        <div className= "modal col-md-6 col-sm-12" tabIndex={1} role="dialog" style={{display:store.openSuccess, height:"auto"}}>
         <div className="modal-dialog" role="document">
             <div className="modal-content">
             <div className="modal-header">

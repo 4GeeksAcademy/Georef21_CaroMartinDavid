@@ -52,10 +52,37 @@ export const Register = props => {
         }
 
         if (id) {
-            const data = specialistregistro;
-            actions.putespecialist(id, data);
-            actions.getEspecialista();
-            navigate("/profileadmon");
+            if(specialistregistro.imageprofile.name != ""){
+                try {
+                    const urlimage = await uploadFile(specialistregistro.imageprofile, "specialist");
+                    specialistregistro.imageprofile = urlimage;
+                    const data = specialistregistro;
+                    const respuesta = await actions.putespecialist(id, data);
+                    if(respuesta==="realizado"){
+                        actions.getEspecialista();
+                        navigate("/perfilEspecialista");
+                    }else{
+                        seterror(respuesta);
+                        actions.openErrorlogin();
+                    }
+                } catch (error) {
+                    console.error(error);
+                    seterror(error);
+                    actions.openErrorlogin();
+                }
+            }
+            else{
+                delete specialistregistro.imageprofile;
+                const data = specialistregistro;
+                const respuesta = await actions.putespecialist(id, data);
+                if(respuesta==="realizado"){
+                    actions.getEspecialista();
+                    navigate("/perfilEspecialista");
+                }else{
+                    seterror(respuesta);
+                    actions.openErrorlogin();
+                }
+            }
         } else {
             try {
                 const urlimage = await uploadFile(specialistregistro.imageprofile, "specialist");
@@ -69,6 +96,7 @@ export const Register = props => {
 
             const respuesta = await actions.postespecialist(specialistregistro);
             if (respuesta === "realizado") {
+                actions.getEspecialista();
                 actions.openSuccessM();
                 
             } else {
@@ -137,13 +165,15 @@ export const Register = props => {
                                                             <label htmlFor="password" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Password</label>
                                                             <input type="password" className="form-control" id="password" name="password" defaultValue={especialistaData.password} style={{ width: "900px" }} />
                                                         </div>
-                                                        <div className="mb-3 mt-4 row">
-                                                            <label htmlFor="imagen" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Imagen</label>
-                                                            <input type="file" className="form-control" id="imagen" name="imageprofile" defaultValue={especialistaData.imageprofile} />
-                                                        </div>
+                                                      
                                                     </>
                                                 }
+                                                  <div className="mb-3 mt-4 row">
+                                                            <label htmlFor="imagen" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Imagen</label>
+                                                            <input type="file" className="form-control" id="imagen" name="imageprofile" defaultValue={especialistaData.imageprofile} />
+                                                    </div>
                                             </div>
+
 
                                             <ul className="list-inline wizard mb-0 d-flex justify-content-between align-items-center">
 

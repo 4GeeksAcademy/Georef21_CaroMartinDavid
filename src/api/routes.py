@@ -158,6 +158,9 @@ def update_especialista(id):
     especialista.email = data.get("email")
     especialista.profesion = data.get("profesion")
     especialista.area_de_desempeno = data.get("area_de_desempeno")
+    imageprofile=data.get("imageprofile")
+    if imageprofile:
+        especialista.imageprofile = imageprofile
         # Guarda los cambios en la base de datos
     db.session.commit()
     return jsonify({"msg": "Especialista actualizado con éxito"}), 200

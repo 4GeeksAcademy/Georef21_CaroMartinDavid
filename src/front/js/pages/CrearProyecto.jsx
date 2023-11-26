@@ -8,6 +8,7 @@ export const CrearProyecto = () => {
     const [data, setData] = useState({ nameProject: "", theme: "", location: "" })
     const { id } = useParams();
     const navigate = useNavigate();
+    const [error, seterror] = useState("");
 
     useEffect(() => {
         console.log("id:", id);
@@ -121,14 +122,6 @@ export const CrearProyecto = () => {
 
                     </div>
                 </div>
-
-                {/* <footer className="footer footer-alt min-vh-10">
-                             <div className="botonVolver">
-                                 <Link to="/profileadmon">
-                                     <button type="button" className="btn btn-primary">Volver</button>
-                                 </Link>
-                             </div>
-                         </footer> */}
 
             </div>
         </div>

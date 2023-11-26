@@ -403,9 +403,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					if (resp.ok) {
 						console.log("realizado");
+						return "realizado";
 
 					} else {
-						console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
+						const errordata = JSON.parse(await resp.text())
+						if (resp.status === 400 || resp.status === 403|| resp.status === 404) {
+							return errordata.msg;
+
+						}
+						
+
 					}
 
 				} catch (error) {
