@@ -43,7 +43,7 @@ export const NavbarPerfilAdmon = () => {
 							<>	<div className = "d-flex justify-content-end col-9">
 								<div className="dropdown">
 									<a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										<img src={store.administrator.image_admon}  alt="user-image" width="32" class="rounded-circle"/> {store.administrator.name} {store.administrator.lastname}
+										<img src={store.administrator.image_admon}  alt="user-image" width="32" className="rounded-circle"/> {store.administrator.name} {store.administrator.lastname}
 									</a>
 
 									<ul className="dropdown-menu">
@@ -68,11 +68,11 @@ export const NavbarPerfilAdmon = () => {
 							<div className = "d-flex justify-content-end col-9">
 								<div className="dropdown">
 									<a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									<img src={store.specialist.imageprofile}  alt="user-image" width="32" class="rounded-circle"/> {store.specialist.nombre} {store.specialist.apellido}
+									<img src={store.specialist.imageprofile}  alt="user-image" width="32" className="rounded-circle"/> {store.specialist.nombre} {store.specialist.apellido}
 									</a>
 
 									<ul className="dropdown-menu">
-										<li><Link to="/datosEspecialista">
+										<li><Link to="/specialist">
 											<span>Mi Perfil</span>
 										</Link></li>
 										<li><Link to="/">

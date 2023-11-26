@@ -186,7 +186,7 @@ export const Administrator = () => {
 							<div className="d-flex justify-content-center py-1">
 								<button type="submit" className="btn-lg m-3 buttonHome">{adminId ? "Editar" : "Crear"}</button>
 								<Modal error={error} />
-								<ModalSuccess />
+								<ModalSuccess tema = "usuario" />
 							</div>
 							{adminId ?
 							<div className="d-flex justify-content-center py-1">

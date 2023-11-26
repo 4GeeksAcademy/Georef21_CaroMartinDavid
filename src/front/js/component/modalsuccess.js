@@ -7,10 +7,15 @@ export const ModalSuccess = ( prop) => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
 
-    function success(){
-        navigate("/admonlog");
-        actions.closeSuccessM();
 
+    function success(tema){
+        if(tema==="usuario"){
+            navigate("/admonlog");
+            actions.closeSuccessM();
+        }else if(tema==="usuario especialista"){
+            navigate("/profileadmon");
+            actions.closeSuccessM();
+        }
     }
 return (
         <div className= "modal" tabIndex={1} role="dialog" style={{display:store.openSuccess}}>
@@ -24,11 +29,11 @@ return (
                 
             </div>
             <div className="modal-body">
-                <p>Tu usuario ha sido creado exitosamente</p>
+                <p>Tu {prop.tema} ha sido creado exitosamente</p>
             </div>
             <div className="modal-footer">
             
-                <button type="button" className="btn btn-secondary" data-dismiss="modal"  onClick={()=>success()}>Close</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal"  onClick={()=>success(prop.tema)}>Close</button>
             
             </div>
             </div>

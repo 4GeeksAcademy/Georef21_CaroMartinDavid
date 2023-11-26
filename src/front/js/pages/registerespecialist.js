@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Modal } from "../component/modal";
+import { ModalSuccess } from "../component/modalsuccess";
 import { uploadFile } from "../../../firebase/config";
 
 export const Register = props => {
@@ -68,8 +69,8 @@ export const Register = props => {
 
             const respuesta = await actions.postespecialist(specialistregistro);
             if (respuesta === "realizado") {
-
-                navigate("/profileadmon");
+                actions.openSuccessM();
+                
             } else {
                 seterror(respuesta);
                 actions.openErrorlogin();
@@ -158,6 +159,7 @@ export const Register = props => {
                                                     </button>
 
                                                     <Modal error={error} />
+                                                    {id? <span></span>:<ModalSuccess tema="usuario especialista"/>}
                                                 </li>
 
                                                 
