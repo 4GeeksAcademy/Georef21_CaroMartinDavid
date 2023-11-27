@@ -4,6 +4,8 @@ import { Context } from "../store/appContext";
 import { BsPersonCircle } from "react-icons/bs";
 import { ModalEliminarAdmon } from "./modalEliminaradmon";
 import LogoGeoref21 from '../../img/LogoGeoref21.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const NavbarPerfilAdmon = () => {
 	const { store, actions } = useContext(Context);
@@ -14,7 +16,7 @@ export const NavbarPerfilAdmon = () => {
 			<div className="container-fluid d-flex d-flex justify-content-between"  >
 				<div className="col-3">
 				<a className="navbar-brand" href="/">
-					<img src={LogoGeoref21} width="135" height="40" alt="Logo" />
+					<img src={LogoGeoref21} width="135" height="36" alt="Logo" />
 				</a>
 				</div>
 				
@@ -42,7 +44,7 @@ export const NavbarPerfilAdmon = () => {
 						{store.session === true ?
 							<>	<div className = "d-flex justify-content-end col-9">
 								<div className="dropdown">
-									<a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<a className="btn buttonHome dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 										<img src={store.administrator.image_admon}  alt="user-image" width="32" className="rounded-circle"/> {store.administrator.name} {store.administrator.lastname}
 									</a>
 
@@ -56,9 +58,14 @@ export const NavbarPerfilAdmon = () => {
 										</Link>
 									</ul>
 								</div>
+
 								<Link to="/">
-									<button className="btn btn-danger mx-3 px-1" onClick={() => { actions.logout() }}>Log Out </button>
+									<button className="btn btn-danger mx-3 px-1" style={{borderRadius:"10px"}} onClick={() => { actions.logout() }}>
+										<FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
+										Salir
+									</button>
 								</Link>
+								
 								</div>
 								<ModalEliminarAdmon id={store.administrator.id} />
 							</>
@@ -67,7 +74,7 @@ export const NavbarPerfilAdmon = () => {
 							<>
 							<div className = "d-flex justify-content-end col-9">
 								<div className="dropdown">
-									<a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<a className="btn buttonHome dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									<img src={store.specialist.imageprofile}  alt="user-image" width="32" className="rounded-circle"/> {store.specialist.nombre} {store.specialist.apellido}
 									</a>
 
@@ -81,7 +88,10 @@ export const NavbarPerfilAdmon = () => {
 									</ul>
 								</div>
 								<Link to="/">
-									<button className="btn btn-danger mx-3 px-1" onClick={() => { actions.logoutSpecialist() }}>Log Out </button>
+									<button className="btn btn-danger mx-3 px-1" style={{borderRadius:"10px"}} onClick={() => { actions.logoutSpecialist() }}>
+										<FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
+										Salir
+									</button>
 								</Link>
 							</div>
 							</>

@@ -28,7 +28,7 @@ export const Home = () => {
 		<div className="d-flex flex-column" >
 			<section className="pt-4 pt-md-11">
 				<div className="container-fluid">
-					<div className="row">
+					<div className="row" style= {{backgroundColor:"#f6f7fb"}}>
 						<div className="col-sm-10 col-md-5 col-lg-6 order-md-2 pt-5">
 							<img src="https://www.globalmediterranea.es/wp-content/uploads/2020/11/plano-georreferenciado-1536x768.jpg" className="img-fluid" alt="..." style={{ height: "70%", maxWidth: "100%", boxShadow: "0 4px 8px rgba(30, 0, 0, 100)" }} />
 						</div>

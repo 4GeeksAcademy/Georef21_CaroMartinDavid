@@ -68,7 +68,7 @@ const Layout = () => {
                             <Sidebar />
                         </div> :<></>
                     }
-                        <div className="col-10" style= {{backgroundColor:"#f6f7fb"}}>
+                        <div className="col-10 m-0 p-0" style= {{backgroundColor:"#f6f7fb"}}>
                                 <Routes>
                                     <Route element={<Home />} path="/" />
                                     <Route element={<LoginAdministrator />} path="/admonlog" />
