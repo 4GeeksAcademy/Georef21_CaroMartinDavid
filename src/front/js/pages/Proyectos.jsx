@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
+import { ModalDelete } from "../component/modaldelete";
 
 export const Proyectos = () => {
     const { store, actions } = useContext(Context);
+    const [idproject, setIDproject]= useState(null);
+
+    function deleteproject(id){
+        setIDproject(id);
+        actions.deleteSuccessM();
+    }
 
     return (
         <div >
@@ -33,7 +40,7 @@ export const Proyectos = () => {
                                             <Link to={`/NuevoProyecto/${project.id}`} className="btn buttonHome btn-sm me-2">
                                                 Editar
                                             </Link>
-                                            <button onClick={() => actions.DeleteProject(project.id)} className="btn btn-danger btn-sm">
+                                            <button onClick={() => deleteproject(project.id)} className="btn btn-danger btn-sm">
                                                 Borrar
                                             </button>
                                         </td>
@@ -43,6 +50,7 @@ export const Proyectos = () => {
                         </table>
                     )}
                 </div>
+                <ModalDelete id={idproject} tema ="este proyecto"/>
             </div>
         </div>
     );

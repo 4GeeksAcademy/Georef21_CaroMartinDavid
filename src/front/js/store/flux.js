@@ -31,7 +31,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			dataesp: [], 
 			ajustedlocation:{},
 			markers:[],
-			numproyesp: null
+			numproyesp: null,
+			deleteSuccess:"none"
 
 		},
 
@@ -178,6 +179,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ openSuccess: "flex" });
 			},closeSuccessM: () => {
 				setStore({ openSuccess: "none" });
+			},deleteSuccessM: () => {
+				console.log("desdeflux exito login")
+				setStore({ deleteSuccess: "flex" });
+			},closedeleteSuccessM: () => {
+				setStore({ deleteSuccess: "none" });
 			},
 			GetProjects: () => {
 
@@ -242,12 +248,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 			//acá empieza el DELETE
-			DeleteProject: (id) => {
+			DeleteProject: async (id) => {
 				console.log(id)
 				const token = localStorage.getItem('tokenadmin');
+				console.log(token);
 				const store = getStore();
 				const AllProjects = store.AllProjects.filter((item) => item.id != id)
 				setStore({ AllProjects: AllProjects });
+				const url = process.env.BACKEND_URL + '/api/Project/'  + id;
+				console.log('URL de la solicitud:', url);
 				const requestOptions = {
 					method: 'DELETE',
 					headers: {
@@ -255,17 +264,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 						'Authorization': `Bearer ${token}`
 					}
 				};
+				try{
+					const resp = await fetch (url, requestOptions);
+					if (resp.ok) {
 
-				fetch(process.env.BACKEND_URL + '/api/Project' + "/" + id, requestOptions)
-					.then(response => response.json())
-					.then(data => {
-						console.log(data.msg);
-						// Puedes hacer más cosas con la respuesta del servidor si es necesario
-					})
-					.catch(error => {
-						console.error('Error al realizar la petición:', error);
-						// Puedes manejar el error de alguna manera aquí
-					});
+						console.log("realizado")
+						return "realizado"
+					} else {
+						const errordata = JSON.parse(await resp.text())
+						if (resp.status === 404 || resp.status === 403) {
+							return errordata.Error;
+
+						}
+					}
+				}catch (error) {
+					console.error({ error });
+					return "Error en el servidor";
+				}
+				// fetch(url, requestOptions)
+				// 	.then(response => response.json())
+				// 	.then(data => {
+				// 		console.log(data.msg);
+				// 		// Puedes hacer más cosas con la respuesta del servidor si es necesario
+				// 	})
+				// 	.catch(error => {
+				// 		console.error('Error al realizar la petición:', error);
+				// 		// Puedes manejar el error de alguna manera aquí
+				// 	});
 			},
 			//ACÁ TERMINA EL DELETE
 

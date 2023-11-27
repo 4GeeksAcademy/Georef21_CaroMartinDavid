@@ -85,7 +85,7 @@ export const CrearProyecto = () => {
                                 <p>Para crear un proyecto deberás diligenciar el siguiente formulario estableciendo el nombre del proyecto, su temática (es decir, si es de infraestructura, o de energía, o ambiental o mineroenergético) y su ubicación (es decir, zona de influencia donde se llevarán a cabo las actividades por parte del especialista vinculado al proyecto) </p>
 
 
-                                <form className onSubmit={(e) => { e.preventDefault(); Send(e); }}>
+                                <div>
                                     <div className="mb-3 mt-4 row">
 
                                         <label htmlFor="exampleName" className="form-label col-form-label col-md-2" style={{ color: '#6c757d', fontFamily: "Nunito,sans-serif", fontWeight: "bold" }}>Administrador</label>
@@ -134,7 +134,7 @@ export const CrearProyecto = () => {
                                         </li>
                                     </ul>
                                     
-                                </form>
+                                </div>
                                 <Modal error={error} />
                                 {id? <span></span>:<ModalSuccess tema="proyecto"/>}
                             </div>

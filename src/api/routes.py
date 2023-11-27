@@ -264,10 +264,19 @@ def delete_project(project_id):
     project = Project.query.get(project_id)
 
     if not project:
-        raise APIException('Proyecto no encontrado', status_code=404)
+        return jsonify({"msg": "Proyecto no encontrado"}), 404
 
     if project.admon_id != id_admin:
-        raise APIException('No tienes permiso para eliminar este proyecto', status_code=403)
+        return jsonify({"msg": "No tienes permiso para eliminar este proyecto"}), 403
+    
+    deletevisitproy = Visit.query.filter_by(project_id=project_id).all()
+    for visit in deletevisitproy:
+        print(f"Visit ID: {visit.id}, Project ID: {visit.project_id}")
+        deletedatacaptvisit = DataCapture.query.filter_by(visit_id=visit.id).all()
+        for data in deletedatacaptvisit:
+            db.session.delete(data)
+        db.session.delete(visit)
+    db.session.commit()
     
     db.session.delete(project)
     db.session.commit()

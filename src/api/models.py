@@ -105,8 +105,8 @@ class Visit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     scope = db.Column(db.String(120), nullable=False)
     date = db.Column(db.Date, nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
-    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id', ondelete='CASCADE'), nullable=False)
+    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=True)
     datacaptures = db.relationship('DataCapture', backref='visit', lazy=True)
     
 
@@ -129,8 +129,8 @@ class DataCapture(db.Model):
     description = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(255), nullable=False)  # Puedes ajustar el tipo de campo según tus necesidades
     georeferencing = db.Column(JSON, nullable=False)
-    visit_id = db.Column(db.Integer, db.ForeignKey('visit.id'), nullable=False)
-    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=False)
+    visit_id = db.Column(db.Integer, db.ForeignKey('visit.id', ), nullable=False)
+    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), nullable=True)
 
    
     def __repr__(self):

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d7d3ac4377ad
+Revision ID: 1e814e040cd2
 Revises: 
-Create Date: 2023-11-25 18:36:06.267813
+Create Date: 2023-11-27 15:34:27.018429
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd7d3ac4377ad'
+revision = '1e814e040cd2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -68,8 +68,8 @@ def upgrade():
     sa.Column('scope', sa.String(length=120), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('project_id', sa.Integer(), nullable=False),
-    sa.Column('specialist_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['project_id'], ['project.id'], ),
+    sa.Column('specialist_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['project_id'], ['project.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['specialist_id'], ['specialist.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -80,7 +80,7 @@ def upgrade():
     sa.Column('image', sa.String(length=255), nullable=False),
     sa.Column('georeferencing', sa.JSON(), nullable=False),
     sa.Column('visit_id', sa.Integer(), nullable=False),
-    sa.Column('specialist_id', sa.Integer(), nullable=False),
+    sa.Column('specialist_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['specialist_id'], ['specialist.id'], ),
     sa.ForeignKeyConstraint(['visit_id'], ['visit.id'], ),
     sa.PrimaryKeyConstraint('id')
