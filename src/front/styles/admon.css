@@ -162,8 +162,6 @@ form-label {
 
 .btn-secondary {
     background-color: #727cf5;
-    /* background-color: #6c757d;
-    border-color: #6c757d; */
 }
 
 .RegistroProyecto {
@@ -199,7 +197,7 @@ form-label {
 .flex-shrink-0 {
     /* box-shadow: 1px 0px 0px 0px rgb(78, 39, 185); */
     border-radius: 0%;
-    background-color: rgba(165, 165, 165, 0.123);
+    background-color: rgba(194, 194, 194, 0.137);
     border-color: black;
 }
 
