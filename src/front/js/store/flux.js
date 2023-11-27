@@ -267,8 +267,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try{
 					const resp = await fetch (url, requestOptions);
 					if (resp.ok) {
-
-						console.log("realizado")
+						const {gevisitaadmon} = getActions();
+						gevisitaadmon();	
+						const {GetProjects} = getActions();
+						GetProjects();	
+						console.log("realizado eliminar proyecto")
 						return "realizado"
 					} else {
 						const errordata = JSON.parse(await resp.text())
@@ -281,16 +284,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error({ error });
 					return "Error en el servidor";
 				}
-				// fetch(url, requestOptions)
-				// 	.then(response => response.json())
-				// 	.then(data => {
-				// 		console.log(data.msg);
-				// 		// Puedes hacer más cosas con la respuesta del servidor si es necesario
-				// 	})
-				// 	.catch(error => {
-				// 		console.error('Error al realizar la petición:', error);
-				// 		// Puedes manejar el error de alguna manera aquí
-				// 	});
 			},
 			//ACÁ TERMINA EL DELETE
 
@@ -369,7 +362,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("realizado");
 						const allspecialist = await response.json();
 						setStore({ allspecialist: allspecialist });
-						console.log(allspecialist);
+						console.log("get especialista", allspecialist);
 					}
 
 
@@ -396,6 +389,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const allspecialist = store.allspecialist.filter((item) => item.id != id)
 				setStore({ allspecialist: allspecialist });
+				console.log (allspecialist, "eliminar especialista")
 
 				try {
 					let response = await fetch(deleteUrl, {
@@ -408,6 +402,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (response.ok) {
 						console.log("realizado");
+						const {getEspecialista} = getActions();
+						getEspecialista();
 					} else {
 						console.error("Error al eliminar al especialista");
 					}
@@ -561,6 +557,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const errordata = JSON.parse(await resp.text())
 						console.log(errordata);
 						if (resp.status === 404) {
+							const allvisits = [];
+							setStore({ allvisits: allvisits });
+							console.log(allvisits);
 							return errordata.error;
 							// console.error("Error al obtener datos de la API. Respuesta completa:", await resp.text());
 						}
@@ -614,7 +613,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					if (response.ok) {
 						console.log("realizado");
-
+						const { gevisitaadmon} = getActions();
+						gevisitaadmon();
+						
 						return "realizado"
 					} else {
 						const errordata = JSON.parse(await response.text())
@@ -757,7 +758,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						gevisitaesp();
 
 					} else {
+						if (response.status === 404) {
+							const dataesp = [];
+							setStore({ dataesp: dataesp });
+							console.log(dataesp);
 						console.error("Error al obtener datos de la API. Respuesta completa:", response);
+						}
 					}
 				} catch (error) {
 					console.error("Error al obtener datos de la API:", error);

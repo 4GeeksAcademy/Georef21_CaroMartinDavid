@@ -5,9 +5,17 @@ import { Link } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { ModalDelete } from "../component/modaldelete";
 
 export const DatasCapture = () => {
     const { store, actions } = useContext(Context);
+    const [iddatocap, setIddatocap]= useState(null);
+
+    function deletedata(id){
+        setIddatocap(id);
+        actions.deleteSuccessM();
+    }
+
 
     return (
         <div className="container-fluid p-0">
@@ -39,7 +47,7 @@ export const DatasCapture = () => {
                                                 </Link>
                                             </div>
                                             <div clasName="row ">
-                                                <button type="button" class="btn btn-outline-light mt-2" onClick={()=>actions.deletecapturedata(dato.id)}><MdDelete  style={{ fontSize:"30px"}} /></button>
+                                                <button type="button" class="btn btn-outline-light mt-2" onClick={()=>deletedata(dato.id)}><MdDelete  style={{ fontSize:"30px"}} /></button>
                                         </div>
                                         </div>
                                     </div>
@@ -59,6 +67,8 @@ export const DatasCapture = () => {
 					<button type="button" className="btn btn-outline-dark">Volver</button>
 			</Link>
             </div>
+           
+            <ModalDelete id={iddatocap} tema ="esta información capturada"/>
         </div>
         </div>
     );

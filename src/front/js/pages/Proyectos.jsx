@@ -50,6 +50,11 @@ export const Proyectos = () => {
                         </table>
                     )}
                 </div>
+                <div>
+                <Link style={{ textDecoration: 'none' }} to="/profileadmon" className="btn-lg buttonHomeCP-Volver">
+                                                Volver
+                </Link>
+                </div>
                 <ModalDelete id={idproject} tema ="este proyecto"/>
             </div>
         </div>

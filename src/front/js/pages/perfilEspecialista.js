@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { ModalDelete } from "../component/modaldelete";
 
 export const PerfilEspecialista = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [idesp, setIDesp]= useState(null);
 
     function eliminaresp(id) {
-        actions.eliminarEspecialista(id);
+        setIDesp(id);
+        actions.deleteSuccessM();
+       
     }
 
     return (
@@ -57,6 +61,12 @@ export const PerfilEspecialista = () => {
                         </>
                     )}
                 </div>
+                <div>
+                <Link style={{ textDecoration: 'none' }} to="/profileadmon" className="btn-lg buttonHomeCP-Volver">
+                                                Volver
+                </Link>
+                </div>
+                <ModalDelete id={idesp} tema ="este especialista"/>
             </div>
         </div>
     );

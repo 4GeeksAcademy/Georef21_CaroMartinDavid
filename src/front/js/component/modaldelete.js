@@ -11,8 +11,22 @@ function deletea(id, tema){
     if (tema === "este proyecto"){
         actions.DeleteProject(id);
         actions.GetProjects();
+        actions.gevisitaadmon();
         actions.closedeleteSuccessM();
         navigate("/listaproyectos");
+    }else if(tema ==="este especialista"){
+        actions.eliminarEspecialista(id);
+        actions.closedeleteSuccessM();
+        navigate("/perfilEspecialista");
+    }else if (tema ==="esta visita"){
+        actions.eliminarVisita(id);
+        actions.gevisitaadmon();
+        actions.closedeleteSuccessM();
+        navigate("/perfilVisitas")
+    }else if (tema ==="esta información capturada"){
+        actions.deletecapturedata(id);
+        actions.closedeleteSuccessM();
+        navigate("/datacapture");
     }
 }
 

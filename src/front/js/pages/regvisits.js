@@ -188,7 +188,7 @@ export const RegVisits = () => {
 
                                         <li className="list-inline-item">
                                             <button className="btn-lg buttonHomeCP" onClick={() => { handleSave(visitsData, id) }}>
-                                                Crear Visita
+                                              {id ? "Editar Visita" : "Crear Visita"}  
                                             </button>
                                             
                                         </li>

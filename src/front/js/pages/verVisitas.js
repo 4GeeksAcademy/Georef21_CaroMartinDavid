@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-
+import { ModalDelete } from "../component/modaldelete";
 
 export const PerfilVisitas = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [idvisit, setIDvisit]= useState(null);
 
     function eliminarVisita(id) {
-        actions.eliminarVisita(id);
-        actions.gevisitaadmon();
-        navigate("/profileadmon")
+        setIDvisit(id);
+        actions.deleteSuccessM();
     }
 
 
@@ -57,6 +57,12 @@ export const PerfilVisitas = () => {
                         </table>
                     </div>
                 )}
+            </div>
+            <ModalDelete id={idvisit} tema ="esta visita"/>
+            <div className="mx-3 mt-3">
+                <Link style={{ textDecoration: 'none' }} to="/profileadmon" className="btn-lg buttonHomeCP-Volver">
+                                                Volver
+                </Link>
             </div>
         </div>
     );

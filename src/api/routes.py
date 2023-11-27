@@ -275,6 +275,7 @@ def delete_project(project_id):
         deletedatacaptvisit = DataCapture.query.filter_by(visit_id=visit.id).all()
         for data in deletedatacaptvisit:
             db.session.delete(data)
+        db.session.commit()
         db.session.delete(visit)
     db.session.commit()
     
@@ -476,23 +477,24 @@ def update_visit(visit_id):
 @admin_required
 def delete_visit(visit_id):
     id_admin = get_jwt_identity()
-    visits = Visit.query.join(Project).filter(Project.admon_id == id_admin).all()
-    if any(visit.id == visit_id for visit in visits):
-        try:
-            visit = Visit.query.get(visit_id)
-            db.session.delete(visit)
-            db.session.commit()
+    
+    try:
+        visit = Visit.query.get(visit_id)
+        deletedatacaptvisit = DataCapture.query.filter_by(visit_id=visit.id).all()
+        for data in deletedatacaptvisit:
+            db.session.delete(data)
+        db.session.commit()
+
+        db.session.delete(visit)
+        db.session.commit()
 
             # Devolver una respuesta exitosa
-            return jsonify({"msg": "visita eliminada"}), 200
+        return jsonify({"msg": "visita eliminada"}), 200
 
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({"error": str(e)}), 500
-    else:
-        # El visit_id no está en la lista de visits, devolver un error
-        return jsonify({"error": f"No se encontró la visita con ID {visit_id}"}), 404
-
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+   
 
 @api.route('/datacapture', methods=['GET'])
 @jwt_required()
