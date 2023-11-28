@@ -39,7 +39,9 @@ export const DatasCapture = () => {
                                         </div>
                                         <div className="col-4 text-center m-auto " style = {{alignItems:"center"}}>
                                             <div clasName="row ">
+                                            <Link to={`/captdatacard/${dato.id}`}>
                                                 <button type="button" class="btn btn-outline-light"><FaArrowAltCircleRight style={{ fontSize:"30px"}} /></button>
+                                            </Link>
                                             </div>     
                                             <div clasName="row ">
                                                  <Link to={`/captdatareg/${dato.id}`}>

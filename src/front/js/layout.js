@@ -32,6 +32,7 @@ import { PerfilProjectEsp } from "./pages/projectEsp.js";
 import { DataCapture } from "./pages/vistadatos.js";
 import { DatasCapture } from "./pages/datoscapturados.js";
 import { Context } from "./store/appContext.js";
+import {DatasCaptureCard} from "./pages/datoscapturadoscard.js"
 
 
 
@@ -99,6 +100,7 @@ const Layout = () => {
                                     <Route element={< DataCapture />} path="/vistaDatos" />
                                     <Route element={< DatasCapture />} path="/datacapture" />
                                     <Route element={<DataCaptureRegister />} path="/captdatareg/:id" />
+                                    <Route element={<DatasCaptureCard />} path="/captdatacard/:id" />
                                 </Routes>
                         
                         </div>

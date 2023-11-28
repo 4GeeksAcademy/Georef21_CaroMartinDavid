@@ -101,7 +101,8 @@ export const DataCaptureRegister = () => {
 
       if (respuesta === "realizado") {
         actions.getcapturedata();
-        actions.openSuccessM();
+        // actions.openSuccessM();
+        navigate("/vInicial");
       } else {
         seterror(respuesta);
         actions.openErrorlogin();
@@ -166,7 +167,7 @@ return (
                     </div>
                 </form>
                 <Modal error={error}/>
-                {id? <span></span>:<ModalSuccess tema="captura de datos"/>}
+                {/* {id? <span></span>:<ModalSuccess tema="captura de datos"/>} */}
             </div>   
         </div>  
             <div className ="row">
